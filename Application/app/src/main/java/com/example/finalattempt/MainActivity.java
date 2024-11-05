@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button button1;
     Button ALogInButton;
     Button ELogInButton;
+    EditText EPassword; EditText EUName;
     String value="hello world,this is part 2";
 
     @Override
@@ -41,5 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        EUName=(EditText) findViewById(R.id.EUserName);
     }
 }
