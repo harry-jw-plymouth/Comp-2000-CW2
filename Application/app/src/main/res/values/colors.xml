@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="StandardBackGround">#ECE7E7</color>
+    <color name="StandardTextColour">#746F6F</color>
+    <color name="HeaderColor">#464444</color>
+    <color name="NavigationButtonColour">#8680EB</color>
+    <color name="SecondaryBackGroundColour">#D3D1E4</color>
+    <color name="DeleteDenyColor">#9B2E1F</color>
+    <color name="ConfirmColor">#56C6E5</color>
+    <color name="PopUpColor">#A5A4AF</color>
+    <color name="BackColor">#DE412D</color>
+    <color name="Green">#578E38</color>
+    <color name="Yellow">#ffff00</color>
+</resources>

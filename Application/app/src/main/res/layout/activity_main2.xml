@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/StandardBackGround"
+    tools:context=".MainActivity2">
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/box" />
+
+    <Button
+        android:id="@+id/button_2id"
+        android:layout_width="296dp"
+        android:layout_height="91dp"
+        android:background="#5D1D1D"
+        android:text="Sign out"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.813" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome [Employee name]"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/Background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <Button
+        android:id="@+id/ViewHolidayButton"
+        android:layout_width="314dp"
+        android:layout_height="94dp"
+        android:layout_marginBottom="292dp"
+        android:background="@color/NavigationButtonColour"
+        android:text="View/manage holiday requests"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.443"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/ViewDetailsButton"
+        android:layout_width="319dp"
+        android:layout_height="100dp"
+        android:background="@color/NavigationButtonColour"
+        android:text="View my details"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.336" />
+
+    <Button
+        android:id="@+id/EditDetailsButton"
+        android:layout_width="315dp"
+        android:layout_height="91dp"
+        android:background="@color/NavigationButtonColour"
+        android:text="Update/Edit my details"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.482" />
+
+    <TextView
+        android:id="@+id/Background"
+        android:layout_width="348dp"
+        android:layout_height="118dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/secondarybackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="326dp"
+        android:layout_height="108dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:rotation="360"
+        android:text="Sign in successful\nPlease select an option below"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="@+id/Background"
+        app:layout_constraintStart_toStartOf="@+id/Background"
+        app:layout_constraintTop_toTopOf="@+id/Background" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Company name"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="11dp" />
+
+    <Button
+        android:id="@+id/NotifSettingsbutton"
+        android:layout_width="177dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/NavigationButtonColour"
+        android:text="Notification settings"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

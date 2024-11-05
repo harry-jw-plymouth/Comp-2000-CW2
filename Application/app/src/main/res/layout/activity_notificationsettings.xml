@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Notificationsettings"
+    android:background="@color/StandardBackGround">
+
+    <TextView
+
+        android:id="@+id/textView21"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/box"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-45dp" />
+
+    <TextView
+        android:id="@+id/textView81"
+        android:layout_width="378dp"
+        android:layout_height="672dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/secondarybackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"
+        app:layout_constraintVertical_bias="0.049" />
+
+    <TextView
+        tools:ignore="HardcodedText"
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Company name"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView21"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        tools:ignore="HardcodedText"
+        android:id="@+id/NSHomebutton"
+        android:layout_width="188dp"
+        android:layout_height="82dp"
+        android:layout_marginBottom="48dp"
+        android:background="@color/NavigationButtonColour"
+        android:text="Back to homepage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ToggleButton
+        tools:ignore="HardcodedText"
+        android:id="@+id/HolidayDenied"
+        android:layout_width="102dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/toggle"
+        android:text="ToggleButton"
+        android:textColor="@color/white"
+        android:textOff="Muted"
+        android:textOn="On"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toEndOf="@+id/textView61"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"
+        app:layout_constraintVertical_bias="0.027" />
+
+    <TextView
+        tools:ignore="HardcodedText"
+        android:id="@+id/textView61"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="163dp"
+        android:text="Holiday request denied"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"
+        app:layout_constraintVertical_bias="0.015" />
+
+    <ToggleButton
+        tools:ignore="HardcodedText"
+        android:id="@+id/toggleButton3"
+        android:layout_width="102dp"
+        android:layout_height="53dp"
+        android:background="@drawable/toggle"
+        android:text="ToggleButton"
+        android:textColor="@color/white"
+        android:textOff="Muted"
+        android:textOn="On"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.854"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.357" />
+
+    <TextView
+        tools:ignore="HardcodedText"
+        android:id="@+id/textView75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="265dp"
+        android:text="Holiday request approved"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/toggleButton3"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"
+        app:layout_constraintVertical_bias="0.005" />
+
+    <TextView
+        tools:ignore="HardcodedText"
+        android:id="@+id/textView79"
+        android:layout_width="206dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="40dp"
+        android:text="Details edited by admin"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"
+        app:layout_constraintVertical_bias="0.444" />
+
+    <ToggleButton
+        tools:ignore="HardcodedText"
+        android:id="@+id/toggleButton4"
+        android:layout_width="102dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/toggle"
+        android:text="ToggleButton"
+        android:textColor="@color/white"
+        android:textOff="Muted"
+        android:textOn="On"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButton3" />
+
+    <TextView
+        tools:ignore="HardcodedText"
+        android:id="@+id/textView80"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All notifications"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.575" />
+
+    <ToggleButton
+        tools:ignore="HardcodedText"
+        android:id="@+id/toggleButton5"
+        android:layout_width="102dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/toggle"
+        android:text="ToggleButton"
+        android:textColor="@color/white"
+        android:textOff="Muted"
+        android:textOn="On"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButton4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        tools:ignore="HardcodedText"
+        android:id="@+id/textView82"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Notification settings"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <TextView
+        tools:ignore="HardcodedText"
+        android:id="@+id/textView83"
+        android:layout_width="365dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="88dp"
+        android:gravity="center"
+        android:text="Use toggles to turn notification categories on/off"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
