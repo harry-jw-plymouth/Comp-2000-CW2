@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FinalAttempt"
         tools:targetApi="31">
         <activity
+            android:name=".adminMainPage"
+            android:exported="false" />
+        <activity
             android:name=".Notificationsettings"
             android:exported="false" />
         <activity
