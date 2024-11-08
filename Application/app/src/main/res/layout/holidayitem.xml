@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/SecondaryBackGroundColour">
+
+    <TextView
+        android:id="@+id/EmpName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textColor="@color/StandardTextColour"
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/EmpName"
+        app:layout_constraintTop_toBottomOf="@+id/EmpName"
+        app:layout_constraintVertical_bias="0"></TextView>
+
+    <Button
+        android:id="@+id/approveButton"
+        android:layout_width="109dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
+        android:text="Approve"
+        android:background="@color/ConfirmColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/DenyHolidayButton"
+        android:layout_width="109dp"
+        android:layout_height="35dp"
+        android:text="Deny"
+        android:layout_marginBottom="20dp"
+        android:background="@color/DeleteDenyColor"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/approveButton"
+        app:layout_constraintTop_toBottomOf="@+id/approveButton" />
+
+    <TextView
+        android:id="@+id/HolidayItemEmployeeID"
+        android:layout_width="81dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:text="ID:"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.812"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class adminMainPage extends AppCompatActivity {
-    Button SignOut;
+    Button SignOut;Button ManageHoliday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,15 @@ public class adminMainPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(adminMainPage.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ManageHoliday=(Button) findViewById(R.id.AMPViewAndManageHolidayButton);
+        ManageHoliday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(adminMainPage.this,Manageholidaybookingsadmin.class);
                 startActivity(intent);
             }
         });

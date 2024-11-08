@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Manageholidaybookingsadmin"
+    android:background="@color/StandardBackGround">
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/HolidaysrecyclerView"
+        android:layout_width="406dp"
+        android:layout_height="511dp"
+        android:background="@color/PopUpColor"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="120dp" />
+
+    <TextView
+        android:id="@+id/textView87"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manage holiday bookings"
+        android:textColor="@color/StandardTextColour"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <Button
+        android:id="@+id/AHPBacktohome"
+        android:layout_width="245dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/NavigationButtonColour"
+        android:text="Back to home page"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView88"
+        android:layout_width="414dp"
+        android:layout_height="146dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/PopUpColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HolidaysrecyclerView"
+        app:layout_constraintVertical_bias="0.235" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
