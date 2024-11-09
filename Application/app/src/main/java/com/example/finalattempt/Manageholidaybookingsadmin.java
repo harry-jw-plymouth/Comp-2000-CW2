@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
@@ -37,9 +36,7 @@ public class Manageholidaybookingsadmin extends AppCompatActivity {
         });
 
         Requests=findViewById(R.id.HolidaysrecyclerView);
-        ConfirmActivityAdapter= new ManageholidaybookingsadminAdapter(context);
-        Requests.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        Requests.setAdapter(ConfirmActivityAdapter);
+
 
 
     }
