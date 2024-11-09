@@ -43,11 +43,15 @@ public class ManageholidaybookingsadminAdapter extends RecyclerView.Adapter<Mana
 
     @Override
     public void onBindViewHolder(@NonNull ManageholidaybookingsadminAdapter.HolidayRequestViewHolder holder, int position) {
+        HolidayRequest currentItem= HolidayRequests.get(position);
+        holder.name.setText(currentItem.GetName());
+        
+
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return HolidayRequests.size();
     }
 }
