@@ -2,25 +2,29 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="390dp"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
     android:background="@color/SecondaryBackGroundColour">
+
 
     <TextView
         android:id="@+id/EmpName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:text="Name: "
         android:textColor="@color/StandardTextColour"
         android:textSize="20sp"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintHorizontal_bias="0"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"></TextView>
 
     <TextView
         android:id="@+id/status"
@@ -41,8 +45,8 @@
         android:layout_height="35dp"
         android:layout_marginTop="40dp"
         android:layout_marginRight="10dp"
-        android:text="Approve"
         android:background="@color/ConfirmColor"
+        android:text="Approve"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,10 +54,10 @@
         android:id="@+id/DenyHolidayButton"
         android:layout_width="109dp"
         android:layout_height="35dp"
-        android:text="Deny"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:background="@color/DeleteDenyColor"
-        android:layout_marginTop="10dp"
+        android:text="Deny"
         app:layout_constraintStart_toStartOf="@+id/approveButton"
         app:layout_constraintTop_toBottomOf="@+id/approveButton" />
 
@@ -68,5 +72,33 @@
         app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Sdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="From:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EmpName" />
+
+    <TextView
+        android:id="@+id/ToDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="To:"
+        android:layout_marginLeft="80dp"
+        app:layout_constraintStart_toEndOf="@+id/Sdate"
+        app:layout_constraintTop_toTopOf="@+id/Sdate" />
+
+
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
