@@ -1,7 +1,10 @@
 package com.example.finalattempt;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +27,8 @@ public class Manageholidaybookingsadmin extends AppCompatActivity {
     HolidayRequestAdapter adapter;
     List<HolidayRequest>holidayRequestList;
     Activity context;
+    Button Home;
+    Button SelectToDate,SelectFromDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +49,40 @@ public class Manageholidaybookingsadmin extends AppCompatActivity {
         holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
         holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
         holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
+        holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
+        holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
+        holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
+        holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
+        holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
+        holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
 
         adapter=new HolidayRequestAdapter(this,holidayRequestList);
         recyclerView.setAdapter(adapter);
 
-
-
-
-
-
+        Home=(Button) findViewById(R.id.AHPBacktohome);
+        Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Manageholidaybookingsadmin.this,adminMainPage.class);
+                startActivity(intent);
+            }
+        });
+        SelectFromDate=(Button) findViewById(R.id.FromDateSelector);
+        SelectFromDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowCalender("From");
+            }
+        });
+        SelectToDate=(Button) findViewById(R.id.ToDateSelector);
+        SelectToDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowCalender("To");
+            }
+        });
+    }
+    private void ShowCalender(String Source){
 
     }
 }

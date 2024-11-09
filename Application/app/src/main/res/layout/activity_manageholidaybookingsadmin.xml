@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Manageholidaybookingsadmin"
     android:background="@color/StandardBackGround">
+
     <TextView
         android:id="@+id/textView21"
         android:layout_width="match_parent"
@@ -61,5 +62,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HolidaysrecyclerView"
         app:layout_constraintVertical_bias="0.235" />
+
+    <Button
+        android:id="@+id/FromDateSelector"
+        android:layout_width="134dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/white"
+        android:gravity="left"
+        android:text="From"
+        android:textAllCaps="false"
+        android:textColor="@color/StandardTextColour"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView88"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView88"
+        app:layout_constraintVertical_bias="0.526" />
+
+    <Button
+        android:id="@+id/ToDateSelector"
+        android:layout_width="134dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="24dp"
+        android:background="@color/white"
+        android:text="To"
+        android:gravity="left"
+        android:textAllCaps="false"
+        android:textColor="@color/StandardTextColour"
+        app:layout_constraintBottom_toBottomOf="@+id/textView89"
+        app:layout_constraintStart_toEndOf="@+id/textView89"
+        app:layout_constraintTop_toTopOf="@+id/textView89" />
+
+    <TextView
+        android:id="@+id/textView91"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="View requests containing dates between specific dates"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView88" />
+
+    <Button
+        android:id="@+id/loadnewDates"
+        android:layout_width="62dp"
+        android:layout_height="34dp"
+        android:text=">"
+        app:layout_constraintBottom_toBottomOf="@+id/textView88"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.414"
+        app:layout_constraintStart_toEndOf="@+id/textView90"
+        app:layout_constraintTop_toTopOf="@+id/textView88"
+        app:layout_constraintVertical_bias="0.526" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
