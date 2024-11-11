@@ -6,6 +6,21 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string-array name="GenderOptions">
+        <item>Select option</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Non Binary</item>
+        <item>Other</item>
+    </string-array>
+    
+    <string-array name="RoleOptions">
+        <item>Select option</item>
+        <item>Employee</item>
+        <item>Administrator</item>
+        <item>Manager</item>
+    </string-array>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

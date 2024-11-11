@@ -10,12 +10,13 @@
 
     <TextView
         android:id="@+id/textView111"
-        android:layout_width="337dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="334dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/textView104"
-        app:layout_constraintStart_toStartOf="@+id/textView102"
+        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintStart_toStartOf="@+id/textView95"
         app:layout_constraintTop_toBottomOf="@+id/textView97" />
 
     <TextView
@@ -39,14 +40,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/NewEmployeeLastName"
-        android:layout_width="150dp"
-        android:layout_height="38dp"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="@+id/textView104"
-        app:layout_constraintTop_toTopOf="@+id/textView104" />
 
     <Button
         android:id="@+id/SaveNewEmployee"
@@ -87,14 +80,6 @@
         app:layout_constraintStart_toStartOf="@+id/textView92"
         app:layout_constraintTop_toTopOf="@+id/textView92" />
 
-    <EditText
-        android:layout_width="158dp"
-        android:layout_height="32dp"
-        android:ems="10"
-        android:text=""
-        android:id="@+id/NewEmployeeFirstName"
-        app:layout_constraintStart_toStartOf="@+id/textView102"
-        app:layout_constraintTop_toTopOf="@+id/textView102" />
 
     <TextView
         android:id="@+id/NewEmployeeId"
@@ -111,6 +96,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/textView95"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -121,6 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView92" />
 
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/textView96"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -134,21 +121,22 @@
         android:id="@+id/textView97"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="Date of Birth"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textView102"
+        app:layout_constraintStart_toStartOf="@+id/textView95"
         app:layout_constraintTop_toBottomOf="@+id/textView102" />
 
     <TextView
         android:id="@+id/textView98"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
         android:text="Salary"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="442dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView95"
+        app:layout_constraintTop_toBottomOf="@+id/textView111" />
 
     <TextView
         android:id="@+id/textView99"
@@ -156,12 +144,12 @@
         android:layout_height="wrap_content"
         android:text="Role"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView109"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.002"
-        app:layout_constraintStart_toStartOf="@+id/textView105"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="@+id/textView95"
         app:layout_constraintTop_toBottomOf="@+id/textView105"
-        app:layout_constraintVertical_bias="0.49" />
+        app:layout_constraintVertical_bias="0.077" />
 
     <TextView
         android:id="@+id/textView100"
@@ -170,26 +158,29 @@
         android:layout_marginTop="20dp"
         android:text="Gender"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView108"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toEndOf="@+id/textView98"
-        app:layout_constraintTop_toBottomOf="@+id/textView111" />
+        app:layout_constraintTop_toBottomOf="@+id/textView111"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView101"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="Date hired"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textView103"
-        app:layout_constraintTop_toBottomOf="@+id/textView103" />
+        app:layout_constraintBottom_toBottomOf="@+id/DiscardNewEmployee"
+        app:layout_constraintStart_toStartOf="@+id/textView95"
+        app:layout_constraintTop_toBottomOf="@+id/textView103"
+        app:layout_constraintVertical_bias="0.033" />
 
     <TextView
         android:id="@+id/textView102"
         android:layout_width="152dp"
         android:layout_height="35dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="@+id/textView95"
         app:layout_constraintTop_toBottomOf="@+id/textView95" />
@@ -198,51 +189,131 @@
         android:id="@+id/textView103"
         android:layout_width="152dp"
         android:layout_height="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:background="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/textView98"
+        app:layout_constraintStart_toStartOf="@+id/textView95"
         app:layout_constraintTop_toBottomOf="@+id/textView98" />
 
     <TextView
         android:id="@+id/textView108"
         android:layout_width="152dp"
         android:layout_height="35dp"
-        android:layout_marginTop="24dp"
         android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textView103"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.422"
-        app:layout_constraintStart_toEndOf="@+id/textView103"
-        app:layout_constraintTop_toBottomOf="@+id/textView100" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView96"
+        app:layout_constraintTop_toTopOf="@+id/NewEmployeeSalary"
+        app:layout_constraintVertical_bias="0.202" />
 
     <TextView
         android:id="@+id/textView109"
-        android:layout_width="152dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="209dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="24dp"
         android:background="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/textView99"
-        tools:layout_editor_absoluteY="708dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView95"
+        app:layout_constraintTop_toBottomOf="@+id/textView99" />
 
     <TextView
         android:id="@+id/textView105"
         android:layout_width="342dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/textView104"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView102"
+        app:layout_constraintStart_toStartOf="@+id/textView95"
         app:layout_constraintTop_toBottomOf="@+id/textView101" />
 
     <TextView
         android:id="@+id/textView104"
         android:layout_width="152dp"
         android:layout_height="35dp"
-        android:layout_marginTop="16dp"
         android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/NewEmployeeFirstName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toEndOf="@+id/textView102"
-        app:layout_constraintTop_toBottomOf="@+id/textView96" />
+        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintStart_toStartOf="@+id/textView102"
+        app:layout_constraintTop_toTopOf="@+id/NewEmployeeFirstName" />
+
+    <EditText
+        android:id="@+id/NewEmployeeBirthDate"
+        android:layout_width="334dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="@+id/textView111"
+        app:layout_constraintEnd_toEndOf="@+id/textView111"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView111"
+        app:layout_constraintTop_toTopOf="@+id/textView111"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/NewEmployeeSalary"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@+id/textView103"
+        app:layout_constraintEnd_toEndOf="@+id/textView103"
+        app:layout_constraintStart_toStartOf="@+id/textView103"
+        app:layout_constraintTop_toTopOf="@+id/textView103" />
+
+    <Spinner
+        android:id="@+id/GenderSpinner"
+        android:layout_width="155dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView103"
+        app:layout_constraintEnd_toEndOf="@+id/textView108"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView103"
+        app:layout_constraintTop_toTopOf="@+id/NewEmployeeSalary"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Spinner
+        android:id="@+id/RoleSpinner"
+        android:layout_width="200dp"
+        android:layout_height="31dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView109"
+        app:layout_constraintEnd_toEndOf="@+id/textView109"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView109"
+        app:layout_constraintTop_toTopOf="@+id/textView109"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/NewEmployeeFirstName"
+        android:layout_width="157dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:text=""
+        app:layout_constraintStart_toStartOf="@+id/textView102"
+        app:layout_constraintTop_toBottomOf="@+id/textView95" />
+
+    <EditText
+        android:id="@+id/NewEmployeeLastName"
+        android:layout_width="151dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/textView104"
+        app:layout_constraintTop_toBottomOf="@+id/textView92" />
+
+    <EditText
+        android:id="@+id/editTextDate2"
+        android:layout_width="353dp"
+        android:layout_height="53dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/SaveNewEmployee"
+        app:layout_constraintEnd_toEndOf="@+id/textView105"
+        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintStart_toStartOf="@+id/textView105"
+        app:layout_constraintTop_toTopOf="@+id/textView105"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

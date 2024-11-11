@@ -41,5 +41,14 @@ public class adminMainPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        AddNewEmployee=(Button) findViewById(R.id.AMPAddNewEmployeeButton);
+        AddNewEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(adminMainPage.this, AddNewEmployeeAdmin.class);
+                startActivity(intent);
+            }
+        });
     }
 }
