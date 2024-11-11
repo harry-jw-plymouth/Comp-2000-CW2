@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class adminMainPage extends AppCompatActivity {
-    Button SignOut;Button ManageHoliday;
+    Button SignOut;Button ManageHoliday;Button AddNewEmployee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
