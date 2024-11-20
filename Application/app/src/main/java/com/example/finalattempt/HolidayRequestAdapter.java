@@ -37,8 +37,6 @@ public class HolidayRequestAdapter extends  RecyclerView.Adapter<HolidayRequestA
         holder.Status.setText("Status:"+holidayrequest.GetStatus());
         holder.SDate.setText("From:"+holidayrequest.GetStartDate());
         holder.EDate.setText("To:"+holidayrequest.GetEndDate());
-
-
     }
 
     @Override

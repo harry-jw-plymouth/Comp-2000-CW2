@@ -6,13 +6,27 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class adminMainPage extends AppCompatActivity {
     Button SignOut;Button ManageHoliday;Button AddNewEmployee;
+    RecyclerView Employees;
+    ArrayList<EmployeeDetails>EmployeeList;
+    EmployeeDisplayAdapter Adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +64,23 @@ public class adminMainPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        EmployeeList=new ArrayList<EmployeeDetails>();
+        EmployeeList.add(new EmployeeDetails(0,"Harry Watton"));
+        EmployeeList.add(new EmployeeDetails(1,"William Richards"));
+        EmployeeList.add(new EmployeeDetails(2, "Alexander Crook"));
+        EmployeeList.add(new EmployeeDetails(3,"Owen Wiffen"));
+        EmployeeList.add(new EmployeeDetails(4,"Maxwell Waterman"));
+
+        Employees=(RecyclerView)findViewById(R.id.EmployeeRecyclerView);
+        Employees.setHasFixedSize(false);
+        Employees.setLayoutManager(new LinearLayoutManager(this));
+
+        Adapter=new EmployeeDisplayAdapter(this,EmployeeList);
+        Employees.setAdapter(Adapter);
+
+
+
+
     }
 }

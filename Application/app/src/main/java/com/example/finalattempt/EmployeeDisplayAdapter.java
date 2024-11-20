@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,9 @@ public class EmployeeDisplayAdapter extends RecyclerView.Adapter<EmployeeDisplay
     @Override
     public void onBindViewHolder(@NonNull EmployeeDisplayAdapter.EmployeeRecyclerView holder, int position) {
         EmployeeDetails Employee=EmployeeList.get(position);
+
+        holder.Id.setText("ID:"+Employee.Getid());
+        holder.Name.setText("Name:"+Employee.GetName());
     }
 
     @Override
@@ -38,9 +42,11 @@ public class EmployeeDisplayAdapter extends RecyclerView.Adapter<EmployeeDisplay
     }
 
     class EmployeeRecyclerView extends RecyclerView.ViewHolder{
-
+        TextView Name, Id;
         public EmployeeRecyclerView(@NonNull View itemView) {
             super(itemView);
+            Name=itemView.findViewById(R.id.EmpName);
+            Id=itemView.findViewById(R.id.EmpID);
         }
     }
 }
