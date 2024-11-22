@@ -17,12 +17,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
-import java.util.ArrayList;
-
 
 
 public class AddNewEmployeeAdmin extends AppCompatActivity {
@@ -46,7 +42,7 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("Button clicked","Button cicked successfully");
 
-                NewEmployeeDetails CurrentInputs=GetInputtedValues();
+                FullEmployeeDetails CurrentInputs=GetInputtedValues();
                 Log.d("Details obtained","Details obtained succesfully");
                 if(CheckIfAllFieldsValid(CurrentInputs)){
                     showAlertDialogue("Confirm new employee","Confirm creation of new employee?","Confirm","New employee saved","Continue editing","Save aborted", adminMainPage.class);
@@ -76,7 +72,7 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
 
 
     }
-    public NewEmployeeDetails GetInputtedValues(){
+    public FullEmployeeDetails GetInputtedValues(){
         EditText FNAme=(EditText)findViewById(R.id.NewEmployeeFirstName);
         String FirstName=FNAme.getText().toString();
 
@@ -100,9 +96,9 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
         String BirthDate="";
 
 
-        return new NewEmployeeDetails(FirstName,LastName,Role,Gender,HireDate,BirthDate,Salary) ;
+        return new FullEmployeeDetails(FirstName,LastName,Role,Gender,HireDate,BirthDate,Salary,"") ;
     }
-    public boolean CheckIfAllFieldsValid(NewEmployeeDetails CurrentInputs){
+    public boolean CheckIfAllFieldsValid(FullEmployeeDetails CurrentInputs){
         Result=(TextView) findViewById(R.id.CreateNewemployeeResults);
         if(CurrentInputs.getFirst_Name().isEmpty()){
             Result.setText("Please enter a first name");

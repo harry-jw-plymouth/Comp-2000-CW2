@@ -3,12 +3,14 @@ package com.example.finalattempt;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.hardware.lights.Light;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -97,7 +99,15 @@ public class Manageholidaybookingsadmin extends AppCompatActivity {
                 String date=makeDateString(dayOfMonth,month,year);
 
             }
+
         };
+        Calendar cal= Calendar.getInstance();
+        int year=cal.get(Calendar.YEAR);
+        int month=cal.get(Calendar.MONTH);
+        int day=cal.get(Calendar.DAY_OF_MONTH);
+
+        //int style = AlertDialog.THEME_HOLO_LIGHT;
+        //DatePickerDialog= new DatePickerDialog(this,,dateSetListener,year,month,day);
     }
     public String makeDateString(int day,int month, int year){
         return day+" "+month+" "+year;

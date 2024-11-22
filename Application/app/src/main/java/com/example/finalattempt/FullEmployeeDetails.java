@@ -1,13 +1,15 @@
 package com.example.finalattempt;
 
-public class NewEmployeeDetails
+import android.location.Address;
+
+public class FullEmployeeDetails
 {
     String First_Name,Last_Name,Role,Gender;
-    String HireDate,BirthDate;
+    String HireDate,BirthDate,Address;
     float Salary;
 
 
-    public NewEmployeeDetails (String First_Name, String Last_Name, String Role, String Gender, String HireDate, String BirthDate, float Salary){
+    public FullEmployeeDetails(String First_Name, String Last_Name, String Role, String Gender, String HireDate, String BirthDate, float Salary,String Address){
         this.First_Name=First_Name;
         this.Last_Name=Last_Name;
         this.Role=Role;
@@ -15,6 +17,10 @@ public class NewEmployeeDetails
         this.HireDate=HireDate;
         this.BirthDate=BirthDate;
         this.Salary=Salary;
+        this.Address= Address;
+    }
+    public String GetAddress(){
+        return Address;
     }
 
     public String getLast_Name() {

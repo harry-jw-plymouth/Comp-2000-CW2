@@ -15,6 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -78,6 +81,10 @@ public class adminMainPage extends AppCompatActivity {
 
         Adapter=new EmployeeDisplayAdapter(this,EmployeeList);
         Employees.setAdapter(Adapter);
+
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        
 
 
 
