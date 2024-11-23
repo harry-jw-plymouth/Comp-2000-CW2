@@ -89,8 +89,14 @@ public class EditDetails extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(EditDetails.this,"Save changes",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(EditDetails.this,DetailsEditedConfirmation.class);
-                intent.putExtra("NewFName",Current.getFirst_Name());
-                intent.putExtra("NewLName",Current.getLast_Name());
+
+                //bundle.putString("NewFName","Name1");
+                //bundle.putString("NewLName","Name2");
+                //bundle.putString("NewGender","Gender");
+                //bundle.putString("NewDOB","Dob");
+                //bundle.putString("NewAddress","Affres");
+                intent.putExtra("NewFname",Current.getFirst_Name());
+                intent.putExtra("NewLname",Current.getLast_Name());
                 intent.putExtra("NewGender",Current.getGender());
                 intent.putExtra("NewDOB",Current.getBirthDate());
                 intent.putExtra("NewAddress",Current.GetAddress());
@@ -137,7 +143,7 @@ public class EditDetails extends AppCompatActivity {
 
 
 
-        return new FullEmployeeDetails(FirstName,LastName,"","","","",1,Addr);
+        return new FullEmployeeDetails(FirstName,LastName,"",Gender,"","",1,Addr);
     }
     public boolean GetIfContainsDigit(String ToCheck){
         char[] StrAsCharArray=ToCheck.toCharArray();

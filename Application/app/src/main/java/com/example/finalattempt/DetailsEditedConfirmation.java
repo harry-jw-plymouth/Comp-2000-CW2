@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 public class DetailsEditedConfirmation extends AppCompatActivity {
     Button Home;
     Button ViewDetails;
+    //Bundle bundle=getIntent().getExtras();
+   // String NewFname=getIntent().getStringExtra("NewFname");
+    TextView FullNameView,GenderView,DOBView,AddressView;
 
 
     @Override
@@ -26,6 +30,21 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Intent intent=getIntent();
+        String NewFname=intent.getStringExtra("NewFname");
+        String NewLname=intent.getStringExtra("NewLname");
+
+        FullNameView=(TextView)findViewById(R.id.FullNameView);
+        String FullName=NewFname+" "+NewLname;
+        FullNameView.setText(FullName);
+        GenderView=(TextView)findViewById(R.id.GenderView);
+        GenderView.setText(intent.getStringExtra("NewGender"));
+        DOBView=(TextView)findViewById(R.id.DOBView);
+        DOBView.setText(intent.getStringExtra("NewDOB"));
+        AddressView=(TextView)findViewById(R.id.AddressView);
+        AddressView.setText(intent.getStringExtra("NewAddress"));
+
+
         Home=(Button)findViewById(R.id.homeButton);
         Home.setOnClickListener(new View.OnClickListener() {
             @Override

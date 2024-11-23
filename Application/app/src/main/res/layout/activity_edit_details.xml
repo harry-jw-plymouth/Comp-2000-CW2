@@ -292,8 +292,8 @@
 
     <EditText
         android:id="@+id/AddressInput"
-        android:layout_width="323dp"
-        android:layout_height="38dp"
+        android:layout_width="337dp"
+        android:layout_height="49dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="@+id/textView30"

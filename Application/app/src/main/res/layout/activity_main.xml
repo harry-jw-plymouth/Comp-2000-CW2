@@ -13,7 +13,9 @@
             android:id="@+id/textView74"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Employee log in" />
+            android:text="Employee log in"
+            app:layout_constraintEnd_toEndOf="@+id/textView21"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/EPassword"
@@ -30,12 +32,12 @@
             app:layout_constraintVertical_bias="0.504" />
 
         <TextView
-        android:id="@+id/textView21"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/box"
-        tools:layout_editor_absoluteX="-45dp"
-        tools:layout_editor_absoluteY="-5dp" />
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/box"
+            app:layout_constraintTop_toTopOf="@+id/textView74"
+            tools:layout_editor_absoluteX="-45dp" />
 
 
 
@@ -167,7 +169,7 @@
 
         <TextView
             android:id="@+id/textView25"
-            android:layout_width="379dp"
+            android:layout_width="match_parent"
             android:layout_height="153dp"
             android:background="@drawable/secondarybackground"
             app:layout_constraintBottom_toBottomOf="parent"
