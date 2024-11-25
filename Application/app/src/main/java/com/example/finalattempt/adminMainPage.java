@@ -2,12 +2,12 @@ package com.example.finalattempt;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import com.google.gson.Gson;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,21 +15,25 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class adminMainPage extends AppCompatActivity {
     Button SignOut;Button ManageHoliday;Button AddNewEmployee;
     RecyclerView Employees;
-    ArrayList<EmployeeDetails>EmployeeList;
+    ArrayList<EmployeeDetails> EmployeeListtemp;
     EmployeeDisplayAdapter Adapter;
+    RequestQueue queue;
+    String URL;
+    List<Person>Temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,28 @@ public class adminMainPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        URL="http://10.224.41.11/comp2000/employees";
+        Gson gson=new Gson();
+
+        queue=Volley.newRequestQueue(this);
+        StringRequest stringRequest= new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Response " , response);
+                List<Person> EmployeeList=gson.fromJson(response.toString(),new TypeToken<List<Person>>(){}.getType());
+                for(Person person:EmployeeList){
+                    Log.d("Employeeinfo","Firstname"+person.getFirstname()+",Salary: "+person.getSalary());
+                   // Temp.add(person);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Result","Error getting: "+error.toString());
+            }
+        });
+        queue.add(stringRequest);
+
         SignOut=(Button)findViewById(R.id.AdminMainPageSignOutButton);
         SignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,19 +94,20 @@ public class adminMainPage extends AppCompatActivity {
             }
         });
 
-        EmployeeList=new ArrayList<EmployeeDetails>();
-        EmployeeList.add(new EmployeeDetails(0,"Harry Watton"));
-        EmployeeList.add(new EmployeeDetails(1,"William Richards"));
-        EmployeeList.add(new EmployeeDetails(2, "Alexander Crook"));
-        EmployeeList.add(new EmployeeDetails(3,"Owen Wiffen"));
-        EmployeeList.add(new EmployeeDetails(4,"Maxwell Waterman"));
+        EmployeeListtemp =new ArrayList<EmployeeDetails>();
+        EmployeeListtemp.add(new EmployeeDetails(0,"Harry Watton"));
+        EmployeeListtemp.add(new EmployeeDetails(1,"William Richards"));
+        EmployeeListtemp.add(new EmployeeDetails(2, "Alexander Crook"));
+        EmployeeListtemp.add(new EmployeeDetails(3,"Owen Wiffen"));
+        EmployeeListtemp.add(new EmployeeDetails(4,"Maxwell Waterman"));
 
         Employees=(RecyclerView)findViewById(R.id.EmployeeRecyclerView);
         Employees.setHasFixedSize(false);
         Employees.setLayoutManager(new LinearLayoutManager(this));
 
-        Adapter=new EmployeeDisplayAdapter(this,EmployeeList);
-        Employees.setAdapter(Adapter);
+        //Adapter=new EmployeeDisplayAdapter(this,EmployeeList);
+        //Adapter=new EmployeeDisplayAdapter(this,EmployeeListtemp);
+        //Employees.setAdapter(Adapter);
 
 
         RequestQueue queue = Volley.newRequestQueue(this);

@@ -14,8 +14,8 @@ import java.util.List;
 public class EmployeeDisplayAdapter extends RecyclerView.Adapter<EmployeeDisplayAdapter.EmployeeRecyclerView> {
 
     private Context mCtx;
-    private List<EmployeeDetails> EmployeeList;
-    public EmployeeDisplayAdapter(Context mCtx, List<EmployeeDetails> EmployeeList){
+    private List<Person> EmployeeList;
+    public EmployeeDisplayAdapter(Context mCtx, List<Person> EmployeeList){
         this.mCtx=mCtx;
         this.EmployeeList=EmployeeList;
     }
@@ -30,10 +30,10 @@ public class EmployeeDisplayAdapter extends RecyclerView.Adapter<EmployeeDisplay
 
     @Override
     public void onBindViewHolder(@NonNull EmployeeDisplayAdapter.EmployeeRecyclerView holder, int position) {
-        EmployeeDetails Employee=EmployeeList.get(position);
+        Person Employee=EmployeeList.get(position);
 
-        holder.Id.setText("ID:"+Employee.Getid());
-        holder.Name.setText("Name:"+Employee.GetName());
+        holder.Id.setText("ID:"+Employee.getId());
+        holder.Name.setText("Name:"+Employee.getFirstname()+" "+Employee.getLastname());
     }
 
     @Override
