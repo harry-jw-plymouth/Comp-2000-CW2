@@ -29,7 +29,7 @@ import java.util.List;
 public class adminMainPage extends AppCompatActivity {
     Button SignOut;Button ManageHoliday;Button AddNewEmployee;
     RecyclerView Employees;
-    ArrayList<EmployeeDetails> EmployeeListtemp;
+    ArrayList<Person> EmployeeListtemp;
     EmployeeDisplayAdapter Adapter;
     RequestQueue queue;
     String URL;
@@ -47,17 +47,25 @@ public class adminMainPage extends AppCompatActivity {
         });
         URL="http://10.224.41.11/comp2000/employees";
         Gson gson=new Gson();
-
+        Temp=new ArrayList<Person>();
         queue=Volley.newRequestQueue(this);
         StringRequest stringRequest= new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Response " , response);
-                List<Person> EmployeeList=gson.fromJson(response.toString(),new TypeToken<List<Person>>(){}.getType());
+                List<Person> EmployeeList=gson.fromJson(response,new TypeToken<List<Person>>(){}.getType());
                 for(Person person:EmployeeList){
                     Log.d("Employeeinfo","Firstname"+person.getFirstname()+",Salary: "+person.getSalary());
-                   // Temp.add(person);
+                   Temp.add(new Person(person.getId(), person.getFirstname(),person.getLastname(),person.getEmail(),person.getDepartment(),person.getJoiningdate(),person.getSalary()));
                 }
+                Employees=(RecyclerView)findViewById(R.id.EmployeeRecyclerView);
+                Employees.setHasFixedSize(false);
+                Employees.setLayoutManager(new LinearLayoutManager(adminMainPage.this));
+                Adapter=new EmployeeDisplayAdapter(adminMainPage.this,EmployeeList);
+                //Adapter=new EmployeeDisplayAdapter(this,EmployeeListtemp);
+                Employees.setAdapter(Adapter);
+
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -66,6 +74,7 @@ public class adminMainPage extends AppCompatActivity {
             }
         });
         queue.add(stringRequest);
+       // RequestQueue queue = Volley.newRequestQueue(this);
 
         SignOut=(Button)findViewById(R.id.AdminMainPageSignOutButton);
         SignOut.setOnClickListener(new View.OnClickListener() {
@@ -94,20 +103,20 @@ public class adminMainPage extends AppCompatActivity {
             }
         });
 
-        EmployeeListtemp =new ArrayList<EmployeeDetails>();
-        EmployeeListtemp.add(new EmployeeDetails(0,"Harry Watton"));
-        EmployeeListtemp.add(new EmployeeDetails(1,"William Richards"));
-        EmployeeListtemp.add(new EmployeeDetails(2, "Alexander Crook"));
-        EmployeeListtemp.add(new EmployeeDetails(3,"Owen Wiffen"));
-        EmployeeListtemp.add(new EmployeeDetails(4,"Maxwell Waterman"));
+        EmployeeListtemp =new ArrayList<Person>();
+        EmployeeListtemp.add(new Person(0,"Harry","Watton","Hwatton@company.com","Marketing","20/11/24",2345));
+        EmployeeListtemp.add(new Person(1,"William","Richards","WRichards@Company.com","Coding","17/10/24", 34534.34F));
+        EmployeeListtemp.add(new Person(2, "Alexander","Crook","ACrook@Company.com","Marketing","04/05/24",34452.34F));
+        EmployeeListtemp.add(new Person(3,"Owen","Wiffen","OWiffen@Company.com","Finance","30/11/23",341345.34F));
+        EmployeeListtemp.add(new Person(4,"Maxwell", "Waterman","MWaterman@company.com","Design","30/09/23",34516.43F));
 
         Employees=(RecyclerView)findViewById(R.id.EmployeeRecyclerView);
         Employees.setHasFixedSize(false);
         Employees.setLayoutManager(new LinearLayoutManager(this));
 
-        //Adapter=new EmployeeDisplayAdapter(this,EmployeeList);
+      //  Adapter=new EmployeeDisplayAdapter(this,EmployeeListtemp);
         //Adapter=new EmployeeDisplayAdapter(this,EmployeeListtemp);
-        //Employees.setAdapter(Adapter);
+       // Employees.setAdapter(Adapter);
 
 
         RequestQueue queue = Volley.newRequestQueue(this);

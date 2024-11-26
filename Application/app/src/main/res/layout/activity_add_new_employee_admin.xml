@@ -303,15 +303,16 @@
         app:layout_constraintStart_toStartOf="@+id/textView104"
         app:layout_constraintTop_toBottomOf="@+id/textView92" />
 
-    <EditText
-        android:id="@+id/editTextDate2"
-        android:layout_width="353dp"
-        android:layout_height="53dp"
+    <TextView
+        android:id="@+id/SelectedHireDate"
+        android:layout_width="244dp"
+        android:layout_height="43dp"
         android:ems="10"
+        android:textSize="25sp"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/SaveNewEmployee"
         app:layout_constraintEnd_toEndOf="@+id/textView105"
-        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView105"
         app:layout_constraintTop_toTopOf="@+id/textView105"
         app:layout_constraintVertical_bias="0.0" />
@@ -322,5 +323,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/SaveNewEmployee"
         app:layout_constraintStart_toStartOf="@+id/SaveNewEmployee" />
+
+    <Button
+        android:id="@+id/HireDatePickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        app:layout_constraintBottom_toBottomOf="@+id/textView105"
+        app:layout_constraintEnd_toEndOf="@+id/textView105"
+        app:layout_constraintTop_toTopOf="@+id/textView105" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
