@@ -123,7 +123,7 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
                 Intent intent = new Intent(AddNewEmployeeAdmin.this, PageToLoadOnConfirm);
                 EmployeeService Uploader=new EmployeeService();
                 EmployeeService.addEmployee(AddNewEmployeeAdmin.this,ConvertToUploadableObject(New));
-                EmployeeService.addEmployee(AddNewEmployeeAdmin.this,new Employee("testname","TestName","test@gmail.com","Marketing","2023-01-15",50000F));
+                //EmployeeService.addEmployee(AddNewEmployeeAdmin.this,new Employee("testname","TestName","test@gmail.com","Marketing","2023-01-15",50000F));
                // UploadToApi(New);
                 startActivity(intent);
             }
@@ -230,7 +230,7 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
 
 
         String Role = RoleSelection.getSelectedItem().toString();
-        String Gender = GenderSelection.getSelectedItem().toString();
+        //String Gender = GenderSelection.getSelectedItem().toString();
 
         String HireDate = SelectedHDate.getText().toString();// temp,will edit when calender date picker working
         String BirthDate = "";

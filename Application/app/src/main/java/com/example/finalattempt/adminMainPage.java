@@ -103,12 +103,12 @@ public class adminMainPage extends AppCompatActivity {
             }
         });
 
-        EmployeeListtemp =new ArrayList<Person>();
-        EmployeeListtemp.add(new Person(0,"Harry","Watton","Hwatton@company.com","Marketing","20/11/24",2345));
-        EmployeeListtemp.add(new Person(1,"William","Richards","WRichards@Company.com","Coding","17/10/24", 34534.34F));
-        EmployeeListtemp.add(new Person(2, "Alexander","Crook","ACrook@Company.com","Marketing","04/05/24",34452.34F));
-        EmployeeListtemp.add(new Person(3,"Owen","Wiffen","OWiffen@Company.com","Finance","30/11/23",341345.34F));
-        EmployeeListtemp.add(new Person(4,"Maxwell", "Waterman","MWaterman@company.com","Design","30/09/23",34516.43F));
+        //EmployeeListtemp =new ArrayList<Person>();
+        //EmployeeListtemp.add(new Person(0,"Harry","Watton","Hwatton@company.com","Marketing","20/11/24",2345));
+        //EmployeeListtemp.add(new Person(1,"William","Richards","WRichards@Company.com","Coding","17/10/24", 34534.34F));
+        //EmployeeListtemp.add(new Person(2, "Alexander","Crook","ACrook@Company.com","Marketing","04/05/24",34452.34F));
+        //EmployeeListtemp.add(new Person(3,"Owen","Wiffen","OWiffen@Company.com","Finance","30/11/23",341345.34F));
+        //EmployeeListtemp.add(new Person(4,"Maxwell", "Waterman","MWaterman@company.com","Design","30/09/23",34516.43F));
 
         Employees=(RecyclerView)findViewById(R.id.EmployeeRecyclerView);
         Employees.setHasFixedSize(false);
