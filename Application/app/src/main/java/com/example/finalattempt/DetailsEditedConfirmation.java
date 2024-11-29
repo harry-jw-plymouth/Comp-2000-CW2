@@ -44,7 +44,6 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
         AddressView=(TextView)findViewById(R.id.AddressView);
         AddressView.setText(intent.getStringExtra("NewAddress"));
 
-
         Home=(Button)findViewById(R.id.homeButton);
         Home.setOnClickListener(new View.OnClickListener() {
             @Override

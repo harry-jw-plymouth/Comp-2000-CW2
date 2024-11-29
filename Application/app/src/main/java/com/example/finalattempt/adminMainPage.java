@@ -55,7 +55,7 @@ public class adminMainPage extends AppCompatActivity {
                 Log.d("Response " , response);
                 List<Person> EmployeeList=gson.fromJson(response,new TypeToken<List<Person>>(){}.getType());
                 for(Person person:EmployeeList){
-                    Log.d("Employeeinfo","Firstname"+person.getFirstname()+",Salary: "+person.getSalary());
+                    Log.d("Employeeinfo","Id: "+person.getId()+" Firstname " +person.getFirstname()+",Salary: "+person.getSalary());
                    Temp.add(new Person(person.getId(), person.getFirstname(),person.getLastname(),person.getEmail(),person.getDepartment(),person.getJoiningdate(),person.getSalary()));
                 }
                 Employees=(RecyclerView)findViewById(R.id.EmployeeRecyclerView);

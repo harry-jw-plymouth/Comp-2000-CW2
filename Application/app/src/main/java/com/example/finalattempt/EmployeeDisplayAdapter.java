@@ -65,6 +65,11 @@ public class EmployeeDisplayAdapter extends RecyclerView.Adapter<EmployeeDisplay
                 @Override
                 public void onClick(View v) {
                     Log.d("Button Test","Open employee "+Id.getText().toString());
+                    Intent intent=new Intent(mCtx,ViewAndEditEmployeeDetailsAdmin.class);
+                    String TempIdToPut=Integer.toString(GetIdAsInt(Id.getText().toString()));
+                    Log.d("ID to put",TempIdToPut);
+                    intent.putExtra("ID",TempIdToPut);
+                    v.getContext().startActivity(intent);
                 }
             });
             itemView.findViewById(R.id.DeleteEmployee).setOnClickListener(new View.OnClickListener() {
@@ -82,8 +87,8 @@ public class EmployeeDisplayAdapter extends RecyclerView.Adapter<EmployeeDisplay
                         public void onClick(DialogInterface dialog, int which) {
                             //EmployeeService.deleteEmployee(mCtx,163);
 
-                            Toast.makeText(mCtx, "Employee"+CurrentPerson.getId()+" deleted",Toast.LENGTH_SHORT).show();
-                            EmployeeService.deleteEmployee(mCtx, CurrentPerson.getId());
+                            Toast.makeText(mCtx, "Employee"+Id.getText().toString()+" deleted",Toast.LENGTH_SHORT).show();
+                            EmployeeService.deleteEmployee(mCtx, GetIdAsInt(Id.getText().toString()));
                             Intent intent=new Intent(mCtx,admin_Main_Refresh.class);
                             v.getContext().startActivity(intent);
 
@@ -101,6 +106,13 @@ public class EmployeeDisplayAdapter extends RecyclerView.Adapter<EmployeeDisplay
 
                 }
             });
+
+        }
+        public int GetIdAsInt(String id){
+            id=id.replaceAll("[^\\d.]","");
+            Log.d("New id",id);
+            return Integer.parseInt(id);
+
         }
     }
 }
