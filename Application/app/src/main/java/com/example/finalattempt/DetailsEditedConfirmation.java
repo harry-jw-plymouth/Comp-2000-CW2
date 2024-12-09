@@ -35,14 +35,14 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
         String NewLname=intent.getStringExtra("NewLname");
         String NewEmail=intent.getStringExtra("NewEmail");
 
-        FullNameView=(TextView)findViewById(R.id.FnameView);
+        FullNameView=(TextView)findViewById(R.id.NewFnameView);
         String FullName=NewFname+" "+NewLname;
         FullNameView.setText(FullName);
 //GenderView=(TextView)findViewById(R.id.GenderView);
         //GenderView.setText(intent.getStringExtra("NewGender"));
-        LnameView=(TextView)findViewById(R.id.LnameView);
+        LnameView=(TextView)findViewById(R.id.NewLnameView);
         LnameView.setText(intent.getStringExtra("NewLnam2"));
-        AddressView=(TextView)findViewById(R.id.EmailAddressView);
+        AddressView=(TextView)findViewById(R.id.NewEmailView);
         AddressView.setText(intent.getStringExtra("NewAddress"));
 
         Home=(Button)findViewById(R.id.homeButton);

@@ -121,7 +121,7 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/textView65"
+        android:id="@+id/NewEmailView"
         android:layout_width="245dp"
         android:layout_height="31dp"
         android:background="@color/white"
