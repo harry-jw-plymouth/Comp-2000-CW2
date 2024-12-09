@@ -33,16 +33,28 @@ public class EmployeeService {
     }
     public static void getAllEmployees(Context context) {
     }
-    public static void getEmployeeById(Context context, int id) {
+    public static Employee getEmployeeById(Context context, int id) {
         initQueue(context);
+        String Fname;
+        Log.d("Test","Getting employee");
+        final Employee Temp=new Employee("","","","","",234F);
+
         String url = BASE_URL + "/employees/get/" + id;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d("Test","Getting employee response");
                         Employee employee = gson.fromJson(response.toString(), Employee.class);
                         // onSuccess behavior - Log employee details
-                        Log.d("EmployeeInfo", "Firstname: " + employee.getFirstname() + ", Salary: " + employee.getSalary());
+                        Temp.setFirstname(employee.getFirstname());
+                        Temp.setLastname(employee.getLastname());
+                        Temp.department=employee.department;
+                        Temp.email=employee.email;
+                        Temp.salary=employee.salary;
+                        Temp.joiningdate=employee.joiningdate;
+                        Log.d("EmployeeInfoFromIdGet", "Firstname: " + Temp.getFirstname() + ", Salary: " + employee.getSalary());
+                        //return Temp;
                     }
                 },
                 new Response.ErrorListener() {
@@ -53,6 +65,10 @@ public class EmployeeService {
                     }
                 }
         );
+
+        requestQueue.add(request);
+        Log.d("Temp before return", "Firstname: " + Temp.getFirstname() + ", Salary: " + Temp.getSalary());
+        return Temp;
     }
     public static void addEmployee(Context context, Employee employee) {
         initQueue(context);

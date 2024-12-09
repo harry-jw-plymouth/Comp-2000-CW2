@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin_view_and_edit_Employee"
+    android:background="@color/StandardBackGround">>
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/EmployeeIntro"
+        android:layout_width="364dp"
+        android:layout_height="100dp"
+        android:background="@color/SecondaryBackGroundColour"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/textView67"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="First name"
+        android:paddingTop="10dp"
+        android:textSize="20sp"
+        android:paddingBottom="5dp"
+        app:layout_constraintStart_toStartOf="@+id/EmployeeIntro"
+        app:layout_constraintTop_toBottomOf="@+id/EmployeeIntro" />
+
+    <TextView
+        android:id="@+id/textView69"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last name: "
+        android:paddingTop="10dp"
+        android:textSize="20sp"
+        android:paddingBottom="5dp"
+        app:layout_constraintStart_toStartOf="@+id/FNameView"
+        app:layout_constraintTop_toBottomOf="@+id/FNameView" />
+
+    <TextView
+        android:id="@+id/textView70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hiring Date"
+        android:paddingTop="10dp"
+        android:textSize="20sp"
+        android:paddingBottom="5dp"
+        app:layout_constraintStart_toStartOf="@+id/LnameView"
+        app:layout_constraintTop_toBottomOf="@+id/LnameView" />
+
+    <EditText
+        android:id="@+id/EmailView"
+        android:layout_width="335dp"
+        android:layout_height="42dp"
+        android:background="@color/white"
+        android:paddingBottom="5dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textView106"
+        app:layout_constraintTop_toBottomOf="@+id/textView106" />
+
+    <EditText
+        android:id="@+id/SalaryView"
+        android:layout_width="335dp"
+        android:layout_height="42dp"
+        android:textSize="20sp"
+        android:paddingBottom="5dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/textView107"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <EditText
+        android:id="@+id/roleView"
+        android:layout_width="335dp"
+        android:layout_height="42dp"
+        android:textSize="20sp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/textView107"
+        app:layout_constraintTop_toBottomOf="@+id/textView107" />
+
+    <EditText
+        android:id="@+id/LnameView"
+        android:layout_width="333dp"
+        android:layout_height="42dp"
+        android:paddingTop="10sp"
+        android:textSize="20sp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/textView69"
+        app:layout_constraintTop_toBottomOf="@+id/textView69" />
+
+    <EditText
+        android:id="@+id/HdateView"
+        android:layout_width="333dp"
+        android:textSize="20sp"
+        android:layout_height="42dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/textView70"
+        app:layout_constraintTop_toBottomOf="@+id/textView70" />
+
+    <EditText
+        android:id="@+id/FNameView"
+        android:layout_width="333dp"
+        android:layout_height="42dp"
+        android:paddingTop="5dp"
+        android:textSize="20sp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/textView67"
+        app:layout_constraintTop_toBottomOf="@+id/textView67" />
+
+    <TextView
+        android:id="@+id/textView106"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/HdateView"
+        app:layout_constraintTop_toBottomOf="@+id/HdateView" />
+
+    <TextView
+        android:id="@+id/textView107"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Role"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/EmailView"
+        app:layout_constraintTop_toBottomOf="@+id/EmailView" />
+
+    <Button
+        android:id="@+id/BackButton"
+        android:layout_width="136dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="24dp"
+        android:background="@color/DeleteDenyColor"
+        android:text="Back "
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SalaryView" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="136dp"
+        android:layout_height="47dp"
+        android:background="@color/ConfirmColor"
+        android:text="Save Changes"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/BackButton"
+        app:layout_constraintTop_toBottomOf="@+id/SalaryView" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salary"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/roleView"
+        app:layout_constraintTop_toBottomOf="@+id/roleView" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:textSize="25sp"
+        android:textColor="@color/StandardTextColour"
+        android:text="View and edit employee details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

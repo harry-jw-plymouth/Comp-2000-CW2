@@ -56,7 +56,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.92" />
 
     <Button
         tools:ignore="HardcodedText"
@@ -89,7 +89,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="Update request sent to admin"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,80 +97,52 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        tools:ignore="HardcodedText"
         android:id="@+id/textView60"
-        android:layout_width="198dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="188dp"
-        android:text="Date of Birth:"
+        android:layout_width="150dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="8dp"
+        android:text="Last name:"
         android:textColor="@color/white"
+
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView66"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/NewFnameView"
+        app:layout_constraintTop_toBottomOf="@+id/NewFnameView"
+        tools:ignore="HardcodedText" />
 
     <TextView
-        tools:ignore="HardcodedText"
         android:id="@+id/textView62"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Address:"
+        android:text="Email address:"
         android:textColor="@color/white"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView65"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        tools:ignore="HardcodedText"
-        android:id="@+id/textView63"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Gender:"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView68"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/NewLnameView"
+        app:layout_constraintTop_toBottomOf="@+id/NewLnameView"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView65"
         android:layout_width="245dp"
         android:layout_height="31dp"
-        android:layout_marginBottom="292dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/Background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textView62"
+        app:layout_constraintTop_toBottomOf="@+id/textView62" />
 
     <TextView
-        android:id="@+id/textView68"
-        android:layout_width="245dp"
-        android:layout_height="31dp"
-        android:layout_marginBottom="220dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView66"
-        android:layout_width="245dp"
-        android:layout_height="31dp"
-        android:layout_marginBottom="364dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView72"
+        android:id="@+id/NewLnameView"
         android:layout_width="245dp"
         android:layout_height="31dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/Background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Background"
+        app:layout_constraintStart_toStartOf="@+id/textView60"
+        app:layout_constraintTop_toBottomOf="@+id/textView60" />
+
+    <TextView
+        android:id="@+id/NewFnameView"
+        android:layout_width="245dp"
+        android:layout_height="31dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/textView73"
+        app:layout_constraintTop_toBottomOf="@+id/textView73"
         app:layout_constraintVertical_bias="0.191" />
 
     <TextView
@@ -192,60 +163,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Full name:"
+        android:text="First name:"
         android:textColor="@color/white"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView72"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/FullNameView"
-        android:layout_width="239dp"
-        android:layout_height="31dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView72"
-        app:layout_constraintEnd_toEndOf="@+id/textView72"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="@+id/textView72"
-        app:layout_constraintTop_toTopOf="@+id/textView72"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/DOBView"
-        android:layout_width="239dp"
-        android:layout_height="31dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView66"
-        app:layout_constraintEnd_toEndOf="@+id/textView66"
-        app:layout_constraintStart_toStartOf="@+id/textView66"
-        app:layout_constraintTop_toTopOf="@+id/textView66"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/AddressView"
-        android:layout_width="240dp"
-        android:textSize="20sp"
-        android:layout_height="31dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView65"
-        app:layout_constraintEnd_toEndOf="@+id/textView65"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="@+id/textView65"
-        app:layout_constraintTop_toTopOf="@+id/textView65"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/GenderView"
-        android:layout_width="243dp"
-        android:layout_height="31dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView68"
-        app:layout_constraintEnd_toEndOf="@+id/textView68"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView68"
-        app:layout_constraintTop_toTopOf="@+id/textView68"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editdetailsbox" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

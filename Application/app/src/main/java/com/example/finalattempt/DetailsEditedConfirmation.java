@@ -17,7 +17,7 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
     Button ViewDetails;
     //Bundle bundle=getIntent().getExtras();
    // String NewFname=getIntent().getStringExtra("NewFname");
-    TextView FullNameView,GenderView,DOBView,AddressView;
+    TextView FullNameView,GenderView,LnameView,AddressView;
 
 
     @Override
@@ -33,15 +33,16 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
         Intent intent=getIntent();
         String NewFname=intent.getStringExtra("NewFname");
         String NewLname=intent.getStringExtra("NewLname");
+        String NewEmail=intent.getStringExtra("NewEmail");
 
-        FullNameView=(TextView)findViewById(R.id.FullNameView);
+        FullNameView=(TextView)findViewById(R.id.FnameView);
         String FullName=NewFname+" "+NewLname;
         FullNameView.setText(FullName);
-        GenderView=(TextView)findViewById(R.id.GenderView);
-        GenderView.setText(intent.getStringExtra("NewGender"));
-        DOBView=(TextView)findViewById(R.id.DOBView);
-        DOBView.setText(intent.getStringExtra("NewDOB"));
-        AddressView=(TextView)findViewById(R.id.AddressView);
+//GenderView=(TextView)findViewById(R.id.GenderView);
+        //GenderView.setText(intent.getStringExtra("NewGender"));
+        LnameView=(TextView)findViewById(R.id.LnameView);
+        LnameView.setText(intent.getStringExtra("NewLnam2"));
+        AddressView=(TextView)findViewById(R.id.EmailAddressView);
         AddressView.setText(intent.getStringExtra("NewAddress"));
 
         Home=(Button)findViewById(R.id.homeButton);

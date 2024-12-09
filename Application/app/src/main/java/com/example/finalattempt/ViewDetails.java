@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class ViewDetails extends AppCompatActivity {
     Button HomeButton;Button EditMyDetails;
+    int ID;
+    TextView FName, LName, HDate,Role,Salary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,5 +44,11 @@ public class ViewDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Employee Temp=new Employee("Name1","Name2","Name1@Company.com","Marketing","date",3456.34F);
+        //Employee Current=EmployeeService.getEmployeeById(ViewDetails.this, ID);
+
+        FName=(TextView) findViewById(R.id.FnameView);
+        FName.setText(Temp.firstname);
+
     }
 }

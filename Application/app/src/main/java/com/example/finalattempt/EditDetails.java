@@ -21,7 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import dalvik.system.BaseDexClassLoader;
 
 public class EditDetails extends AppCompatActivity {
-    EditText Fname, Lname,Address;
+    EditText Fname, Lname,Address,Email;
     TextView Result;
     Spinner GenderSelection;
     Button HomeButton;Button SaveAndViewButton;Button BackToVIewButton;
@@ -42,12 +42,6 @@ public class EditDetails extends AppCompatActivity {
         });
         Result=(TextView) findViewById(R.id.ResultText);
 
-        GenderSelection=findViewById(R.id.GenderSpinner);
-        ArrayAdapter<CharSequence> GenderAdapter=ArrayAdapter.createFromResource(this,R.array.GenderOptions, android.R.layout.simple_spinner_item);
-        GenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        GenderSelection.setAdapter(GenderAdapter);
-
-        Address=(EditText) findViewById(R.id.AddressInput);
 
         HomeButton=(Button)findViewById(R.id.BackToHomeId);
         HomeButton.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +55,7 @@ public class EditDetails extends AppCompatActivity {
         SaveAndViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FullEmployeeDetails Current=GetEditedDetails();
+                Employee Current=GetEditedDetails();
                 if(Current!=null){
                     showAlertDialogueForSaveButton(Current);
                     //showAlertDialogue("Confirm changes","Save changes and view?","Save changes","Changes saved","Back to editing","Back",DetailsEditedConfirmation.class);
@@ -78,7 +72,7 @@ public class EditDetails extends AppCompatActivity {
         });
 
     }
-    private void showAlertDialogueForSaveButton(FullEmployeeDetails Current){
+    private void showAlertDialogueForSaveButton(Employee Current){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("Confirm changes");
         builder.setMessage("Save changes and view?");
@@ -95,11 +89,9 @@ public class EditDetails extends AppCompatActivity {
                 //bundle.putString("NewGender","Gender");
                 //bundle.putString("NewDOB","Dob");
                 //bundle.putString("NewAddress","Affres");
-                intent.putExtra("NewFname",Current.getFirst_Name());
-                intent.putExtra("NewLname",Current.getLast_Name());
-                intent.putExtra("NewGender",Current.getGender());
-                intent.putExtra("NewDOB",Current.getBirthDate());
-                intent.putExtra("NewAddress",Current.GetAddress());
+                intent.putExtra("NewFname",Current.getFirstname());
+                intent.putExtra("NewLname",Current.getLastname());
+                intent.putExtra("NewEmail",Current.getEmail());
                 startActivity(intent);
             }
         });
@@ -113,13 +105,15 @@ public class EditDetails extends AppCompatActivity {
         AlertDialog alertDialog= builder.create();
         alertDialog.show();
     }
-    public FullEmployeeDetails GetEditedDetails(){
+    public Employee GetEditedDetails(){
         Fname=(EditText)findViewById(R.id.FNameInput);
         String FirstName=Fname.getText().toString();
         Lname=(EditText)findViewById(R.id.LNameInput);
         String LastName=Lname.getText().toString();
-        String Addr=Address.getText().toString();
-        String Gender=GenderSelection.getSelectedItem().toString();
+        Email=(EditText) findViewById(R.id.EmailInput);
+        String NewEmail=Email.getText().toString();
+       // String Addr=Address.getText().toString();
+       // String Gender=GenderSelection.getSelectedItem().toString();
         if(Fname.getText().toString().isEmpty()){
             Result.setText("Please enter a first name");
             return null;
@@ -132,18 +126,10 @@ public class EditDetails extends AppCompatActivity {
             Result.setText("Name cannot contain digits");
             return null;
         }
-        if(Gender.equals("Select option")){
-            Result.setText("Please select gender option");
-            return null;
-        }
-        if(Addr.isEmpty()){
-            Result.setText("Please enter an address");
-            return null;
-        }
 
 
 
-        return new FullEmployeeDetails(FirstName,LastName,"",Gender,"","",1,Addr);
+        return new Employee(FirstName,LastName,NewEmail,"","",1F);
     }
     public boolean GetIfContainsDigit(String ToCheck){
         char[] StrAsCharArray=ToCheck.toCharArray();

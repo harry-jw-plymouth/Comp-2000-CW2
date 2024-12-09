@@ -65,7 +65,7 @@ public class EmployeeDisplayAdapter extends RecyclerView.Adapter<EmployeeDisplay
                 @Override
                 public void onClick(View v) {
                     Log.d("Button Test","Open employee "+Id.getText().toString());
-                    Intent intent=new Intent(mCtx,ViewAndEditEmployeeDetailsAdmin.class);
+                    Intent intent=new Intent(mCtx,admin_view_and_edit_Employee.class);
                     String TempIdToPut=Integer.toString(GetIdAsInt(Id.getText().toString()));
                     Log.d("ID to put",TempIdToPut);
                     intent.putExtra("ID",TempIdToPut);
