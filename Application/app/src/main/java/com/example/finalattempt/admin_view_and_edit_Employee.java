@@ -1,5 +1,6 @@
 package com.example.finalattempt;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,13 +25,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class admin_view_and_edit_Employee extends AppCompatActivity {
 
-    TextView Intro;
+    TextView Intro,Result;
     EditText FName,Lname,Salary,Role,HDate,Email;
-    Button Back;
+    Button Back,Save;
 
 
     @Override
@@ -62,14 +66,14 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
 
                // Current.setLastname(employee.getLastname());
                 Log.d("EmployeeInfo", "Firstname: " + employee.getFirstname() + ", Salary: " + employee.getSalary());
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("EmployeeError", "Error retrieving employees: " + error.getMessage());
-
+                Toast.makeText(admin_view_and_edit_Employee.this,"Error getting employee details",Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(admin_view_and_edit_Employee.this,adminMainPage.class);
+                startActivity(intent);
             }
         });
         RequestQueue.add(request);
@@ -90,6 +94,7 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
         Role=(EditText) findViewById(R.id.roleView);
         HDate=(EditText) findViewById(R.id.HdateView);
         Email=(EditText) findViewById(R.id.EmailView);
+        Result=(TextView)findViewById(R.id.result);
 
       //  FName.setText(Current.getFirstname());
       //  Lname.setText(Current.getLastname());
@@ -106,12 +111,84 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        Save=findViewById(R.id.SaveChanges);
+        Save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Employee Updated=GetInputs();
+                if(Updated!=null){
+                    OpenSaveDialog(Updated,CurrentID);
+                }
+
+            }
+        });
 
 
+    }
+    public EmployeeToPut GetUploadableEmployee(Employee employee,int ID){
+        return  new EmployeeToPut(ID,employee.getFirstname(),employee.getLastname(),employee.getEmail(),employee.getDepartment(),employee.getSalary(),employee.getJoiningdate(),30);
+    }
+    public void OpenSaveDialog(Employee Updated,int ID){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Confirm changes");
+        builder.setMessage("Save changes and view?");
+        //builder.setCancelable(false);
+        // above line prevents alert from closing when area outside box clicked
+        builder.setPositiveButton("Save changes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Toast.makeText(admin_view_and_edit_Employee.this,"Saving changes",Toast.LENGTH_SHORT).show();
+                EmployeeToPut PutableEmployee=GetUploadableEmployee(Updated,ID);
+                RequestQueue queue=Volley.newRequestQueue(admin_view_and_edit_Employee.this);
+                String url = "http://10.224.41.11/comp2000/employees/edit/"+ID;
+                Gson gson= new Gson();
+                Log.d("Employee to put","Name:"+PutableEmployee.getFirstname()+" "+ PutableEmployee.getLastname()+" ID: "+PutableEmployee.getId()+" Department: " + PutableEmployee.getDepartment()+" Salary: "+ PutableEmployee.getSalary()+" Joining date: "+ PutableEmployee.getJoiningdate());
+                try{
+                    JSONObject jsonRequest = new JSONObject(gson.toJson(PutableEmployee));
 
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, jsonRequest, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("Employee service", "Employee saved");
+                            Intent intent=new Intent(admin_view_and_edit_Employee.this,adminMainPage.class);
+                            startActivity(intent);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("Employee Error", "Error: " +error);
+                        }
+                    }
+                    );
+                    queue.add(request);
+                }catch (JSONException e){
+                    Log.e("Employee Error", "Invalid JSON format"+ e.getMessage());
+                }
+            }
+        });
+        builder.setNegativeButton("Back to editing", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(admin_view_and_edit_Employee.this,"back",Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alertDialog= builder.create();
+        alertDialog.show();
+    }
+    public Employee GetInputs(){
+        if(FName.getText().toString().isEmpty()){
+            Result.setText("Please enter a first name");
+            return null;
+        }
+        if(Lname.getText().toString().isEmpty()){
+            Result.setText("Please enter a last name");
+            return null;
+        }
+        if(Salary.getText().toString().isEmpty()){
+            Result.setText("Please enter a salary");
+            return null;
+        }
 
-
-
-
+        return new Employee(FName.getText().toString(),Lname.getText().toString(),Email.getText().toString(),Role.getText().toString(),HDate.getText().toString(),Float.valueOf(Salary.getText().toString()));
     }
 }
