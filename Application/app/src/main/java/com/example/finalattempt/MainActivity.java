@@ -16,6 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.Console;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
 
         });
+        DBHelper DB= new DBHelper(MainActivity.this);
+       // DB.addAdmin(new AdminAccountDataModel("Hwatton","12345"));
+       // DB.addAdmin(new AdminAccountDataModel("IAmAnAdmin","123Password"));
+
+
         EUName=(EditText) findViewById(R.id.EUserName);
         EPassword=(EditText)findViewById(R.id.EPWord);
         Eresult=(TextView)findViewById(R.id.ELogInResult);
@@ -67,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
                     Intent intent = new Intent(MainActivity.this,adminMainPage.class);
+                    intent.putExtra("Name", AUName.getText().toString());
                     startActivity(intent);
                 }
                 else{
@@ -96,21 +104,31 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
-            if(Username.equals(CorrectUserName)){
-                Result.setText("username correct");
-                if(password.equals(CorrectPassWord))
-                {
-                    return  true;
-                }
-                else{
-                    Result.setText("Incorrect details entered");
-                    return false;
+
+            DBHelper DB= new DBHelper(MainActivity.this);
+            List<AdminAccountDataModel> Admins=DB.getAllAdmins();
+
+            boolean UNameFound=false;
+            for(int i=0;i<Admins.size();i++){
+                Log.d("Current", Admins.get(i).getUserName());
+                if(Username.equals(Admins.get(i).getUserName())){
+                    Result.setText("username correct");
+                    UNameFound=true;
+                    if(password.equals(Admins.get(i).getPassword()))
+                    {
+                        return  true;
+                    }
+                    else{
+                        Result.setText("Incorrect details entered");
+                        return false;
+                    }
                 }
             }
-            else{
+            if(!UNameFound){
                 Result.setText("Username not found");
                 return false;
             }
+            return false;
         }
     }
 }

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import com.google.gson.Gson;
 
 import androidx.activity.EdgeToEdge;
@@ -33,6 +35,7 @@ public class adminMainPage extends AppCompatActivity {
     EmployeeDisplayAdapter Adapter;
     RequestQueue queue;
     String URL;
+    TextView Welcome;
     List<Person>Temp;
 
     @Override
@@ -73,6 +76,11 @@ public class adminMainPage extends AppCompatActivity {
                 Log.d("Result","Error getting: "+error.toString());
             }
         });
+        Intent intent=getIntent();
+        String Name=intent.getStringExtra("Name");
+        Welcome=findViewById(R.id.Welcome);
+        Welcome.setText("Welcome "+ Name);
+
         queue.add(stringRequest);
        // RequestQueue queue = Volley.newRequestQueue(this);
 

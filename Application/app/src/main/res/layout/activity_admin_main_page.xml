@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView86"
+        android:id="@+id/Welcome"
         android:layout_width="352dp"
         android:layout_height="62dp"
         android:layout_gravity="center"

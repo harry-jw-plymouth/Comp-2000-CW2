@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity2 extends AppCompatActivity {
 
-    TextView textView;
+    TextView textView,Welcome;
     Button button2;Button EditDetailsButton;
     Button ViewDetailsButton;Button ViewHoliday;Button NotificSettingsButton;
 
@@ -25,7 +25,7 @@ public class MainActivity2 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main2);
 
-        textView=findViewById(R.id.textView3);
+        textView=findViewById(R.id.textViewWelcome);
         String text=getIntent().getStringExtra("key");
         ViewDetailsButton=(Button)findViewById(R.id.ViewDetailsButton);
         ViewDetailsButton.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +35,7 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         ViewHoliday=(Button)findViewById(R.id.ViewHolidayButton);
         ViewHoliday.setOnClickListener(new View.OnClickListener() {
             @Override

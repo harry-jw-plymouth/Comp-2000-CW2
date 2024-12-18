@@ -28,6 +28,11 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Array;
+import java.util.ArrayList;
+
+import kotlin.contracts.Returns;
+
 public class admin_view_and_edit_Employee extends AppCompatActivity {
 
     TextView Intro,Result;
@@ -61,7 +66,12 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
                 Lname.setText(employee.getLastname());
                 Salary.setText(employee.getSalary().toString());
                 Role.setText(employee.getDepartment());
-                HDate.setText(employee.getJoiningdate());
+                try {
+                    HDate.setText(GetDateInCorrectFormat (employee.getJoiningdate()) );
+                }catch (Exception e){
+                    HDate.setText(employee.getJoiningdate() );
+                }
+
                 Email.setText(employee.getEmail());
 
                // Current.setLastname(employee.getLastname());
@@ -122,8 +132,6 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
 
             }
         });
-
-
     }
     public EmployeeToPut GetUploadableEmployee(Employee employee,int ID){
         return  new EmployeeToPut(ID,employee.getFirstname(),employee.getLastname(),employee.getEmail(),employee.getDepartment(),employee.getSalary(),employee.getJoiningdate(),30);
@@ -174,6 +182,43 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
         });
         AlertDialog alertDialog= builder.create();
         alertDialog.show();
+    }
+    public String GetDateInCorrectFormat(String Date){
+        String Month=""+Date.charAt(8)+Date.charAt(9)+Date.charAt(10);
+        String MonthNum=GetMonth(Month);
+        String Year=""+Date.charAt(12)+Date.charAt(13)+Date.charAt(14)+Date.charAt(15);
+
+        return Year+"/"+MonthNum+"/"+Date.charAt(5)+Date.charAt(6);
+    }
+    public String GetMonth(String Month){
+        switch (Month){
+            case "Jan":
+                return "1";
+            case "Feb":
+                return "2";
+            case "Mar":
+                return "3";
+            case "Apr":
+                return "4";
+            case "May":
+                return "5";
+            case "Jun":
+                return "6";
+            case "Jul":
+                return "7";
+            case "Aug":
+                return "8";
+            case "Sep":
+                return "9";
+            case "Oct":
+                return "10";
+            case "Nov":
+                return "11";
+            case "Dec":
+                return "12";
+
+        }
+        return "";
     }
     public Employee GetInputs(){
         if(FName.getText().toString().isEmpty()){
