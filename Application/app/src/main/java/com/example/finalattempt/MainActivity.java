@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         DBHelper DB= new DBHelper(MainActivity.this);
        // DB.addAdmin(new AdminAccountDataModel("Hwatton","12345"));
        // DB.addAdmin(new AdminAccountDataModel("IAmAnAdmin","123Password"));
+        EmployeeDBHelper EDB= new EmployeeDBHelper(MainActivity.this);
+        EDB.UpdateWithNewEmployees(MainActivity.this);
 
 
         EUName=(EditText) findViewById(R.id.EUserName);
@@ -87,21 +89,23 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean GetIfLogInSucessful(String Username,String password,Boolean IsEmployee,TextView Result){
         if(IsEmployee){
-            if(Username.equals(CorrectUserName)){
-                Result.setText("username correct");
-                if(password.equals(CorrectPassWord))
-                {
-                    return  true;
-                }
-                else{
-                    Result.setText("Incorrect details entered");
-                    return false;
+            EmployeeDBHelper EDB = new EmployeeDBHelper(MainActivity.this);
+            List<UserAccountDataModel> Users= EDB.getAllEmployees();
+
+            boolean UNameFound= false;
+            for(int i=0;i<Users.size();i++){
+                if(Username.equals(Users.get(i).getUserName())){
+                    Result.setText("Username found");
+                    if(password.equals(Users.get(i).getPassWord())){
+                        return true;
+                    }
+                    else{
+                        Result.setText("Incorrect details entered");
+                        return false;
+                    }
                 }
             }
-            else{
-                Result.setText("Username not found");
-                return false;
-            }
+            return false;
         }
         else {
 
