@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 EUName.setText("");
+                EPassword.setText("");
 
             }
         });
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             boolean UNameFound= false;
             for(int i=0;i<Users.size();i++){
+                Log.d("Status","NAME: " + Users.get(i).getUserName()+ " PASS: " +Users.get(i).getPassWord());
                 if(Username.equals(Users.get(i).getUserName())){
 
                     Result.setText("Username found");
@@ -105,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("ID",Users.get(i).getUserId());
                             intent.putExtra("UName",Users.get(i).getUserName());
                             startActivity(intent);
-                            return true;
+                            Log.d("Status" , "new password found");
+                            return false;
                         }
                         else{
                             Log.d("Status" , "new password not found");
