@@ -153,6 +153,21 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
 
     }
     public void ChangePassword(int ID,String NewPass){
+        List<UserAccountDataModel>Users=this.getAllEmployees();
+        for (UserAccountDataModel user:Users){
+            if(user.getUserId()==ID){
+                ContentValues values = new ContentValues();
+                SQLiteDatabase db = this.getWritableDatabase();
+                values.put(USERID,ID);
+                values.put(EMAIL,user.getEmail());
+                values.put(USERNAME,user.getUserName());
+                values.put(PASSWORD, NewPass);
+
+                db.update(EMPLOYEES,values,"WHERE "+ USERID +" = " +ID+ ";",null);
+                db.close();;
+            }
+        }
+
 
     }
 }

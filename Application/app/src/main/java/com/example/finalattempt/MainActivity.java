@@ -95,8 +95,25 @@ public class MainActivity extends AppCompatActivity {
             boolean UNameFound= false;
             for(int i=0;i<Users.size();i++){
                 if(Username.equals(Users.get(i).getUserName())){
+
                     Result.setText("Username found");
+                    UNameFound=true;
                     if(password.equals(Users.get(i).getPassWord())){
+                      if(password.equals("123Password")){
+                            Log.d("Status" , "new password found");
+                            Intent intent= new Intent(MainActivity.this,ChangeNewEmployeePassWord.class);
+                            intent.putExtra("ID",Users.get(i).getUserId());
+                            intent.putExtra("UName",Users.get(i).getUserName());
+                            startActivity(intent);
+                            return true;
+                        }
+                        else{
+                            Log.d("Status" , "new password not found");
+                            Intent intent= new Intent(MainActivity.this, MainActivity2.class);
+                            intent.putExtra("ID",Users.get(i).getUserId());
+                            //startActivity(intent);
+
+                        }
                         return true;
                     }
                     else{
@@ -104,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 }
+            }
+            if(!UNameFound){
+                Result.setText("Username not found");
+                return false;
             }
             return false;
         }
