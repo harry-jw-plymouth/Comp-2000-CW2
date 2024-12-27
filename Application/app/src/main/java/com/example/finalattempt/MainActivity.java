@@ -115,9 +115,18 @@ public class MainActivity extends AppCompatActivity {
                         else{
                             Log.d("Status" , "new password not found");
                             Intent intent= new Intent(MainActivity.this, MainActivity2.class);
-                            intent.putExtra("UName",Users.get(i).getUserName());
-                            intent.putExtra("ID",Integer.toString(Users.get(i).getUserId()));
-                            Log.d("ID",Integer.toString(Users.get(i).getUserId()));
+                            String IDToPut=Integer.toString(Users.get(i).getUserId());
+                            intent.putExtra("ID",IDToPut);
+                            this.startActivity(intent);
+                           // Bundle extras = new Bundle();
+                          //  String UsernameTemp=Users.get(i).getUserName();
+
+                         //   extras.putString("ID",IDToPut);
+                           // extras.putString("UName",UsernameTemp);
+                            //intent.putExtras(extras);
+                          //
+                           // intent.putExtra("ID",IDToPut);
+                            //Log.d("ID",IDToPut);
                             startActivity(intent);
 
                         }

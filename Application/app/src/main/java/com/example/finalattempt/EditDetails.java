@@ -40,6 +40,9 @@ public class EditDetails extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Intent intent= getIntent();
+        String UName=intent.getStringExtra("UName");
+        int UserID= Integer.parseInt(intent.getStringExtra("ID"));
         Result=(TextView) findViewById(R.id.ResultText);
 
 
@@ -57,7 +60,7 @@ public class EditDetails extends AppCompatActivity {
             public void onClick(View v) {
                 Employee Current=GetEditedDetails();
                 if(Current!=null){
-                    showAlertDialogueForSaveButton(Current);
+                    showAlertDialogueForSaveButton(Current,UName,UserID);
                     //showAlertDialogue("Confirm changes","Save changes and view?","Save changes","Changes saved","Back to editing","Back",DetailsEditedConfirmation.class);
                 }
 
@@ -67,12 +70,12 @@ public class EditDetails extends AppCompatActivity {
         BackToVIewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDialogue("Discard changes?","Discard changes and return to editing?","Continue and discard","Changes Discarded","Back to editing","Back", ViewDetails.class);
+                showAlertDialogue("Discard changes?","Discard changes and return to editing?","Continue and discard","Changes Discarded","Back to editing","Back", ViewDetails.class, UName,UserID);
             }
         });
 
     }
-    private void showAlertDialogueForSaveButton(Employee Current){
+    private void showAlertDialogueForSaveButton(Employee Current,String UName,int UserID){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("Confirm changes");
         builder.setMessage("Save changes and view?");
@@ -92,6 +95,8 @@ public class EditDetails extends AppCompatActivity {
                 intent.putExtra("NewFname",Current.getFirstname());
                 intent.putExtra("NewLname",Current.getLastname());
                 intent.putExtra("NewEmail",Current.getEmail());
+                intent.putExtra("UName",UName);
+                intent.putExtra("ID",UserID);
                 startActivity(intent);
             }
         });
@@ -142,7 +147,7 @@ public class EditDetails extends AppCompatActivity {
     }
     //public boolean GetIfInputsValid(EmployeeDetails)
 
-    private void showAlertDialogue(String title,String message,String PositiveButtontext,String PositiveToastText,String NegativeButtonText,String NegativeToastText,Class PageToLoadOnConfirm) {
+    private void showAlertDialogue(String title,String message,String PositiveButtontext,String PositiveToastText,String NegativeButtonText,String NegativeToastText,Class PageToLoadOnConfirm,String UName,int UserID) {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(message);
@@ -153,6 +158,8 @@ public class EditDetails extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(EditDetails.this,PositiveToastText,Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(EditDetails.this,PageToLoadOnConfirm);
+                intent.putExtra("UName",UName);
+                intent.putExtra("ID",UserID);
                 startActivity(intent);
             }
         });

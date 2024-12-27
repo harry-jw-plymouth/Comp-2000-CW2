@@ -17,7 +17,6 @@ public class MainActivity2 extends AppCompatActivity {
 
     TextView textView,Welcome;
     Button button2;Button EditDetailsButton;
-    Intent intent;
     Button ViewDetailsButton;Button ViewHoliday;Button NotificSettingsButton;
 
 
@@ -31,12 +30,15 @@ public class MainActivity2 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Intent intent=getIntent();
+        String UserId=intent.getStringExtra("ID");
+        Log.d("Test","Test: "+UserId);
+        String UName="";
 
-        intent=getIntent();
-        String UName=intent.getStringExtra("UName");
-        int UserID= Integer.parseInt(intent.getStringExtra("ID"));
-        Log.d("ID in main activity2 ",Integer.toString(UserID));
+        //String UserID= intent.getStringExtra("ID");
+        //Log.d("ID in main activity2 ",UName);
         //Log.d("UName",UName);
+        String UserID="";
 
         textView=findViewById(R.id.textViewWelcome);
         String text=getIntent().getStringExtra("key");
