@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class ChangeNewEmployeePassWord extends AppCompatActivity {
     EditText NewPass,NewPassConfirm;
-    TextView Intro;
+    TextView Intro,Result;
     Button Submit;
     Intent intent;
 
@@ -45,10 +45,13 @@ public class ChangeNewEmployeePassWord extends AppCompatActivity {
                     intent=new Intent(ChangeNewEmployeePassWord.this,MainActivity2.class);
                     intent.putExtra("ID",id);
                     intent.putExtra("UName",UName);
+                    EmployeeDBHelper Db= new EmployeeDBHelper(ChangeNewEmployeePassWord.this);
+                    Db.ChangePassword(id,NewPass.getText().toString());
                     startActivity(intent);
 
                 }
                 else{
+
 
                 }
 
@@ -60,7 +63,9 @@ public class ChangeNewEmployeePassWord extends AppCompatActivity {
 
     }
     public boolean GetIfInputsValid(String Pass,String PassConfirm){
-        if(!NewPass.getText().toString().equals(NewPassConfirm.toString())){
+        Result=findViewById(R.id.Result);
+        if(!NewPass.getText().toString().equals(NewPassConfirm.getText().toString())){
+            Result.setText("Passwords must match");
             return false;
 
         }

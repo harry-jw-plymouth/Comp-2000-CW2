@@ -58,7 +58,7 @@
         android:background="@color/white"
         android:ems="10"
         android:inputType="textPassword"
-        android:paddingTop="60dp"
+        android:paddingTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />
@@ -82,13 +82,12 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="New password"
         android:paddingLeft="20sp"
+        android:text="New password"
         android:textColor="@color/StandardTextColour"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewIntro" />
 
     <TextView
         android:id="@+id/textView29"
@@ -103,7 +102,7 @@
         app:layout_constraintTop_toBottomOf="@+id/NewPass" />
 
     <TextView
-        android:id="@+id/textView30"
+        android:id="@+id/Result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" "
@@ -119,5 +118,6 @@
         android:background="@color/ConfirmColor"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="@+id/newPassConfirm"
-        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+        app:layout_constraintTop_toBottomOf="@+id/Result" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

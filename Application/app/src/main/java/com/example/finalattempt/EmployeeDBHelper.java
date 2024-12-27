@@ -96,7 +96,68 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
         }
     }
     public String GetUserName(String FName,String LName){
-        return FName.charAt(0)+LName;
+        try{
+            return FName.charAt(0)+LName;
+        }catch (Exception e){
+            return FName+LName;
+        }
+
+    }
+    public void DeleteRemovedEmployees(Context context){
+        List<UserAccountDataModel> Users= getAllEmployees();
+        Log.d("Status ", "Deleting old employees");
+        String Url="http://10.224.41.11/comp2000/employees";
+        Gson gson=new Gson();
+        int CurrentID=0;
+        RequestQueue requestQueue=Volley.newRequestQueue(context);
+        SQLiteDatabase db=this.getReadableDatabase();
+        //Cursor cursor=db.raw ("SELECT EXISTS( SELECT 1 FROM " + EMPLOYEES +" WHERE "+ USERID+"="+CurrentID+");");
+
+
+        StringRequest stringRequest =new StringRequest(Request.Method.GET, Url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                String SelectQuery;
+                int CurrentID=0;
+                Cursor cursor;
+                boolean IDFound;
+                Log.d("Status", "Opening employees");
+
+
+                List<Person> EmployeeList = gson.fromJson(response, new TypeToken<List<Person>>() {}.getType());
+                IDFound=false;
+                cursor=db.rawQuery("SELECT * FROM "+ EMPLOYEES,null);
+                if(cursor.moveToFirst()){
+                    do{
+                        int id=cursor.getInt(0);
+                        for(Person person: EmployeeList){
+                            CurrentID= person.getId();
+                            Log.d("IDS", "DB: " + id+ " API: "+ CurrentID);
+                            if (id==CurrentID){
+                                Log.d("Status","ID"+ CurrentID+ " found in both api and db");
+                                IDFound=true;
+                            }
+
+                        }
+                        if(!IDFound){
+                            deleteUser(id);
+                        }
+
+                    }while (cursor.moveToNext());
+                    cursor.close();
+
+                }
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Result","Error getting: "+error.toString());
+            }
+        });
+        requestQueue.add(stringRequest);
     }
 
     public void UpdateWithNewEmployees(Context context){
@@ -137,9 +198,10 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                             }
                         }while (cursor.moveToNext());
                         cursor.close();
-                        if(!IDFound){
-                            adduser(new UserAccountDataModel(person.getId(), person.getEmail(),GetUserName(person.getFirstname(), person.getLastname()),"123Password"));
-                        }
+
+                    }
+                    if(!IDFound){
+                        adduser(new UserAccountDataModel(person.getId(), person.getEmail(),GetUserName(person.getFirstname(), person.getLastname()),"123Password"));
                     }
                 }
             }
@@ -163,9 +225,22 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                 values.put(USERNAME,user.getUserName());
                 values.put(PASSWORD, NewPass);
 
-                db.update(EMPLOYEES,values,"WHERE "+ USERID +" = " +ID+ ";",null);
+                db.update(EMPLOYEES,values,USERID + " = " +ID,null);
                 db.close();;
             }
+        }
+
+
+    }
+    public boolean deleteUser(int ID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query= "DELETE FROM " + EMPLOYEES + " WHERE "+ USERID + "= " + ID+"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            return false;
+        }else{
+            return true;
         }
 
 
