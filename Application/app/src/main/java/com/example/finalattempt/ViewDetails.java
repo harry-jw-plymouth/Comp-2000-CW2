@@ -43,7 +43,7 @@ public class ViewDetails extends AppCompatActivity {
         intent=getIntent();
         String UName=intent.getStringExtra("UName");
         int UserID= intent.getIntExtra("ID",0);
-        Log.d("ID",Integer.toString(UserID));
+        Log.d("ID","ID: "+ UserID);
 
         String URL="http://10.224.41.11/comp2000/employees/get/"+ UserID;
         RequestQueue RequestQueue= Volley.newRequestQueue(ViewDetails.this.getApplicationContext());

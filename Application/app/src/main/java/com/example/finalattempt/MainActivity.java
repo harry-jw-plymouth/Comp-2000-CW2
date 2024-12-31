@@ -78,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
-                    Intent intent = new Intent(MainActivity.this,adminMainPage.class);
-                    intent.putExtra("Name", AUName.getText().toString());
-                    startActivity(intent);
+                   // Intent intent = new Intent(MainActivity.this,adminMainPage.class);
+                  //  intent.putExtra("Name", AUName.getText().toString());
+                    //startActivity(intent);
                 }
                 else{
                     APassword.setText("");AUName.setText("");
@@ -115,9 +115,11 @@ public class MainActivity extends AppCompatActivity {
                         else{
                             Log.d("Status" , "new password not found");
                             Intent intent= new Intent(MainActivity.this, MainActivity2.class);
-                            String IDToPut=Integer.toString(Users.get(i).getUserId());
-                            intent.putExtra("ID",IDToPut);
-                            this.startActivity(intent);
+                            intent.putExtra("UName",Users.get(i).getUserName());
+                            intent.putExtra("test",Users.get(i).getUserId());
+                           // String IDToPut=Integer.toString(Users.get(i).getUserId());
+                         //   intent.putExtra("ID",IDToPut);
+                            startActivity(intent);
                            // Bundle extras = new Bundle();
                           //  String UsernameTemp=Users.get(i).getUserName();
 
@@ -127,10 +129,9 @@ public class MainActivity extends AppCompatActivity {
                           //
                            // intent.putExtra("ID",IDToPut);
                             //Log.d("ID",IDToPut);
-                            startActivity(intent);
 
                         }
-                        return true;
+                        return false;
                     }
                     else{
                         Result.setText("Incorrect details entered");
@@ -157,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
                     UNameFound=true;
                     if(password.equals(Admins.get(i).getPassword()))
                     {
+                        Intent intent= new Intent(MainActivity.this,adminMainPage.class);
+                        startActivity(intent);
                         return  true;
                     }
                     else{

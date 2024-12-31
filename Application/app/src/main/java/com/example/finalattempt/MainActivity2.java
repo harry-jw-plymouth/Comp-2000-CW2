@@ -31,14 +31,15 @@ public class MainActivity2 extends AppCompatActivity {
             return insets;
         });
         Intent intent=getIntent();
-        String UserId=intent.getStringExtra("ID");
+        String UName=intent.getStringExtra("UName");
+        int UserId=intent.getIntExtra("test",0);
         Log.d("Test","Test: "+UserId);
-        String UName="";
+      //  String UName="";
 
         //String UserID= intent.getStringExtra("ID");
         //Log.d("ID in main activity2 ",UName);
         //Log.d("UName",UName);
-        String UserID="";
+        //String UserID="";
 
         textView=findViewById(R.id.textViewWelcome);
         String text=getIntent().getStringExtra("key");
@@ -48,7 +49,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity2.this,ViewDetails.class);
                 intent.putExtra("UName",UName);
-                intent.putExtra("ID",UserID);
+                intent.putExtra("ID",UserId);
                 startActivity(intent);
             }
         });
@@ -62,7 +63,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity2.this,HolidayMainPage.class);
                 intent.putExtra("UName",UName);
-                intent.putExtra("ID",UserID);
+                intent.putExtra("ID",UserId);
                 startActivity(intent);
             }
         });
@@ -84,7 +85,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity2.this,EditDetails.class);
                 intent.putExtra("UName",UName);
-                intent.putExtra("ID",UserID);
+                intent.putExtra("ID",UserId);
                 startActivity(intent);
             }
         });
@@ -95,7 +96,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity2.this,Notificationsettings.class);
                 intent.putExtra("UName",UName);
-                intent.putExtra("ID",UserID);
+                intent.putExtra("ID",UserId);
                 startActivity(intent);
             }
         });

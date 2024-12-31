@@ -42,7 +42,7 @@ public class EditDetails extends AppCompatActivity {
         });
         Intent intent= getIntent();
         String UName=intent.getStringExtra("UName");
-        int UserID= Integer.parseInt(intent.getStringExtra("ID"));
+        int UserID= intent.getIntExtra("ID",0);
         Result=(TextView) findViewById(R.id.ResultText);
 
 
@@ -85,6 +85,12 @@ public class EditDetails extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(EditDetails.this,"Save changes",Toast.LENGTH_SHORT).show();
+                EmployeeService.updateEmployee(EditDetails.this ,UserID,new Employee(Current.getFirstname(),Current.getLastname(),Current.getEmail(),Current.getDepartment(),Current.getJoiningdate(),Current.getSalary()));
+                EmployeeDBHelper db= new EmployeeDBHelper(EditDetails.this);
+                String NewUName=GetUserName(Current.getFirstname(),Current.getLastname());
+                db.ChangeUserName(UserID,NewUName);
+
+
                 Intent intent=new Intent(EditDetails.this,DetailsEditedConfirmation.class);
 
                 //bundle.putString("NewFName","Name1");
@@ -172,5 +178,13 @@ public class EditDetails extends AppCompatActivity {
         });
         AlertDialog alertDialog= builder.create();
         alertDialog.show();
+    }
+    public String GetUserName(String FName,String LName){
+        try{
+            return FName.charAt(0)+LName;
+        }catch (Exception e){
+            return FName+LName;
+        }
+
     }
 }

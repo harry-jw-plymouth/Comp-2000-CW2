@@ -229,8 +229,38 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                 db.close();;
             }
         }
+    }
+    public void ChangeUserName(int ID,String NewUName){
+        List<UserAccountDataModel>Users=this.getAllEmployees();
+        for (UserAccountDataModel user:Users){
+            if(user.getUserId()==ID){
+                ContentValues values = new ContentValues();
+                SQLiteDatabase db = this.getWritableDatabase();
+                values.put(USERID,ID);
+                values.put(EMAIL,user.getEmail());
+                values.put(USERNAME,NewUName);
+                values.put(PASSWORD, user.getPassWord());
 
+                db.update(EMPLOYEES,values,USERID + " = " +ID,null);
+                db.close();;
+            }
+        }
+    }
+    public void ChangeEmail(int ID,String NewEmail){
+        List<UserAccountDataModel>Users=this.getAllEmployees();
+        for (UserAccountDataModel user:Users){
+            if(user.getUserId()==ID){
+                ContentValues values = new ContentValues();
+                SQLiteDatabase db = this.getWritableDatabase();
+                values.put(USERID,ID);
+                values.put(EMAIL,NewEmail);
+                values.put(USERNAME,user.getUserName());
+                values.put(PASSWORD, user.getPassWord());
 
+                db.update(EMPLOYEES,values,USERID + " = " +ID,null);
+                db.close();;
+            }
+        }
     }
     public boolean deleteUser(int ID){
         SQLiteDatabase db = this.getWritableDatabase();
