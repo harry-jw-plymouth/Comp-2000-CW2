@@ -3,6 +3,7 @@ package com.example.finalattempt;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +18,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import dalvik.system.BaseDexClassLoader;
 
@@ -43,7 +55,49 @@ public class EditDetails extends AppCompatActivity {
         Intent intent= getIntent();
         String UName=intent.getStringExtra("UName");
         int UserID= intent.getIntExtra("ID",0);
+        Log.d("Employee uname",""+UName);
+        Log.d("EmployeeID",""+UserID);
         Result=(TextView) findViewById(R.id.ResultText);
+
+        Employee Temp= new Employee("","","","","",1F);
+        String URL="http://10.224.41.11/comp2000/employees/get/"+ UserID;
+        Log.d("URL",URL);
+        RequestQueue RequestQueue= Volley.newRequestQueue(EditDetails.this);
+        Gson gson = new Gson();
+        Fname=(EditText)findViewById(R.id.FNameInput);
+        Lname=(EditText)findViewById(R.id.LNameInput);
+        Email=(EditText) findViewById(R.id.EmailInput);
+
+        JsonObjectRequest request= new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Employee employee = gson.fromJson(response.toString(), Employee.class);
+                //Current.setFirstname(employee.getFirstname());
+                Fname.setText(employee.getFirstname());
+                Lname.setText(employee.getLastname());
+                Email.setText(employee.getEmail());
+                //Temp.setFirstname(employee.getFirstname());
+               // Temp.setLastname(employee.getLastname());
+               // Temp.setDepartment(employee.getDepartment());
+               // Temp.setSalary(employee.getSalary());
+               // Temp.setEmail(employee.getEmail());
+              //  Temp.setJoiningdate(employee.getJoiningdate());
+
+                // Current.setLastname(employee.getLastname());
+              //  Log.d("EmployeeInfo", "Firstname: " + employee.getFirstname() + ", Salary: " + employee.getSalary());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("EmployeeError", "Error retrieving employees: " + error.getMessage());
+                Toast.makeText(EditDetails.this,"Error getting employee details",Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(EditDetails.this,MainActivity2.class);
+                startActivity(intent);
+            }
+        });
+        RequestQueue.add(request);
+       // Log.d("New Details", Temp.getFirstname()+Temp.getLastname());
+      //  Log.d("New details", Temp.getDepartment()+" "+ Temp.getSalary());
 
 
         HomeButton=(Button)findViewById(R.id.BackToHomeId);
@@ -58,7 +112,8 @@ public class EditDetails extends AppCompatActivity {
         SaveAndViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Employee Current=GetEditedDetails();
+                Employee Current=GetEditedDetails(Temp);
+                Log.d("New Details", Current.getFirstname()+Current.getLastname());
                 if(Current!=null){
                     showAlertDialogueForSaveButton(Current,UName,UserID);
                     //showAlertDialogue("Confirm changes","Save changes and view?","Save changes","Changes saved","Back to editing","Back",DetailsEditedConfirmation.class);
@@ -85,7 +140,29 @@ public class EditDetails extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(EditDetails.this,"Save changes",Toast.LENGTH_SHORT).show();
-                EmployeeService.updateEmployee(EditDetails.this ,UserID,new Employee(Current.getFirstname(),Current.getLastname(),Current.getEmail(),Current.getDepartment(),Current.getJoiningdate(),Current.getSalary()));
+                EmployeeToPut PutableEmployee=GetUploadableEmployee(Current,UserID);
+                RequestQueue queue= Volley.newRequestQueue(EditDetails.this);
+                String url="http://10.224.41.11/comp2000/employees/edit/"+UserID;
+                Gson gson= new Gson();
+                try {
+                    JSONObject jsonRequest = new JSONObject(gson.toJson(PutableEmployee));
+                    JsonObjectRequest request= new JsonObjectRequest(Request.Method.PUT, url, jsonRequest, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("Employee service", "Employee saved");
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("Employee Error", "Error: " +error);
+                        }
+                    });
+                    queue.add(request);
+
+                }catch (JSONException e){
+                    Log.e("Employee Error","Invalid JSON format" + e.getMessage());
+                }
+               // EmployeeService.updateEmployee(EditDetails.this ,UserID,GetUploadableEmployee(new Employee(Current.getFirstname(),Current.getLastname(),Current.getEmail(),Current.getDepartment(),Current.getJoiningdate(),Current.getSalary()),UserID) );
                 EmployeeDBHelper db= new EmployeeDBHelper(EditDetails.this);
                 String NewUName=GetUserName(Current.getFirstname(),Current.getLastname());
                 db.ChangeUserName(UserID,NewUName);
@@ -116,7 +193,7 @@ public class EditDetails extends AppCompatActivity {
         AlertDialog alertDialog= builder.create();
         alertDialog.show();
     }
-    public Employee GetEditedDetails(){
+    public Employee GetEditedDetails(Employee Current){
         Fname=(EditText)findViewById(R.id.FNameInput);
         String FirstName=Fname.getText().toString();
         Lname=(EditText)findViewById(R.id.LNameInput);
@@ -137,10 +214,16 @@ public class EditDetails extends AppCompatActivity {
             Result.setText("Name cannot contain digits");
             return null;
         }
+        Log.d("Fname",FirstName);
+        Log.d("Lname",LastName);
+        Log.d("Email",NewEmail);
 
 
 
         return new Employee(FirstName,LastName,NewEmail,"","",1F);
+    }
+    public EmployeeToPut GetUploadableEmployee(Employee employee,int ID){
+        return  new EmployeeToPut(ID,employee.getFirstname(),employee.getLastname(),employee.getEmail(),employee.getDepartment(),employee.getSalary(),employee.getJoiningdate(),30);
     }
     public boolean GetIfContainsDigit(String ToCheck){
         char[] StrAsCharArray=ToCheck.toCharArray();

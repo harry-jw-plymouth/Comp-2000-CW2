@@ -1,10 +1,12 @@
 package com.example.finalattempt;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.Calendar;
 
 public class HolidayMainPage extends AppCompatActivity {
     Button Home;
@@ -24,6 +28,8 @@ public class HolidayMainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         Intent intent=getIntent();
+        String UName=intent.getStringExtra("UName");
+        int UserId=intent.getIntExtra("ID",0);
         int year=intent.getIntExtra("year",1);
         int day=intent.getIntExtra("day",1);
         int month=intent.getIntExtra("month",1);
@@ -47,27 +53,66 @@ public class HolidayMainPage extends AppCompatActivity {
         OpenCalender1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent=new Intent(HolidayMainPage.this,HolidayCalender.class);
-                intent.putExtra("DateSelection",1);
-                startActivity(intent);
+                final Calendar c=Calendar.getInstance();
+                int y=c.get(Calendar.YEAR);
+                int m =c.get(Calendar.MONTH);
+                int d=c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog=new DatePickerDialog(HolidayMainPage.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        OpenCalender1.setText(year+"/"+(month+1)+"/"+dayOfMonth);
+                    }
+                },y,m,d);
+                datePickerDialog.show();
             }
         });
         OpenCalender2=(Button)findViewById(R.id.HolidayEndButton);
         OpenCalender2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent=new Intent(HolidayMainPage.this,HolidayCalender.class);
-                intent.putExtra("DateSelection",2);
-                startActivity(intent);
+                final Calendar c=Calendar.getInstance();
+                int y=c.get(Calendar.YEAR);
+                int m =c.get(Calendar.MONTH);
+                int d=c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog=new DatePickerDialog(HolidayMainPage.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        OpenCalender2.setText(year+"/"+(month+1)+"/"+dayOfMonth);
+                    }
+                },y,m,d);
+                datePickerDialog.show();
             }
         });
         MakeRequest=(Button)findViewById(R.id.RequestButton);
         MakeRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent intent=new Intent(HolidayMainPage.this,RequestCheck.class);
-               // startActivity(intent);
-                showAlertDialogue("Confirm request","make request with dates specified?","Confirm","Request confirmed,this will be checked by an admin","Back","Request not made",HolidayMainPage.class);
+                AlertDialog.Builder builder=new AlertDialog.Builder(HolidayMainPage.this);
+                builder.setTitle("Request Holiday?");
+                builder.setMessage("From " + OpenCalender1.getText().toString()+ " To "+OpenCalender2.getText().toString());
+                //builder.setCancelable(false);
+                // above line prevents alert from closing when area outside box clicked
+                builder.setPositiveButton("Request", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       // Toast.makeText(HolidayMainPage.this,PositiveToastText,Toast.LENGTH_SHORT).show();
+                        //Intent intent=new Intent(HolidayMainPage.this,PageToLoadOnConfirm);
+                        //startActivity(intent);
+                        String StartDate=OpenCalender1.getText().toString();
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(HolidayMainPage.this,"Request not made",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                AlertDialog alertDialog= builder.create();
+                alertDialog.show();
             }
         });
         ViewBookings=(Button)findViewById(R.id.PreviousHolidaybutton);
@@ -75,6 +120,8 @@ public class HolidayMainPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(HolidayMainPage.this,PreviousHolidays.class);
+                intent.putExtra("ID",UserId);
+                intent.putExtra("UName",UName);
                 startActivity(intent);
             }
         });

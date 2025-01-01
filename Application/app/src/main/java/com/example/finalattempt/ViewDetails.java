@@ -28,7 +28,7 @@ public class ViewDetails extends AppCompatActivity {
     Button HomeButton;Button EditMyDetails;
     int ID;
     TextView FName, LName, HDate,Role,Salary;
-    Intent intent;
+    //Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class ViewDetails extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        intent=getIntent();
+        Intent intent=getIntent();
         String UName=intent.getStringExtra("UName");
         int UserID= intent.getIntExtra("ID",0);
         Log.d("ID","ID: "+ UserID);

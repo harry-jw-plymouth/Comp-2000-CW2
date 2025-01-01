@@ -10,92 +10,65 @@
 
 
     <Button
-        android:id="@+id/button6"
-        android:layout_width="49dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="292dp"
-        android:text=">"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/textView34"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.798"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView34"
-        app:layout_constraintVertical_bias="0.01" />
-
-    <TextView
-        android:id="@+id/textView36"
+        android:id="@+id/HolidayEndButton"
         android:layout_width="264dp"
         android:layout_height="49dp"
-        android:layout_marginTop="248dp"
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editdetailsbox"
-        app:layout_constraintVertical_bias="0.376" />
+        app:layout_constraintTop_toBottomOf="@+id/textView39"
+        app:layout_constraintVertical_bias="0.017" />
 
-    <TextView
-        android:id="@+id/textView34"
+    <Button
+        android:id="@+id/HolidayStartButton"
         android:layout_width="264dp"
         android:layout_height="49dp"
-        android:layout_marginTop="248dp"
         android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editdetailsbox"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
-    <TextView
-        android:id="@+id/textView20"
+    <Button
+        android:id="@+id/topbox"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/box" />
+        android:background="@drawable/box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/HolidayHomeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/NavigationButtonColour"
         android:text="back to home"
         android:textColor="@color/white"
-        android:background="@color/NavigationButtonColour"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintEnd_toEndOf="@+id/PreviousHolidaybutton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20"
-        app:layout_constraintVertical_bias="0.979" />
+        app:layout_constraintTop_toBottomOf="@+id/PreviousHolidaybutton" />
 
     <TextView
         android:id="@+id/editdetailsbox"
         android:layout_width="412dp"
         android:layout_height="201dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="8dp"
         android:background='@drawable/secondarybackground'
         android:gravity="center"
         android:text="Below you can edit and view your annual leave bookings. Please note, you will not be able to make requests that leave you with more than 30 days booked off
 you currently have [] days left to book"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        tools:layout_editor_absoluteX="-1dp" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="View and manage holiday viewings"
         android:textSize="26sp"
-        app:layout_constraintBottom_toTopOf="@+id/editdetailsbox"
-        app:layout_constraintTop_toBottomOf="@+id/textView20"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintTop_toBottomOf="@+id/topbox" />
 
     <Button
         android:id="@+id/PreviousHolidaybutton"
@@ -122,65 +95,36 @@ you currently have [] days left to book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView36" />
-
-    <Button
-        android:id="@+id/HolidayStartButton"
-        android:layout_width="49dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="292dp"
-        android:text=">"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/textView34"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.798"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView34"
-        app:layout_constraintVertical_bias="0.01" />
-
-    <Button
-        android:id="@+id/HolidayEndButton"
-        android:layout_width="49dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="292dp"
-        android:text=">"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/textView34"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.79"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView36"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/HolidayEndButton" />
 
     <TextView
         android:id="@+id/textView38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="New holiday start Date"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView34"
-        tools:layout_editor_absoluteX="77dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editdetailsbox" />
 
     <TextView
         android:id="@+id/textView39"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:text="New holiday End date"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView36"
-        tools:layout_editor_absoluteX="74dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HolidayStartButton" />
 
     <TextView
         android:id="@+id/textView58"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Company name"
-        android:textSize="20dp"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="11dp" />
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/topbox"
+        app:layout_constraintTop_toTopOf="@+id/topbox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -118,7 +118,7 @@ public class EmployeeService {
         );
         requestQueue.add(request);
     }
-    public static void updateEmployee(Context context, int id, Employee employee) {
+    public static void updateEmployee(Context context, int id, EmployeeToPut employee) {
         initQueue(context);
         String url = BASE_URL + "/employees/edit/" + id;
         try {
