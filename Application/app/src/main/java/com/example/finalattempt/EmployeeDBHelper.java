@@ -38,16 +38,27 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "Password";
     public static final String USERID = "Userid";
+    public static final String HOLIDAYREQUESTS = "HolidatRequests";
+    public static final String REQUESTID ="RequestID";
+    public static final String EMPLOYEENAME="EmployeeName";
+    public static final String STATUS="Status";
+    public static final String STARTDATE="StartDate";
+    public static final String ENDDATE="EndDate";
     public  EmployeeDBHelper(@Nullable Context context){
         super(context,"Employees.db",null,1);
 
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable =
+        String createEmployeeTable =
             "CREATE TABLE " + EMPLOYEES + " ("+ USERID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+ EMAIL+ " TEXT, "+ USERNAME+ " TEXT, " + PASSWORD + " TEXT)";
+        String createHolidayRequestsTable =
+                "CREATE TABLE " + HOLIDAYREQUESTS+ " ("+ REQUESTID+ " INTEGER PRIMARY KEY AUTOINCREMENT, "+ USERID+" INTEGER, "+EMPLOYEENAME+" TEXT, "+ STATUS+" TEXT, "+STARTDATE+" DATE, "+ENDDATE+" DATE)";
 
-        db.execSQL(createTable);
+
+
+        db.execSQL(createEmployeeTable);
+        db.execSQL(createHolidayRequestsTable);
 
     }
 
@@ -55,6 +66,43 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+    public void UpgradeRequestsTable(SQLiteDatabase db){
+        String dropTable = "DROP TABLE IF EXISTS " + HOLIDAYREQUESTS;
+
+        String createHolidayRequestsTable =
+                "CREATE TABLE " + HOLIDAYREQUESTS+ " ("+ REQUESTID+ " INTEGER PRIMARY KEY AUTOINCREMENT, "+ USERID+" INTEGER, "+EMPLOYEENAME+" TEXT, "+ STATUS+" TEXT, "+STARTDATE+" DATE, "+ENDDATE+" DATE)";
+        db.execSQL(createHolidayRequestsTable);
+
+    }
+    public List<HolidayRequestDataModel> getAllHolidayRequests(){
+        List<HolidayRequestDataModel> outputList = new ArrayList<>();
+
+        SQLiteDatabase db= this.getReadableDatabase();
+        String query = "SELECT * FROM " + HOLIDAYREQUESTS;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                int Requestid=cursor.getInt(0);
+                int UserID=cursor.getInt(1);
+                String UserName= cursor.getString(2);
+                String email= cursor.getString(1);
+                String UserName= cursor.getString(2);
+                String PassWord= cursor.getString(3);
+
+                UserAccountDataModel dataModel = new UserAccountDataModel(id,email,UserName,PassWord);
+                outputList.add(dataModel);
+            }while(cursor.moveToNext());
+        }else {
+
+        }
+        cursor.close();
+        db.close();
+
+        return  outputList;
+    }
+
     public List<UserAccountDataModel> getAllEmployees(){
         List<UserAccountDataModel> outputList = new ArrayList<>();
 
