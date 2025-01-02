@@ -101,6 +101,15 @@ public class HolidayMainPage extends AppCompatActivity {
                         //Intent intent=new Intent(HolidayMainPage.this,PageToLoadOnConfirm);
                         //startActivity(intent);
                         String StartDate=OpenCalender1.getText().toString();
+                        String EndDate=OpenCalender2.getText().toString();
+                        HolidayRequestDataModel newRequest= new HolidayRequestDataModel(0,UserId,UName,"Requested",StartDate,EndDate);
+                        EmployeeDBHelper db= new EmployeeDBHelper(HolidayMainPage.this);
+                        if(db.addHolidayRequest(newRequest)){
+                            Toast.makeText(HolidayMainPage.this,"Request sent to admind",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(HolidayMainPage.this,"Request not made,error sending request",Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });

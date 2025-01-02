@@ -1,6 +1,7 @@
 package com.example.finalattempt;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         EDB.UpdateWithNewEmployees(MainActivity.this);
         EDB= new EmployeeDBHelper(MainActivity.this);
         EDB.DeleteRemovedEmployees(MainActivity.this);
+        SQLiteDatabase Temp=EDB.getWritableDatabase();
+       // EDB.UpgradeRequestsTable(Temp);
 
 
         EUName=(EditText) findViewById(R.id.EUserName);

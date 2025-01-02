@@ -23,7 +23,7 @@ public class PreviousHolidays extends AppCompatActivity {
     Button Back; Button Confirmed; Button Denied; Button Requested;
     RecyclerView recyclerView;
     List<HolidayRequest> holidayRequestList;
-    HolidayRequestAdapter adapter;
+    HolidayRequestAdapterEmployee adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,12 @@ public class PreviousHolidays extends AppCompatActivity {
         recyclerView=findViewById(R.id.HolidaysrecyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        EmployeeDBHelper EDB= new EmployeeDBHelper(PreviousHolidays.this);
+
+        List<HolidayRequestDataModel> RawRequests=EDB.getAllHolidayRequestsByID(UserId);
+        for(HolidayRequestDataModel RR:RawRequests){
+            holidayRequestList.add(new HolidayRequest(RR.getEmployeeId(),RR.getEmployeeName(),RR.getStatus(),RR.getStartDate(),RR.GetEndDate()));
+        }
 
         holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
         holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
@@ -53,7 +59,7 @@ public class PreviousHolidays extends AppCompatActivity {
         holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
         holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
         holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
-        adapter=new HolidayRequestAdapter(this,holidayRequestList);
+        adapter=new HolidayRequestAdapterEmployee(this,holidayRequestList);
         recyclerView.setAdapter(adapter);
 
         Back=(Button)findViewById(R.id.PrevHolidayHomeButton);

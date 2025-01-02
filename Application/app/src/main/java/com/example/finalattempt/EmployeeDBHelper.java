@@ -38,7 +38,7 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "Password";
     public static final String USERID = "Userid";
-    public static final String HOLIDAYREQUESTS = "HolidatRequests";
+    public static final String HOLIDAYREQUESTS = "HolidayRequests";
     public static final String REQUESTID ="RequestID";
     public static final String EMPLOYEENAME="EmployeeName";
     public static final String STATUS="Status";
@@ -74,6 +74,34 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
         db.execSQL(createHolidayRequestsTable);
 
     }
+    public List<HolidayRequestDataModel> getAllHolidayRequestsByID(int IDToGet){
+        List<HolidayRequestDataModel> outputList = new ArrayList<>();
+
+        SQLiteDatabase db= this.getReadableDatabase();
+        String query = "SELECT * FROM " + HOLIDAYREQUESTS+ " WHERE "+ USERID+ " = "+IDToGet;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                int Requestid=cursor.getInt(0);
+                int UserID=cursor.getInt(1);
+                String Name= cursor.getString(2);
+                String Status=cursor.getString(3);
+                String StartDate=cursor.getString(4);
+                String EndDate=cursor.getString(5);
+
+                HolidayRequestDataModel dataModel = new HolidayRequestDataModel(Requestid,UserID,Name,Status,StartDate,EndDate);
+                outputList.add(dataModel);
+            }while(cursor.moveToNext());
+        }else {
+
+        }
+        cursor.close();
+        db.close();
+
+        return  outputList;
+    }
     public List<HolidayRequestDataModel> getAllHolidayRequests(){
         List<HolidayRequestDataModel> outputList = new ArrayList<>();
 
@@ -86,12 +114,12 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
             do{
                 int Requestid=cursor.getInt(0);
                 int UserID=cursor.getInt(1);
-                String UserName= cursor.getString(2);
-                String email= cursor.getString(1);
-                String UserName= cursor.getString(2);
-                String PassWord= cursor.getString(3);
+                String Name= cursor.getString(2);
+                String Status=cursor.getString(3);
+                String StartDate=cursor.getString(4);
+                String EndDate=cursor.getString(5);
 
-                UserAccountDataModel dataModel = new UserAccountDataModel(id,email,UserName,PassWord);
+                HolidayRequestDataModel dataModel = new HolidayRequestDataModel(Requestid,UserID,Name,Status,StartDate,EndDate);
                 outputList.add(dataModel);
             }while(cursor.moveToNext());
         }else {
@@ -128,6 +156,18 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
         db.close();
 
         return  outputList;
+    }
+    public boolean addHolidayRequest(HolidayRequestDataModel dataModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+       // cv.put(REQUESTID,dataModel.getRequestID());
+        cv.put(USERID, dataModel.getEmployeeId());
+        cv.put(EMPLOYEENAME, dataModel.getEmployeeName());
+        cv.put(STATUS, dataModel.getStatus());
+        cv.put(STARTDATE, dataModel.getStartDate());
+        cv.put(ENDDATE,dataModel.getEndDate());
+        long result = db.insert(HOLIDAYREQUESTS, null, cv);
+        return result != -1;
     }
     public boolean adduser(UserAccountDataModel dataModel){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -320,7 +360,16 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
         }else{
             return true;
         }
+    }
+    public boolean deleteRequest(int ID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query= "DELETE FROM " + HOLIDAYREQUESTS + " WHERE "+ REQUESTID + "= " + ID+"";
 
-
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            return false;
+        }else{
+            return true;
+        }
     }
 }
