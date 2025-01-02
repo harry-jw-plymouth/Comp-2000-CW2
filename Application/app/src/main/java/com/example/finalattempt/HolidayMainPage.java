@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -34,6 +35,7 @@ public class HolidayMainPage extends AppCompatActivity {
         int day=intent.getIntExtra("day",1);
         int month=intent.getIntExtra("month",1);
         int DateSeleced=intent.getIntExtra("DateSelection",1);
+        Log.d("HolidayPageID",UserId+"");
 
         setContentView(R.layout.activity_holiday_main_page);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

@@ -53,23 +53,12 @@
                 android:id="@+id/approveButton"
                 android:layout_width="109dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="76dp"
+                android:layout_marginEnd="16dp"
                 android:background="@color/ConfirmColor"
-                android:text="Approve"
+                android:text="View"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/DenyHolidayButton"
-                android:layout_width="109dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/DeleteDenyColor"
-                android:text="Deny"
-                app:layout_constraintStart_toStartOf="@+id/approveButton"
-                app:layout_constraintTop_toBottomOf="@+id/approveButton" />
 
             <TextView
                 android:id="@+id/HolidayItemEmployeeID"
@@ -77,10 +66,10 @@
                 android:layout_height="38dp"
                 android:layout_marginLeft="310dp"
                 android:layout_marginTop="8dp"
-                android:text="ID:"
+                android:text="UserID:"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.812"
+                app:layout_constraintHorizontal_bias="0.948"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -98,11 +87,19 @@
                 android:id="@+id/ToDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
+                android:layout_marginStart="56dp"
                 android:layout_marginTop="2dp"
                 android:text="To:"
                 app:layout_constraintStart_toEndOf="@+id/Sdate"
                 app:layout_constraintTop_toTopOf="@+id/Sdate" />
+
+            <TextView
+                android:id="@+id/ReqID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RequestID"
+                app:layout_constraintStart_toStartOf="@+id/HolidayItemEmployeeID"
+                app:layout_constraintTop_toBottomOf="@+id/HolidayItemEmployeeID" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,16 +50,16 @@ public class PreviousHolidays extends AppCompatActivity {
             holidayRequestList.add(new HolidayRequest(RR.getEmployeeId(),RR.getEmployeeName(),RR.getStatus(),RR.getStartDate(),RR.GetEndDate()));
         }
 
-        holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
-        holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
-        holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
-        holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
-        holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
-        holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
-        holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
-        holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
-        holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
-        adapter=new HolidayRequestAdapterEmployee(this,holidayRequestList);
+  //      holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
+    ///    holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
+       // holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
+   //     holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
+     //   holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
+     //   holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
+     //   holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
+     //   holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
+       // holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
+        adapter=new HolidayRequestAdapterEmployee(this,RawRequests);
         recyclerView.setAdapter(adapter);
 
         Back=(Button)findViewById(R.id.PrevHolidayHomeButton);
@@ -67,6 +67,8 @@ public class PreviousHolidays extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent=new Intent(PreviousHolidays.this,HolidayMainPage.class);
+                intent.putExtra("ID",UserId);
+                intent.putExtra("UName",UName);
                 startActivity(intent);
             }
         });

@@ -169,6 +169,7 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
         long result = db.insert(HOLIDAYREQUESTS, null, cv);
         return result != -1;
     }
+
     public boolean adduser(UserAccountDataModel dataModel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -317,6 +318,25 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                 db.close();;
             }
         }
+    }
+    public boolean UpdateHolidayStatus(int RequestId,String NewStatus){
+        List<HolidayRequestDataModel>Requests=this.getAllHolidayRequests();
+        for(HolidayRequestDataModel holiday:Requests){
+            if(holiday.getRequestID()==RequestId){
+                ContentValues values= new ContentValues();
+                SQLiteDatabase db=this.getWritableDatabase();
+                values.put(REQUESTID,RequestId);
+                values.put(USERID,holiday.getEmployeeId());
+                values.put(EMPLOYEENAME,holiday.getEmployeeName());
+                values.put(STATUS,NewStatus);
+                values.put(STARTDATE,holiday.getStartDate());
+                values.put(ENDDATE,holiday.getEndDate());
+
+                long Result=db.update(HOLIDAYREQUESTS,values,REQUESTID+" = "+RequestId,null);
+                return Result != -1;
+            }
+        }
+        return false;
     }
     public void ChangeUserName(int ID,String NewUName){
         List<UserAccountDataModel>Users=this.getAllEmployees();
