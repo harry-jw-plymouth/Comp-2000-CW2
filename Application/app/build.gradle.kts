@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.finalattempt"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.finalattempt"
@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.core:core-ktx:1.15.0")
     implementation ("com.google.code.gson:gson:2.11.0")
     implementation(libs.appcompat)
     implementation(libs.material)

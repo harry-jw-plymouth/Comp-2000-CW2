@@ -1,7 +1,14 @@
 package com.example.finalattempt;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +18,8 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -40,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
 
         });
+        String channelID = "my_channel";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,channelID);
+        makeNotification();
+
         DBHelper DB= new DBHelper(MainActivity.this);
         DB.addAdmin(new AdminAccountDataModel("Hwatton","12345"));
        // DB.addAdmin(new AdminAccountDataModel("IAmAnAdmin","123Password"));
@@ -80,19 +93,79 @@ public class MainActivity extends AppCompatActivity {
         ALogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
+                makeNotification();
+            //    if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
                    // Intent intent = new Intent(MainActivity.this,adminMainPage.class);
                   //  intent.putExtra("Name", AUName.getText().toString());
                     //startActivity(intent);
-                }
-                else{
-                    APassword.setText("");AUName.setText("");
-                }
+              //  }
+               // else{
+                 //   APassword.setText("");AUName.setText("");
+                //}
+                makeNotification();
             }
         });
 
 
     }
+    private void createNotificationChannel() {
+
+    }
+    public void makeNotification() {
+        Log.d("Status","Making notification");
+
+        String chanelID = "my_channel";
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                this, chanelID);
+
+        builder.setSmallIcon(R.drawable.standardnotification)
+                .setContentTitle("My notification")
+                .setContentText("New approval request!")
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Intent intent = new Intent(this, MainActivity2.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("UName", "Nots test");
+        intent.putExtra("ID", 0);
+
+
+
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, 0, intent, PendingIntent.FLAG_MUTABLE);
+
+        builder.setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
+
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel =
+                    notificationManager.getNotificationChannel(chanelID);
+
+            if (notificationChannel == null) {
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+
+                notificationChannel = new NotificationChannel(
+                        chanelID, "My Notification", importance);
+
+                notificationChannel.setLightColor(Color.BLUE);
+                notificationChannel.enableVibration(true);
+                notificationManager.createNotificationChannel(notificationChannel);
+
+            }
+        }
+        notificationManager.notify(0, builder.build());
+        Log.d("End", "end of notification");
+    }
+
+
+
     public boolean GetIfLogInSucessful(String Username,String password,Boolean IsEmployee,TextView Result){
         if(IsEmployee){
             EmployeeDBHelper EDB = new EmployeeDBHelper(MainActivity.this);

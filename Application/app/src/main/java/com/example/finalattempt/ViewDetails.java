@@ -88,7 +88,8 @@ public class ViewDetails extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(ViewDetails.this, MainActivity2.class);
                 intent.putExtra("UName",UName);
-                intent.putExtra("ID",UserID);
+                Log.d("ID before going to home" , ""+UserID);
+                intent.putExtra("test",UserID);
                 startActivity(intent);
             }
         });

@@ -92,10 +92,14 @@ public class EditDetails extends AppCompatActivity {
                 Log.e("EmployeeError", "Error retrieving employees: " + error.getMessage());
                 Toast.makeText(EditDetails.this,"Error getting employee details",Toast.LENGTH_SHORT).show();
                 Intent intent= new Intent(EditDetails.this,MainActivity2.class);
+                intent.putExtra("UName",UName);
+                intent.putExtra("ID",UserID);
+                Log.d("User ID before intent", ""+UserID);
                 startActivity(intent);
             }
         });
         RequestQueue.add(request);
+        Log.d("User ID aftrt request", ""+UserID);
        // Log.d("New Details", Temp.getFirstname()+Temp.getLastname());
       //  Log.d("New details", Temp.getDepartment()+" "+ Temp.getSalary());
 
@@ -105,6 +109,8 @@ public class EditDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(EditDetails.this, MainActivity2.class);
+                intent.putExtra("UName",UName);
+                intent.putExtra("test",UserID);
                 startActivity(intent);
             }
         });
@@ -125,7 +131,31 @@ public class EditDetails extends AppCompatActivity {
         BackToVIewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDialogue("Discard changes?","Discard changes and return to editing?","Continue and discard","Changes Discarded","Back to editing","Back", ViewDetails.class, UName,UserID);
+                AlertDialog.Builder builder=new AlertDialog.Builder(EditDetails.this);
+                builder.setTitle("Discard changes?");
+                builder.setMessage("Discard changes and return to editing?");
+                //builder.setCancelable(false);
+                // above line prevents alert from closing when area outside box clicked
+                builder.setPositiveButton("Continue and discard", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(EditDetails.this,"Changes Discarded",Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(EditDetails.this,ViewDetails.class);
+                        intent.putExtra("UName",UName);
+                        intent.putExtra("ID",UserID);
+                        Log.d("User ID before intent in dialog", ""+UserID);
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("Back to editing", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(EditDetails.this,"Back",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                AlertDialog alertDialog= builder.create();
+                alertDialog.show();
             }
         });
 
