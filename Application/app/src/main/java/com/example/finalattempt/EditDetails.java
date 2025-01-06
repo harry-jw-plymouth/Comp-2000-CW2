@@ -34,7 +34,7 @@ import dalvik.system.BaseDexClassLoader;
 
 public class EditDetails extends AppCompatActivity {
     EditText Fname, Lname,Address,Email;
-    TextView Result;
+    TextView Result,Salary,Date,Role;
     Spinner GenderSelection;
     Button HomeButton;Button SaveAndViewButton;Button BackToVIewButton;
 
@@ -67,6 +67,10 @@ public class EditDetails extends AppCompatActivity {
         Fname=(EditText)findViewById(R.id.FNameInput);
         Lname=(EditText)findViewById(R.id.LNameInput);
         Email=(EditText) findViewById(R.id.EmailInput);
+        Role=findViewById(R.id.textViewRole);
+        Salary=findViewById(R.id.textViewSalary);
+        Date=findViewById(R.id.textViewDate);
+
 
         JsonObjectRequest request= new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -76,6 +80,11 @@ public class EditDetails extends AppCompatActivity {
                 Fname.setText(employee.getFirstname());
                 Lname.setText(employee.getLastname());
                 Email.setText(employee.getEmail());
+                Role.setText(employee.getDepartment());
+                Salary.setText(employee.getSalary().toString());
+                Date.setText(employee.getJoiningdate());
+
+                Log.d("Date",employee.getJoiningdate());
                 //Temp.setFirstname(employee.getFirstname());
                // Temp.setLastname(employee.getLastname());
                // Temp.setDepartment(employee.getDepartment());
@@ -244,13 +253,17 @@ public class EditDetails extends AppCompatActivity {
             Result.setText("Name cannot contain digits");
             return null;
         }
+   //     TextView Role=findViewById(R.id.textViewRole);
         Log.d("Fname",FirstName);
         Log.d("Lname",LastName);
         Log.d("Email",NewEmail);
+        Float newSalary= Float.valueOf(Salary.getText().toString());
+        String FixedDate=GetDateInCorrectFormat(Date.getText().toString());
+        String NewRole=Role.getText().toString();
 
 
 
-        return new Employee(FirstName,LastName,NewEmail,"","",1F);
+        return new Employee(FirstName,LastName,NewEmail,NewRole,FixedDate,newSalary);
     }
     public EmployeeToPut GetUploadableEmployee(Employee employee,int ID){
         return  new EmployeeToPut(ID,employee.getFirstname(),employee.getLastname(),employee.getEmail(),employee.getDepartment(),employee.getSalary(),employee.getJoiningdate(),30);
@@ -265,6 +278,44 @@ public class EditDetails extends AppCompatActivity {
         return false;
     }
     //public boolean GetIfInputsValid(EmployeeDetails)
+    public String GetDateInCorrectFormat(String Date){
+        Log.d("Date:",Date);
+        String Month=""+Date.charAt(8)+Date.charAt(9)+Date.charAt(10);
+        String MonthNum=GetMonth(Month);
+        String Year=""+Date.charAt(12)+Date.charAt(13)+Date.charAt(14)+Date.charAt(15);
+
+        return Year+"/"+MonthNum+"/"+Date.charAt(5)+Date.charAt(6);
+    }
+    public String GetMonth(String Month){
+        switch (Month){
+            case "Jan":
+                return "1";
+            case "Feb":
+                return "2";
+            case "Mar":
+                return "3";
+            case "Apr":
+                return "4";
+            case "May":
+                return "5";
+            case "Jun":
+                return "6";
+            case "Jul":
+                return "7";
+            case "Aug":
+                return "8";
+            case "Sep":
+                return "9";
+            case "Oct":
+                return "10";
+            case "Nov":
+                return "11";
+            case "Dec":
+                return "12";
+
+        }
+        return "";
+    }
 
     private void showAlertDialogue(String title,String message,String PositiveButtontext,String PositiveToastText,String NegativeButtonText,String NegativeToastText,Class PageToLoadOnConfirm,String UName,int UserID) {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);

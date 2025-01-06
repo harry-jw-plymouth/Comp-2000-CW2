@@ -94,14 +94,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 makeNotification();
-            //    if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
-                   // Intent intent = new Intent(MainActivity.this,adminMainPage.class);
-                  //  intent.putExtra("Name", AUName.getText().toString());
-                    //startActivity(intent);
-              //  }
-               // else{
-                 //   APassword.setText("");AUName.setText("");
-                //}
+                if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
+                    Intent intent = new Intent(MainActivity.this,adminMainPage.class);
+                    intent.putExtra("Name", AUName.getText().toString());
+                    startActivity(intent);
+                }
+                else{
+                    APassword.setText("");AUName.setText("");
+                }
                 makeNotification();
             }
         });

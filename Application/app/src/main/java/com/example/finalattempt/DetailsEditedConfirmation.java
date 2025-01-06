@@ -31,25 +31,29 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
             return insets;
         });
         Intent intent=getIntent();
+        String UName=intent.getStringExtra("UName");
+        int UserID= intent.getIntExtra("ID",0);
         String NewFname=intent.getStringExtra("NewFname");
         String NewLname=intent.getStringExtra("NewLname");
         String NewEmail=intent.getStringExtra("NewEmail");
 
         FullNameView=(TextView)findViewById(R.id.NewFnameView);
         String FullName=NewFname+" "+NewLname;
-        FullNameView.setText(FullName);
+        FullNameView.setText(NewFname);
 //GenderView=(TextView)findViewById(R.id.GenderView);
         //GenderView.setText(intent.getStringExtra("NewGender"));
         LnameView=(TextView)findViewById(R.id.NewLnameView);
-        LnameView.setText(intent.getStringExtra("NewLnam2"));
+        LnameView.setText(NewLname);
         AddressView=(TextView)findViewById(R.id.NewEmailView);
-        AddressView.setText(intent.getStringExtra("NewAddress"));
+        AddressView.setText(NewEmail);
 
         Home=(Button)findViewById(R.id.homeButton);
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailsEditedConfirmation.this, MainActivity2.class);
+                intent.putExtra("test",UserID);
+                intent.putExtra("UName",UName);
                 startActivity(intent);
             }
         });
@@ -58,6 +62,8 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailsEditedConfirmation.this,ViewDetails.class);
+                intent.putExtra("ID",UserID);
+                intent.putExtra("UName",UName);
                 startActivity(intent);
             }
         });

@@ -96,6 +96,7 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
 
         Intro=(TextView) findViewById(R.id.EmployeeIntro);
         Intro.setText("Details of employee with ID:"+CurrentID);
+
      //   Employee Current=EmployeeService.getEmployeeById(admin_view_and_edit_Employee.this,CurrentID);
 
         FName=(EditText) findViewById(R.id.FNameView);
