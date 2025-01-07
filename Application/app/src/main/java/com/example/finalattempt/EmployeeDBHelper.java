@@ -44,6 +44,9 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
     public static final String STATUS="Status";
     public static final String STARTDATE="StartDate";
     public static final String ENDDATE="EndDate";
+    public static final  String NOTIFICATIONTYPE="Type";
+    public static final String EMPLOYEENOTIFICATIONS = "EmployeeNotifications";
+    public static final String NOTIFICATIONID = "NotificationID";
     public  EmployeeDBHelper(@Nullable Context context){
         super(context,"Employees.db",null,1);
 
@@ -54,11 +57,14 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + EMPLOYEES + " ("+ USERID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+ EMAIL+ " TEXT, "+ USERNAME+ " TEXT, " + PASSWORD + " TEXT)";
         String createHolidayRequestsTable =
                 "CREATE TABLE " + HOLIDAYREQUESTS+ " ("+ REQUESTID+ " INTEGER PRIMARY KEY AUTOINCREMENT, "+ USERID+" INTEGER, "+EMPLOYEENAME+" TEXT, "+ STATUS+" TEXT, "+STARTDATE+" DATE, "+ENDDATE+" DATE)";
+        String CreateEmployeeNotificationTable =
+                "CREATE TABLE " + EMPLOYEENOTIFICATIONS+ " ("+  NOTIFICATIONID+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + NOTIFICATIONTYPE+ " TEXT)";
 
 
 
         db.execSQL(createEmployeeTable);
         db.execSQL(createHolidayRequestsTable);
+        db.execSQL(CreateEmployeeNotificationTable);
 
     }
 

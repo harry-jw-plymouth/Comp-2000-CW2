@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
@@ -18,8 +19,10 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -90,19 +93,28 @@ public class MainActivity extends AppCompatActivity {
         ALogInButton=(Button) findViewById(R.id.AdminLogIn);
         AResult=(TextView) findViewById(R.id.AResultText);
 
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this,
+                    android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+
+
         ALogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 makeNotification();
-                if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
-                    Intent intent = new Intent(MainActivity.this,adminMainPage.class);
-                    intent.putExtra("Name", AUName.getText().toString());
-                    startActivity(intent);
-                }
-                else{
-                    APassword.setText("");AUName.setText("");
-                }
-                makeNotification();
+              //  if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
+                //    Intent intent = new Intent(MainActivity.this,adminMainPage.class);
+                  //  intent.putExtra("Name", AUName.getText().toString());
+                    //startActivity(intent);
+                //}
+                //else{
+                  //  APassword.setText("");AUName.setText("");
+                //}
+                //makeNotification();
             }
         });
 
@@ -112,8 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void makeNotification() {
-        Log.d("Status","Making notification");
-
         String chanelID = "my_channel";
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
@@ -127,10 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MainActivity2.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("UName", "Nots test");
-        intent.putExtra("ID", 0);
-
-
+        intent.putExtra("data", "data from main activity");
 
 
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -140,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0, builder.build());
-
 
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -160,8 +165,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+
         notificationManager.notify(0, builder.build());
-        Log.d("End", "end of notification");
+
+
     }
 
 
