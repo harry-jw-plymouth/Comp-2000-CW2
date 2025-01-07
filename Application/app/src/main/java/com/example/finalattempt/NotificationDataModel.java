@@ -3,9 +3,15 @@ package com.example.finalattempt;
 public class NotificationDataModel {
 
     String UName;
-    int UserID;
+    int UserID,NotificationID;
     String Type;
-    public  NotificationDataModel(String UName, int UserID,String Type){
+    public  NotificationDataModel(int NotificationID,int UserID,String UName, String Type){
+        this.UName=UName;
+        this.UserID=UserID;
+        this.NotificationID=NotificationID;
+        this.Type=Type;
+
+
 
     }
     public String getUName() {
@@ -22,6 +28,13 @@ public class NotificationDataModel {
 
     public void setUserID(int userID) {
         UserID = userID;
+    }
+    public int getNotificationID() {
+        return NotificationID;
+    }
+
+    public void setNotificationID(int NorificationID) {
+        NotificationID = NorificationID;
     }
 
     public String getType() {

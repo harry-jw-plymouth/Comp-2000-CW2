@@ -58,7 +58,7 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
         String createHolidayRequestsTable =
                 "CREATE TABLE " + HOLIDAYREQUESTS+ " ("+ REQUESTID+ " INTEGER PRIMARY KEY AUTOINCREMENT, "+ USERID+" INTEGER, "+EMPLOYEENAME+" TEXT, "+ STATUS+" TEXT, "+STARTDATE+" DATE, "+ENDDATE+" DATE)";
         String CreateEmployeeNotificationTable =
-                "CREATE TABLE " + EMPLOYEENOTIFICATIONS+ " ("+  NOTIFICATIONID+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + NOTIFICATIONTYPE+ " TEXT)";
+                "CREATE TABLE " + EMPLOYEENOTIFICATIONS+ " ("+  NOTIFICATIONID+ " INTEGER PRIMARY KEY AUTOINCREMENT, "+USERID+" INTEGER, " +USERNAME+ " TEXT, " + NOTIFICATIONTYPE+ " TEXT)";
 
 
 
@@ -71,6 +71,12 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+    public  void UpgradeNotificationsTable(SQLiteDatabase db){
+        String Drop="DROP TABLE IF EXISTS " + EMPLOYEENOTIFICATIONS;
+        String Create ="CREATE TABLE " + EMPLOYEENOTIFICATIONS+ " ("+  NOTIFICATIONID+ " INTEGER PRIMARY KEY AUTOINCREMENT, "+USERID+" INTEGER, " +USERNAME+ " TEXT, " + NOTIFICATIONTYPE+ " TEXT)";
+        db.execSQL(Drop);
+        db.execSQL(Create);
     }
     public void UpgradeRequestsTable(SQLiteDatabase db){
         String dropTable = "DROP TABLE IF EXISTS " + HOLIDAYREQUESTS;
@@ -98,6 +104,58 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                 String EndDate=cursor.getString(5);
 
                 HolidayRequestDataModel dataModel = new HolidayRequestDataModel(Requestid,UserID,Name,Status,StartDate,EndDate);
+                outputList.add(dataModel);
+            }while(cursor.moveToNext());
+        }else {
+
+        }
+        cursor.close();
+        db.close();
+
+        return  outputList;
+    }
+    public List<NotificationDataModel> getAllNotifications (){
+        List<NotificationDataModel> outputList = new ArrayList<>();
+
+        SQLiteDatabase db= this.getReadableDatabase();
+        String query = "SELECT * FROM " + EMPLOYEENOTIFICATIONS;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                int id=cursor.getInt(0);
+                int UserID=cursor.getInt(1);
+                String  Uname=cursor.getString(2);
+                String Type=cursor.getString(3);
+
+                NotificationDataModel dataModel = new NotificationDataModel(id,UserID,Uname,Type);
+                outputList.add(dataModel);
+            }while(cursor.moveToNext());
+        }else {
+
+        }
+        cursor.close();
+        db.close();
+
+        return  outputList;
+    }
+    public List<NotificationDataModel> getAllNotificationsForEmployee (int UserToGet){
+        List<NotificationDataModel> outputList = new ArrayList<>();
+
+        SQLiteDatabase db= this.getReadableDatabase();
+        String query = "SELECT * FROM " + EMPLOYEENOTIFICATIONS +" WHERE "+USERID+ " = " + UserToGet;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                int id=cursor.getInt(0);
+                int UserID=cursor.getInt(1);
+                String  Uname=cursor.getString(2);
+                String Type=cursor.getString(3);
+
+                NotificationDataModel dataModel = new NotificationDataModel(id,UserID,Uname,Type);
                 outputList.add(dataModel);
             }while(cursor.moveToNext());
         }else {
@@ -175,7 +233,20 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
         long result = db.insert(HOLIDAYREQUESTS, null, cv);
         return result != -1;
     }
-
+    public boolean addNotification(NotificationDataModel dataModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+      //  cv.put(NOTIFICATIONID, dataModel.getNotificationID());
+        cv.put(USERID, dataModel.getUserID());
+        cv.put(USERNAME, dataModel.getUName());
+        cv.put(NOTIFICATIONTYPE,dataModel.getType());
+        long result = db.insert(EMPLOYEENOTIFICATIONS, null, cv);
+        if(result == -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
     public boolean adduser(UserAccountDataModel dataModel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -374,6 +445,17 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                 db.update(EMPLOYEES,values,USERID + " = " +ID,null);
                 db.close();;
             }
+        }
+    }
+    public boolean deleteNotification(int ID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query= "DELETE FROM " + EMPLOYEENOTIFICATIONS + " WHERE "+ NOTIFICATIONID + "= " + ID+"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            return false;
+        }else{
+            return true;
         }
     }
     public boolean deleteUser(int ID){

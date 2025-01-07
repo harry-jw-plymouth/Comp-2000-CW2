@@ -1,7 +1,12 @@
 package com.example.finalattempt;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +17,13 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -40,12 +48,13 @@ public class MainActivity2 extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this,
                         new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
             }
-        }
+        };
 
         Intent intent=getIntent();
         String UName=intent.getStringExtra("UName");
         int UserId=intent.getIntExtra("test",0);
         Log.d("Test","Test: "+UserId);
+        makeNotification(UserId,UName);
       //  String UName="";
 
         //String UserID= intent.getStringExtra("ID");
@@ -80,7 +89,6 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-
         button2=(Button)findViewById(R.id.button_2id);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,12 +120,76 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
         if(text!=null)
         {
             textView.setText(text);
         }
+    }
+    public void makeNotification(int ID,String UName) {
+        String chanelID = "my_channel";
+        EmployeeDBHelper EDB= new EmployeeDBHelper(MainActivity2.this);
+        List<NotificationDataModel> UsersNotifications=EDB.getAllNotificationsForEmployee(ID);
+        for(NotificationDataModel notification:UsersNotifications){
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                    this, chanelID);
+            String Title="";
+            String Content="";
+            Intent intent=new Intent();
+            if(notification.getType().equals("DetailsEditedByAdmin")){
+                Title="Details updated";
+                intent=new Intent(MainActivity2.this,ViewDetails.class);
+                intent.putExtra("ID",ID);
+                intent.putExtra("UName", UName);
+                Content="An admin has updated your details";
+            } else if (notification.getType().equals("HolidayRequestUpdate")) {
+                Title="Holiday request response";
+                intent=new Intent(MainActivity2.this,PreviousHolidays.class);
+                intent.putExtra("ID",ID);
+                intent.putExtra("UName", UName);
+                Content="An admin has responded too and updated your holiday request";
+            }
+
+            builder.setSmallIcon(R.drawable.standardnotification)
+                    .setContentTitle(Title)
+                    .setContentText(Content)
+                    .setAutoCancel(true)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+           // Intent intent = new Intent(this, MainActivity2.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("data", "data from main activity");
+
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(
+                    this, 0, intent, PendingIntent.FLAG_MUTABLE);
+
+            builder.setContentIntent(pendingIntent);
+
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                NotificationChannel notificationChannel =
+                        notificationManager.getNotificationChannel(chanelID);
+
+                if (notificationChannel == null) {
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+
+                    notificationChannel = new NotificationChannel(
+                            chanelID, "My Notification", importance);
+
+                    notificationChannel.setLightColor(Color.BLUE);
+                    notificationChannel.enableVibration(true);
+                    notificationManager.createNotificationChannel(notificationChannel);
+
+                }
+            }
+
+            notificationManager.notify(notification.getNotificationID(), builder.build());
+            EDB.deleteNotification(notification.getNotificationID());
+        }
+
 
 
 

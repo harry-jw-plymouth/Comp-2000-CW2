@@ -107,7 +107,9 @@ public class HolidayMainPage extends AppCompatActivity {
                         HolidayRequestDataModel newRequest= new HolidayRequestDataModel(0,UserId,UName,"Requested",StartDate,EndDate);
                         EmployeeDBHelper db= new EmployeeDBHelper(HolidayMainPage.this);
                         if(db.addHolidayRequest(newRequest)){
-                            Toast.makeText(HolidayMainPage.this,"Request sent to admind",Toast.LENGTH_SHORT).show();
+                            DBHelper Db=new DBHelper(HolidayMainPage.this);
+                            Db.addNotification(new NotificationDataModel(0,UserId,UName,"EmployeeRequestingHoliday") );
+                            Toast.makeText(HolidayMainPage.this,"Request sent to admin",Toast.LENGTH_SHORT).show();
                         }
                         else{
                             Toast.makeText(HolidayMainPage.this,"Request not made,error sending request",Toast.LENGTH_SHORT).show();
@@ -142,7 +144,7 @@ public class HolidayMainPage extends AppCompatActivity {
 
 
     }
-    private void showAlertDialogue(String title,String message,String PositiveButtontext,String PositiveToastText,String NegativeButtonText,String NegativeToastText,Class PageToLoadOnConfirm) {
+    private void showAlertDialogue(String title,String message,String PositiveButtontext,String PositiveToastText,String NegativeButtonText,String NegativeToastText,Class PageToLoadOnConfirm,String UName,int ID) {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(message);

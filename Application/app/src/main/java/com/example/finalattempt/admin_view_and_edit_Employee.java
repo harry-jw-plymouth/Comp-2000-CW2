@@ -159,6 +159,9 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("Employee service", "Employee saved");
+                            EmployeeDBHelper EDB= new EmployeeDBHelper(admin_view_and_edit_Employee.this);
+                            EDB.addNotification(new NotificationDataModel(0,ID,EDB.GetUserName(PutableEmployee.getFirstname(),PutableEmployee.getLastname()),"DetailsEditedByAdmin") );
+
                             Intent intent=new Intent(admin_view_and_edit_Employee.this,adminMainPage.class);
                             startActivity(intent);
                         }

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     Button ELogInButton;Button ALogInButton;
     TextView Eresult;TextView AResult;
     EditText EPassword; EditText EUName;EditText APassword; EditText AUName;
-    String CorrectUserName="Hwatton";String CorrectPassWord="12345";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,22 +53,34 @@ public class MainActivity extends AppCompatActivity {
         });
         String channelID = "my_channel";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,channelID);
-        makeNotification();
+        // channel creation for notifications
 
         DBHelper DB= new DBHelper(MainActivity.this);
-        DB.addAdmin(new AdminAccountDataModel("Hwatton","12345"));
+        // DB.UpgradeNotificationsTable(DB.getWritableDatabase());
+        //   DB.addAdmin(new AdminAccountDataModel("Hwatton","12345"));
        // DB.addAdmin(new AdminAccountDataModel("IAmAnAdmin","123Password"));
         EmployeeDBHelper EDB= new EmployeeDBHelper(MainActivity.this);
-        EDB.UpdateWithNewEmployees(MainActivity.this);
+      //  EDB.UpgradeNotificationsTable(EDB.getWritableDatabase());
+      //  EDB.UpdateWithNewEmployees(MainActivity.this);
         EDB= new EmployeeDBHelper(MainActivity.this);
-        EDB.DeleteRemovedEmployees(MainActivity.this);
+      //  EDB.DeleteRemovedEmployees(MainActivity.this);
         SQLiteDatabase Temp=EDB.getWritableDatabase();
        // EDB.UpgradeRequestsTable(Temp);
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("Thread","Starting thread");
+                EmployeeDBHelper EDB= new EmployeeDBHelper(MainActivity.this);
+                EDB.UpdateWithNewEmployees(MainActivity.this);
+                EDB.DeleteRemovedEmployees(MainActivity.this);
+            }
+        });//thread for updating employee db to match API
 
-        EUName=(EditText) findViewById(R.id.EUserName);
-        EPassword=(EditText)findViewById(R.id.EPWord);
-        Eresult=(TextView)findViewById(R.id.ELogInResult);
+
+        EUName=(EditText) findViewById(R.id.EUserName);//text input for username
+        EPassword=(EditText)findViewById(R.id.EPWord);//text input for password
+        Eresult=(TextView)findViewById(R.id.ELogInResult);//text view for log in result
 
 
         ELogInButton=(Button)findViewById(R.id.EmployeeLogIn);
@@ -77,19 +88,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Eresult.setText(EUName.getText());
-                //EUName.setText("");
                 if(GetIfLogInSucessful(EUName.getText().toString(),EPassword.getText().toString(),true,Eresult)){
                     Intent intent=new Intent(MainActivity.this,MainActivity2.class);
                     startActivity(intent);
                 }
                 EUName.setText("");
-                EPassword.setText("");
+                EPassword.setText(""); // clear inputs if log in fails
 
             }
         });
 
         AUName=(EditText)findViewById(R.id.AUserName);
         APassword=(EditText) findViewById(R.id.EPassword);
+        // text inputs for employee log in
         ALogInButton=(Button) findViewById(R.id.AdminLogIn);
         AResult=(TextView) findViewById(R.id.AResultText);
 
@@ -100,99 +111,44 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
             }
         }
-
+        // set up for notifications
 
         ALogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeNotification();
-              //  if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
-                //    Intent intent = new Intent(MainActivity.this,adminMainPage.class);
-                  //  intent.putExtra("Name", AUName.getText().toString());
-                    //startActivity(intent);
-                //}
-                //else{
-                  //  APassword.setText("");AUName.setText("");
-                //}
-                //makeNotification();
+                if(GetIfLogInSucessful(AUName.getText().toString(),APassword.getText().toString(),false,AResult)){
+                    Intent intent = new Intent(MainActivity.this,adminMainPage.class);
+                    intent.putExtra("Name", AUName.getText().toString());
+                    startActivity(intent);
+                    // on successful sign in load admin main page passing name of signed in admin
+                }
+                else{
+                    APassword.setText("");AUName.setText("");
+                    // clear inputs on failed log in
+                }
             }
         });
-
-
     }
-    private void createNotificationChannel() {
-
-    }
-    public void makeNotification() {
-        String chanelID = "my_channel";
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                this, chanelID);
-
-        builder.setSmallIcon(R.drawable.standardnotification)
-                .setContentTitle("My notification")
-                .setContentText("New approval request!")
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        Intent intent = new Intent(this, MainActivity2.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("data", "data from main activity");
-
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                this, 0, intent, PendingIntent.FLAG_MUTABLE);
-
-        builder.setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel =
-                    notificationManager.getNotificationChannel(chanelID);
-
-            if (notificationChannel == null) {
-                int importance = NotificationManager.IMPORTANCE_HIGH;
-
-                notificationChannel = new NotificationChannel(
-                        chanelID, "My Notification", importance);
-
-                notificationChannel.setLightColor(Color.BLUE);
-                notificationChannel.enableVibration(true);
-                notificationManager.createNotificationChannel(notificationChannel);
-
-            }
-        }
-
-        notificationManager.notify(0, builder.build());
-
-
-    }
-
-
-
     public boolean GetIfLogInSucessful(String Username,String password,Boolean IsEmployee,TextView Result){
-        if(IsEmployee){
+        if(IsEmployee){ // employee log in
             EmployeeDBHelper EDB = new EmployeeDBHelper(MainActivity.this);
-            List<UserAccountDataModel> Users= EDB.getAllEmployees();
+            List<UserAccountDataModel> Users= EDB.getAllEmployees(); // get all employees from database
 
             boolean UNameFound= false;
             for(int i=0;i<Users.size();i++){
                 Log.d("Status","NAME: " + Users.get(i).getUserName()+ " PASS: " +Users.get(i).getPassWord());
                 if(Username.equals(Users.get(i).getUserName())){
-
-                    Result.setText("Username found");
+                    Result.setText("Username found"); // set log in result on page
                     UNameFound=true;
                     if(password.equals(Users.get(i).getPassWord())){
-                      if(password.equals("123Password")){
+                      if(password.equals("123Password")){// pass word is default password for new accounts
                             Log.d("Status" , "new password found");
                             Intent intent= new Intent(MainActivity.this,ChangeNewEmployeePassWord.class);
                             intent.putExtra("ID",Users.get(i).getUserId());
                             intent.putExtra("UName",Users.get(i).getUserName());
                             startActivity(intent);
                             Log.d("Status" , "new password found");
+                            //load set pass word page for employee with new account
                             return false;
                         }
                         else{
@@ -200,19 +156,8 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent= new Intent(MainActivity.this, MainActivity2.class);
                             intent.putExtra("UName",Users.get(i).getUserName());
                             intent.putExtra("test",Users.get(i).getUserId());
-                           // String IDToPut=Integer.toString(Users.get(i).getUserId());
-                         //   intent.putExtra("ID",IDToPut);
                             startActivity(intent);
-                           // Bundle extras = new Bundle();
-                          //  String UsernameTemp=Users.get(i).getUserName();
-
-                         //   extras.putString("ID",IDToPut);
-                           // extras.putString("UName",UsernameTemp);
-                            //intent.putExtras(extras);
-                          //
-                           // intent.putExtra("ID",IDToPut);
-                            //Log.d("ID",IDToPut);
-
+                            // om successful sign in load employee main page passing the user name and id as extras
                         }
                         return false;
                     }
@@ -228,10 +173,9 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         }
-        else {
-
+        else {// admin log in
             DBHelper DB= new DBHelper(MainActivity.this);
-            List<AdminAccountDataModel> Admins=DB.getAllAdmins();
+            List<AdminAccountDataModel> Admins=DB.getAllAdmins(); // get all admin account details from database
 
             boolean UNameFound=false;
             for(int i=0;i<Admins.size();i++){
@@ -242,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     if(password.equals(Admins.get(i).getPassword()))
                     {
                         Intent intent= new Intent(MainActivity.this,adminMainPage.class);
-                        startActivity(intent);
+                        startActivity(intent); //load admin main page for successful sign in
                         return  true;
                     }
                     else{

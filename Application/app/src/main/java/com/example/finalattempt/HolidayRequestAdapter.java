@@ -80,6 +80,7 @@ public class HolidayRequestAdapter extends  RecyclerView.Adapter<HolidayRequestA
                                 Log.d("Status","Approved");
                                 if (EDB.UpdateHolidayStatus(GetRequestID(ReqID.getText().toString()),"Approved"))
                                 {
+                                    EDB.addNotification(new NotificationDataModel(0,GetRequestID(Id.getText().toString()),GetRawName(Name.getText().toString()),"HolidayRequestUpdate"));
                                     Status.setText("Status:Approved");
                                     Toast.makeText( mCtx,"Successfully updated status",Toast.LENGTH_SHORT).show();
                                 }else{
@@ -117,6 +118,7 @@ public class HolidayRequestAdapter extends  RecyclerView.Adapter<HolidayRequestA
                                 if (EDB.UpdateHolidayStatus(GetRequestID(ReqID.getText().toString()),"Denied"))
                                 {
                                     Status.setText("Status:Denied");
+                                    EDB.addNotification(new NotificationDataModel(0,GetRequestID(Id.getText().toString()),GetRawName(Name.getText().toString()),"HolidayRequestUpdate"));
                                     Toast.makeText( mCtx,"Successfully updated status",Toast.LENGTH_SHORT).show();
                                 }else{
                                     Toast.makeText( mCtx,"Failed to update status",Toast.LENGTH_SHORT).show();
@@ -146,7 +148,9 @@ public class HolidayRequestAdapter extends  RecyclerView.Adapter<HolidayRequestA
                                 if (EDB.UpdateHolidayStatus(GetRequestID(ReqID.getText().toString()),"Approved"))
                                 {
                                     Status.setText("Status:Approved");
+
                                     Toast.makeText( mCtx,"Successfully updated status",Toast.LENGTH_SHORT).show();
+                                    EDB.addNotification(new NotificationDataModel(0,GetRequestID(Id.getText().toString()),GetRawName(Name.getText().toString()),"HolidayRequestUpdate"));
                                 }else{
                                     Toast.makeText( mCtx,"Failed to update status",Toast.LENGTH_SHORT).show();
                                 }
