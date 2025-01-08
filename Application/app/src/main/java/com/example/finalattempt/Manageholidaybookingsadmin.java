@@ -49,28 +49,13 @@ public class Manageholidaybookingsadmin extends AppCompatActivity {
         holidayRequestList=new ArrayList<>();
         recyclerView=(RecyclerView) findViewById(R.id.HolidaysrecyclerView);
         recyclerView.setHasFixedSize(false);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         EmployeeDBHelper EDB= new EmployeeDBHelper(Manageholidaybookingsadmin.this);
 
         List<HolidayRequestDataModel> RawRequests=EDB.getAllHolidayRequests();
-        for(HolidayRequestDataModel RR:RawRequests){
-            holidayRequestList.add(new HolidayRequest(RR.getEmployeeId(),RR.getEmployeeName(),RR.getStatus(),RR.getStartDate(),RR.GetEndDate()));
-        }
-
-     //   holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
-       // holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
-       // holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
-       // holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
-       // holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
-       // holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
-       // holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
-       // holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
-       // holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
-
+        // get requests from db
         adapter=new HolidayRequestAdapter(this,RawRequests);
-        recyclerView.setAdapter(adapter);
+        // fill recycler view with requests
 
         Home=(Button) findViewById(R.id.AHPBacktohome);
         Home.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +63,7 @@ public class Manageholidaybookingsadmin extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(Manageholidaybookingsadmin.this,adminMainPage.class);
                 startActivity(intent);
+                //back to home on button click
             }
         });
         SelectFromDate=(Button) findViewById(R.id.FromDateSelector);

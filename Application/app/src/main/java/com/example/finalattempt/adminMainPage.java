@@ -43,7 +43,6 @@ public class adminMainPage extends AppCompatActivity {
     Button ManageHoliday;
     Button AddNewEmployee;
     RecyclerView Employees;
-    ArrayList<Person> EmployeeListtemp;
     EmployeeDisplayAdapter Adapter;
     RequestQueue queue;
     String URL;
@@ -72,6 +71,7 @@ public class adminMainPage extends AppCompatActivity {
         Gson gson = new Gson();
         Temp = new ArrayList<Person>();
         queue = Volley.newRequestQueue(this);
+        // queue for api request
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -86,8 +86,8 @@ public class adminMainPage extends AppCompatActivity {
                 Employees.setHasFixedSize(false);
                 Employees.setLayoutManager(new LinearLayoutManager(adminMainPage.this));
                 Adapter = new EmployeeDisplayAdapter(adminMainPage.this, EmployeeList);
-                //Adapter=new EmployeeDisplayAdapter(this,EmployeeListtemp);
                 Employees.setAdapter(Adapter);
+                //create recycler view and fill with employees from API
             }
         }, new Response.ErrorListener() {
             @Override
@@ -97,9 +97,9 @@ public class adminMainPage extends AppCompatActivity {
         });
         Intent intent = getIntent();
         String Name = intent.getStringExtra("Name");
-        makeNotification();
+        makeNotification(); // dp notifications
         Welcome = findViewById(R.id.Welcome);
-        Welcome.setText("Welcome " + Name);
+        Welcome.setText("Welcome " + Name); // set welcome message with employee name
 
         queue.add(stringRequest);
 
@@ -109,6 +109,7 @@ public class adminMainPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(adminMainPage.this, MainActivity.class);
                 startActivity(intent);
+                // back to log in page on sign out button clicked
             }
         });
 
@@ -118,6 +119,7 @@ public class adminMainPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(adminMainPage.this, Manageholidaybookingsadmin.class);
                 startActivity(intent);
+                // load holiday page on button click
             }
         });
 
@@ -127,14 +129,13 @@ public class adminMainPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(adminMainPage.this, AddNewEmployeeAdmin.class);
                 startActivity(intent);
+                //load new employee page on button click
             }
         });
 
         Employees = (RecyclerView) findViewById(R.id.EmployeeRecyclerView);
         Employees.setHasFixedSize(false);
         Employees.setLayoutManager(new LinearLayoutManager(this));
-
-
         RequestQueue queue = Volley.newRequestQueue(this);
     }
 
@@ -142,12 +143,14 @@ public class adminMainPage extends AppCompatActivity {
         String chanelID = "my_channel";
         DBHelper DB = new DBHelper(adminMainPage.this);
         List<NotificationDataModel> UsersNotifications = DB.getAllNotifications();
+        // get all admin notifications from db
         for (NotificationDataModel notification : UsersNotifications) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(
                     this, chanelID);
             String Title = "";
             String Content = "";
             Intent intent = new Intent();
+            // depending on request type set message content
             if (notification.getType().equals("EmployeeRequestingHoliday")) {
                 Title = "New holiday request";
                 intent = new Intent(adminMainPage.this, Manageholidaybookingsadmin.class);
@@ -196,7 +199,9 @@ public class adminMainPage extends AppCompatActivity {
             }
 
             notificationManager.notify(notification.getNotificationID(), builder.build());
+            //make notification
             DB.deleteNotification(notification.getNotificationID());
+            // delete notification so it only appears once
         }
     }
 }

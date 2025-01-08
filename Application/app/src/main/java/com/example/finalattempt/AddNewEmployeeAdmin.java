@@ -43,7 +43,7 @@ import java.util.Calendar;
 
 public class AddNewEmployeeAdmin extends AppCompatActivity {
     Button Save,Discard,PickHireDate;
-    Spinner GenderSelection,RoleSelection;
+    Spinner RoleSelection;
     TextView Result,SelectedHDate;
 
     @Override
@@ -60,14 +60,13 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Button clicked","Button cicked successfully");
-
+                //save button
                 Person CurrentInputs=GetInputtedValues();
                 Log.d("Details obtained","Details obtained succesfully");
                 if(CheckIfAllFieldsValid(CurrentInputs)){
                     showAlertDialogueForSuccesfulinputs("Confirm new employee","Confirm creation of new employee?","Confirm","New employee saved","Continue editing","Save aborted", adminMainPage.class,CurrentInputs);
+                    //if new user inputs valid open save dialog function
                 }
-
             }
         });
         PickHireDate=(Button)findViewById(R.id.HireDatePickerButton);
@@ -80,17 +79,21 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
                 int y=c.get(Calendar.YEAR);
                 int m =c.get(Calendar.MONTH);
                 int d=c.get(Calendar.DAY_OF_MONTH);
+                // save selected values
 
                 DatePickerDialog datePickerDialog=new DatePickerDialog(AddNewEmployeeAdmin.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         SelectedHDate.setText(year+"/"+(month+1)+"/"+dayOfMonth);
+                        //set text to selected date
                     }
                 },y,m,d);
                 datePickerDialog.show();
+                // show dialog
             }
         });
         Discard = (Button) findViewById(R.id.DiscardNewEmployee);
+        // discard button
         Discard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -98,15 +101,11 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
                     }
                 });
 
-      //  GenderSelection = findViewById(R.id.GenderSpinner);
-      //  ArrayAdapter<CharSequence> GenderAdapter = ArrayAdapter.createFromResource(this, R.array.GenderOptions, android.R.layout.simple_spinner_item);
-      //  GenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-     //   GenderSelection.setAdapter(GenderAdapter);
-
         RoleSelection = findViewById(R.id.RoleSpinner);
         ArrayAdapter<CharSequence> RoleAdapter = ArrayAdapter.createFromResource(this, R.array.RoleOptions, android.R.layout.simple_spinner_item);
         RoleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         RoleSelection.setAdapter(RoleAdapter);
+        //set up role selection spinner
     }
 
 
@@ -114,77 +113,72 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(AddNewEmployeeAdmin.this);
         builder.setTitle(title);
         builder.setMessage(message);
-        //builder.setCancelable(false);
-        // above line prevents alert from closing when area outside box clicked
         builder.setPositiveButton(PositiveButtontext, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(AddNewEmployeeAdmin.this, PositiveToastText, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddNewEmployeeAdmin.this, PageToLoadOnConfirm);
-                EmployeeService Uploader=new EmployeeService();
                 EmployeeService.addEmployee(AddNewEmployeeAdmin.this,ConvertToUploadableObject(New));
-                //EmployeeService.addEmployee(AddNewEmployeeAdmin.this,new Employee("testname","TestName","test@gmail.com","Marketing","2023-01-15",50000F));
-               // UploadToApi(New);
                 startActivity(intent);
+                //add new employee to api and load admin main page on successful inputs
             }
         });
         builder.setNegativeButton(NegativeButtonText, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(AddNewEmployeeAdmin.this, NegativeToastText, Toast.LENGTH_SHORT).show();
-
+                // returns user to editing on negative button click
             }
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+        // show build dialog
     }
     public boolean CheckIfAllFieldsValid(Person CurrentInputs) {
         Result = (TextView) findViewById(R.id.CreateNewemployeeResults);
         if (CurrentInputs.getFirstname().isEmpty()) {
             Result.setText("Please enter a first name");
             return false;
+            // if no first name entered prevent new employee creation
         }
         if (CurrentInputs.getLastname().isEmpty()) {
             Result.setText("Please input Last name");
             return false;
+            //if not last name entered prevent new employee creatuin
         }
         if (CurrentInputs.getSalary() == 0) {
             Result.setText("Please enter a salary");
             return false;
+            // if no salary entered prevent new employee creation
         }
-        //if(CurrentInputs.getBirthDate().isEmpty()){
-        //  Result.setText("Please input a birth date");
-        //  return false;
-        //}
         if(CurrentInputs.getJoiningdate().isEmpty()){
             Result.setText("Please input a hiring date");
             return false;
+            // if no joining date entered prevent new employee creation
         }
         if (GetIfContainsDigit(CurrentInputs.getFirstname()) || GetIfContainsDigit(CurrentInputs.getLastname())) {
             Result.setText("Name cannot contain numbers");
             return false;
+            // if name entered contains non alphabetical chars prevent new employee creation
         }
         if (CurrentInputs.getDepartment().equals("Select option")) {
             Result.setText("Please select the employees role");
             return false;
+            // if no role selected prevent new employee creation
         }
-        // if (CurrentInputs.get().equals("Select option")) {
-        //   Result.setText("Please select option for employee gender");
-        //  return false;
-        //}
-
-        //check if hire date>Birthdate
-        //
         return true;
+        // if no issues allow employee creation
     }
     public boolean GetIfContainsDigit(String ToCheck) {
         char[] StrAsCharArray = ToCheck.toCharArray();
         for (char c : StrAsCharArray) {
             if (Character.isDigit(c)) {
                 return true;
+                // return true if non alphabetical char in string
             }
         }
         return false;
+
     }
 
     private void showAlertDialogue(String title, String message, String PositiveButtontext, String PositiveToastText, String NegativeButtonText, String NegativeToastText, Class PageToLoadOnConfirm) {
@@ -214,34 +208,33 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
     public Person GetInputtedValues() {
         EditText FNAme = (EditText) findViewById(R.id.NewEmployeeFirstName);
         String FirstName = FNAme.getText().toString();
-        Log.d("Fname inputted",  FirstName);
+        // get Firstname from edit text
 
         EditText LName = (EditText) findViewById(R.id.NewEmployeeLastName);
         String LastName = LName.getText().toString();
-
+        // get Lastname from edit text
         Float Salary;
 
         EditText salary = (EditText) findViewById(R.id.NewEmployeeSalary);
-        try {
+        try {//try to catch inputs causing errors
             Salary = Float.parseFloat(salary.getText().toString());
         } catch (Exception e) {
             Salary = (float) 0;
         }
-
+        // get salary from edit text
 
         String Role = RoleSelection.getSelectedItem().toString();
-        //String Gender = GenderSelection.getSelectedItem().toString();
-
-        String HireDate = SelectedHDate.getText().toString();// temp,will edit when calender date picker working
-        String BirthDate = "";
-
+        String HireDate = SelectedHDate.getText().toString();
         String email=FirstName.charAt(0)+LastName+"@company.com";
-
+        // get email,role and hire date from inputs
 
         return new Person(9999, FirstName,LastName,email, Role, HireDate,Salary);
+        // return employee with inputted values
+        // id is set to 9999 as API will set it when employee is created
     }
     public Employee ConvertToUploadableObject(Person ToConvert){
         return new Employee(ToConvert.getFirstname(),ToConvert.getLastname(),ToConvert.getEmail(),ToConvert.getDepartment(),ToConvert.getJoiningdate(),ToConvert.getSalary());
+        //must be made into employee object to be created in api
     }
     public void UploadToApi(Person NewPerson) {
         Employee employee=ConvertToUploadableObject(NewPerson);

@@ -53,15 +53,17 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
         Employee Current=new Employee("","","","","",234F);
         Intent intent = getIntent();
         int CurrentID=Integer.parseInt(intent.getStringExtra("ID"));
+        // ID passed by admin main page using employee recycler adapter
         String URL="http://10.224.41.11/comp2000/employees/get/"+ CurrentID;
+        //url for API request
         RequestQueue RequestQueue= Volley.newRequestQueue(admin_view_and_edit_Employee.this.getApplicationContext());
         Gson gson = new Gson();
 
+        //make API get request
         JsonObjectRequest request= new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Employee employee = gson.fromJson(response.toString(), Employee.class);
-                //Current.setFirstname(employee.getFirstname());
                 FName.setText(employee.getFirstname());
                 Lname.setText(employee.getLastname());
                 Salary.setText(employee.getSalary().toString());
@@ -70,12 +72,11 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
                     HDate.setText(GetDateInCorrectFormat (employee.getJoiningdate()) );
                 }catch (Exception e){
                     HDate.setText(employee.getJoiningdate() );
+                    //convert date to correct format
                 }
-
                 Email.setText(employee.getEmail());
-
-               // Current.setLastname(employee.getLastname());
-                Log.d("EmployeeInfo", "Firstname: " + employee.getFirstname() + ", Salary: " + employee.getSalary());
+                // fill page with employees details
+                //Log.d("EmployeeInfo", "Firstname: " + employee.getFirstname() + ", Salary: " + employee.getSalary());
             }
         }, new Response.ErrorListener() {
             @Override
@@ -84,20 +85,14 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
                 Toast.makeText(admin_view_and_edit_Employee.this,"Error getting employee details",Toast.LENGTH_SHORT).show();
                 Intent intent= new Intent(admin_view_and_edit_Employee.this,adminMainPage.class);
                 startActivity(intent);
+                //reload main page on error to prevent further errors
             }
         });
         RequestQueue.add(request);
 
-        Log.d("Got employee ", "Name:"+Current.getFirstname()+" "+Current.getLastname()+" , Salary: "+Current.getSalary()+" , ");
-
-
-       // Log.d("Response in page",RequestQueue.getResponseDelivery().toString());
-
-
         Intro=(TextView) findViewById(R.id.EmployeeIntro);
         Intro.setText("Details of employee with ID:"+CurrentID);
-
-     //   Employee Current=EmployeeService.getEmployeeById(admin_view_and_edit_Employee.this,CurrentID);
+        // set intro to contain employee id
 
         FName=(EditText) findViewById(R.id.FNameView);
         Lname=(EditText) findViewById(R.id.LnameView);
@@ -107,19 +102,13 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
         Email=(EditText) findViewById(R.id.EmailView);
         Result=(TextView)findViewById(R.id.result);
 
-      //  FName.setText(Current.getFirstname());
-      //  Lname.setText(Current.getLastname());
-      //  Salary.setText(Current.getSalary().toString());
-      //  Role.setText(Current.getDepartment());
-      //  HDate.setText(Current.getJoiningdate());
-      //  Email.setText(Current.getEmail());
-
         Back=(Button) findViewById(R.id.BackButton);
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(admin_view_and_edit_Employee.this,adminMainPage.class);
                 startActivity(i);
+                //reload main page on button click
             }
         });
         Save=findViewById(R.id.SaveChanges);
@@ -129,6 +118,7 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
                 Employee Updated=GetInputs();
                 if(Updated!=null){
                     OpenSaveDialog(Updated,CurrentID);
+                    // if valid inputs open save confirmation
                 }
 
             }
@@ -136,6 +126,7 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
     }
     public EmployeeToPut GetUploadableEmployee(Employee employee,int ID){
         return  new EmployeeToPut(ID,employee.getFirstname(),employee.getLastname(),employee.getEmail(),employee.getDepartment(),employee.getSalary(),employee.getJoiningdate(),30);
+        // convert employee to putable format
     }
     public void OpenSaveDialog(Employee Updated,int ID){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -146,29 +137,28 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
         builder.setPositiveButton("Save changes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Toast.makeText(admin_view_and_edit_Employee.this,"Saving changes",Toast.LENGTH_SHORT).show();
                 EmployeeToPut PutableEmployee=GetUploadableEmployee(Updated,ID);
                 RequestQueue queue=Volley.newRequestQueue(admin_view_and_edit_Employee.this);
                 String url = "http://10.224.41.11/comp2000/employees/edit/"+ID;
                 Gson gson= new Gson();
-                Log.d("Employee to put","Name:"+PutableEmployee.getFirstname()+" "+ PutableEmployee.getLastname()+" ID: "+PutableEmployee.getId()+" Department: " + PutableEmployee.getDepartment()+" Salary: "+ PutableEmployee.getSalary()+" Joining date: "+ PutableEmployee.getJoiningdate());
                 try{
                     JSONObject jsonRequest = new JSONObject(gson.toJson(PutableEmployee));
-
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, jsonRequest, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("Employee service", "Employee saved");
                             EmployeeDBHelper EDB= new EmployeeDBHelper(admin_view_and_edit_Employee.this);
                             EDB.addNotification(new NotificationDataModel(0,ID,EDB.GetUserName(PutableEmployee.getFirstname(),PutableEmployee.getLastname()),"DetailsEditedByAdmin") );
-
+                            //add notification for employee
                             Intent intent=new Intent(admin_view_and_edit_Employee.this,adminMainPage.class);
                             startActivity(intent);
+                            // reload main page on successful save
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.e("Employee Error", "Error: " +error);
+                            // on failed save remain on page
                         }
                     }
                     );
@@ -182,17 +172,19 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(admin_view_and_edit_Employee.this,"back",Toast.LENGTH_SHORT).show();
+                // on back button clicked in dialog editiing continues
             }
         });
         AlertDialog alertDialog= builder.create();
         alertDialog.show();
+        //show dialog
     }
     public String GetDateInCorrectFormat(String Date){
         String Month=""+Date.charAt(8)+Date.charAt(9)+Date.charAt(10);
         String MonthNum=GetMonth(Month);
         String Year=""+Date.charAt(12)+Date.charAt(13)+Date.charAt(14)+Date.charAt(15);
-
         return Year+"/"+MonthNum+"/"+Date.charAt(5)+Date.charAt(6);
+        //convert date to format accepted by API
     }
     public String GetMonth(String Month){
         switch (Month){
@@ -220,9 +212,9 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
                 return "11";
             case "Dec":
                 return "12";
-
         }
         return "";
+        // convert month code to number
     }
     public Employee GetInputs(){
         if(FName.getText().toString().isEmpty()){
@@ -237,6 +229,8 @@ public class admin_view_and_edit_Employee extends AppCompatActivity {
             Result.setText("Please enter a salary");
             return null;
         }
+        // return null if invalid input
+        // return employee if valid
 
         return new Employee(FName.getText().toString(),Lname.getText().toString(),Email.getText().toString(),Role.getText().toString(),HDate.getText().toString(),Float.valueOf(Salary.getText().toString()));
     }
