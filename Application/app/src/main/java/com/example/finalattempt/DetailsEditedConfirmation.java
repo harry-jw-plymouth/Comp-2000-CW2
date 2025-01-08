@@ -15,9 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class DetailsEditedConfirmation extends AppCompatActivity {
     Button Home;
     Button ViewDetails;
-    //Bundle bundle=getIntent().getExtras();
-   // String NewFname=getIntent().getStringExtra("NewFname");
-    TextView FullNameView,GenderView,LnameView,AddressView;
+    TextView FullNameView,LnameView,AddressView;
 
 
     @Override
@@ -35,17 +33,15 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
         int UserID= intent.getIntExtra("ID",0);
         String NewFname=intent.getStringExtra("NewFname");
         String NewLname=intent.getStringExtra("NewLname");
-        String NewEmail=intent.getStringExtra("NewEmail");
+        String NewEmail=intent.getStringExtra("NewEmail"); // get new details from details edited page
 
         FullNameView=(TextView)findViewById(R.id.NewFnameView);
-        String FullName=NewFname+" "+NewLname;
         FullNameView.setText(NewFname);
-//GenderView=(TextView)findViewById(R.id.GenderView);
-        //GenderView.setText(intent.getStringExtra("NewGender"));
         LnameView=(TextView)findViewById(R.id.NewLnameView);
         LnameView.setText(NewLname);
         AddressView=(TextView)findViewById(R.id.NewEmailView);
         AddressView.setText(NewEmail);
+        // set textviews to display updated details
 
         Home=(Button)findViewById(R.id.homeButton);
         Home.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +51,7 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
                 intent.putExtra("test",UserID);
                 intent.putExtra("UName",UName);
                 startActivity(intent);
+                // back to home button
             }
         });
         ViewDetails=(Button)findViewById(R.id.DetailsEditedBackToViewbutton);
@@ -65,6 +62,7 @@ public class DetailsEditedConfirmation extends AppCompatActivity {
                 intent.putExtra("ID",UserID);
                 intent.putExtra("UName",UName);
                 startActivity(intent);
+                // back to view details button
             }
         });
 

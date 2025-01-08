@@ -43,24 +43,17 @@ public class PreviousHolidays extends AppCompatActivity {
         recyclerView=findViewById(R.id.HolidaysrecyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // set up recycler view to display employees
         EmployeeDBHelper EDB= new EmployeeDBHelper(PreviousHolidays.this);
 
         List<HolidayRequestDataModel> RawRequests=EDB.getAllHolidayRequestsByID(UserId);
+        // get all holiday requests from db for current employee
         for(HolidayRequestDataModel RR:RawRequests){
             holidayRequestList.add(new HolidayRequest(RR.getEmployeeId(),RR.getEmployeeName(),RR.getStatus(),RR.getStartDate(),RR.GetEndDate()));
+            // for each item got from db, store in format displayable in recycler view
         }
-
-  //      holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
-    ///    holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
-       // holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
-   //     holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
-     //   holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
-     //   holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
-     //   holidayRequestList.add(new HolidayRequest(0,"Harry Watton","Requested","10/10/24","12/10/24"));
-     //   holidayRequestList.add(new HolidayRequest(5,"William Richards","Approved","15/12/24","25/12/24"));
-       // holidayRequestList.add(new HolidayRequest(4,"Owen Wiffen","Declined","16/1/24","20/2/24"));
         adapter=new HolidayRequestAdapterEmployee(this,RawRequests);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter); // set recycler view
 
         Back=(Button)findViewById(R.id.PrevHolidayHomeButton);
         Back.setOnClickListener(new View.OnClickListener(){
@@ -70,11 +63,9 @@ public class PreviousHolidays extends AppCompatActivity {
                 intent.putExtra("ID",UserId);
                 intent.putExtra("UName",UName);
                 startActivity(intent);
+                // back to holiday main page on button click
             }
         });
-
-        
-
     }
     private void showAlertDialogue(String title,String message,String PositiveButtontext,String PositiveToastText,String NegativeButtonText,String NegativeToastText,Class PageToLoadOnConfirm) {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);

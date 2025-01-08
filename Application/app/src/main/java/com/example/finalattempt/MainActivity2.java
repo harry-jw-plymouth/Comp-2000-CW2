@@ -30,8 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
     TextView textView,Welcome;
     Button button2;Button EditDetailsButton;
     Button ViewDetailsButton;Button ViewHoliday;Button NotificSettingsButton;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,18 +48,13 @@ public class MainActivity2 extends AppCompatActivity {
                         new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
             }
         };
+        // set up for notifications
 
         Intent intent=getIntent();
         String UName=intent.getStringExtra("UName");
         int UserId=intent.getIntExtra("test",0);
         Log.d("Test","Test: "+UserId);
         makeNotification(UserId,UName);
-      //  String UName="";
-
-        //String UserID= intent.getStringExtra("ID");
-        //Log.d("ID in main activity2 ",UName);
-        //Log.d("UName",UName);
-        //String UserID="";
 
         textView=findViewById(R.id.textViewWelcome);
         String text=getIntent().getStringExtra("key");
@@ -72,11 +66,12 @@ public class MainActivity2 extends AppCompatActivity {
                 intent.putExtra("UName",UName);
                 intent.putExtra("ID",UserId);
                 startActivity(intent);
+                // load details view button
             }
         });
 
         Welcome=findViewById(R.id.textViewWelcome);
-        Welcome.setText("Welcome "+ UName);
+        Welcome.setText("Welcome "+ UName); // sets welcome text to include user name of user logged in
 
         ViewHoliday=(Button)findViewById(R.id.ViewHolidayButton);
         ViewHoliday.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +80,7 @@ public class MainActivity2 extends AppCompatActivity {
                 Intent intent=new Intent(MainActivity2.this,HolidayMainPage.class);
                 intent.putExtra("UName",UName);
                 intent.putExtra("ID",UserId);
-                startActivity(intent);
+                startActivity(intent); // holiday page button
             }
         });
 
@@ -93,10 +88,9 @@ public class MainActivity2 extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent=new Intent(MainActivity2.this, MainActivity.class);
-                //intent.putExtra("key",value);
                 startActivity(intent);
+                // log out button
             }
         });
         EditDetailsButton=(Button)findViewById(R.id.EditDetailsButton);
@@ -107,6 +101,7 @@ public class MainActivity2 extends AppCompatActivity {
                 intent.putExtra("UName",UName);
                 intent.putExtra("ID",UserId);
                 startActivity(intent);
+                // load edit details page
             }
         });
 
@@ -128,8 +123,9 @@ public class MainActivity2 extends AppCompatActivity {
     public void makeNotification(int ID,String UName) {
         String chanelID = "my_channel";
         EmployeeDBHelper EDB= new EmployeeDBHelper(MainActivity2.this);
+        // get notifications for current employee from db
         List<NotificationDataModel> UsersNotifications=EDB.getAllNotificationsForEmployee(ID);
-        for(NotificationDataModel notification:UsersNotifications){
+        for(NotificationDataModel notification:UsersNotifications){//iterate through list
             NotificationCompat.Builder builder = new NotificationCompat.Builder(
                     this, chanelID);
             String Title="";
@@ -148,7 +144,7 @@ public class MainActivity2 extends AppCompatActivity {
                 intent.putExtra("UName", UName);
                 Content="An admin has responded too and updated your holiday request";
             }
-
+            // set notification depending on db item
             builder.setSmallIcon(R.drawable.standardnotification)
                     .setContentTitle(Title)
                     .setContentText(Content)
@@ -187,7 +183,9 @@ public class MainActivity2 extends AppCompatActivity {
             }
 
             notificationManager.notify(notification.getNotificationID(), builder.build());
+            // make notification
             EDB.deleteNotification(notification.getNotificationID());
+            // remove notification from db to prevent repeating
         }
 
 

@@ -33,14 +33,9 @@ import org.json.JSONObject;
 import dalvik.system.BaseDexClassLoader;
 
 public class EditDetails extends AppCompatActivity {
-    EditText Fname, Lname,Address,Email;
+    EditText Fname, Lname,Email;
     TextView Result,Salary,Date,Role;
-    Spinner GenderSelection;
     Button HomeButton;Button SaveAndViewButton;Button BackToVIewButton;
-
-    //API Call,getting employee details of employee id currently signed in
-    //Use details to prefill fields
-    //Once fields completed,and inputted, create request admin can view by storing in unqiue list in APi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +55,7 @@ public class EditDetails extends AppCompatActivity {
         Result=(TextView) findViewById(R.id.ResultText);
 
         Employee Temp= new Employee("","","","","",1F);
-        String URL="http://10.224.41.11/comp2000/employees/get/"+ UserID;
+        String URL="http://10.224.41.11/comp2000/employees/get/"+ UserID; // url for get request
         Log.d("URL",URL);
         RequestQueue RequestQueue= Volley.newRequestQueue(EditDetails.this);
         Gson gson = new Gson();
@@ -76,24 +71,13 @@ public class EditDetails extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Employee employee = gson.fromJson(response.toString(), Employee.class);
-                //Current.setFirstname(employee.getFirstname());
                 Fname.setText(employee.getFirstname());
                 Lname.setText(employee.getLastname());
                 Email.setText(employee.getEmail());
                 Role.setText(employee.getDepartment());
                 Salary.setText(employee.getSalary().toString());
                 Date.setText(employee.getJoiningdate());
-
-                Log.d("Date",employee.getJoiningdate());
-                //Temp.setFirstname(employee.getFirstname());
-               // Temp.setLastname(employee.getLastname());
-               // Temp.setDepartment(employee.getDepartment());
-               // Temp.setSalary(employee.getSalary());
-               // Temp.setEmail(employee.getEmail());
-              //  Temp.setJoiningdate(employee.getJoiningdate());
-
-                // Current.setLastname(employee.getLastname());
-              //  Log.d("EmployeeInfo", "Firstname: " + employee.getFirstname() + ", Salary: " + employee.getSalary());
+                // load details for employee to edit
             }
         }, new Response.ErrorListener() {
             @Override
@@ -105,13 +89,11 @@ public class EditDetails extends AppCompatActivity {
                 intent.putExtra("ID",UserID);
                 Log.d("User ID before intent", ""+UserID);
                 startActivity(intent);
+                //error getting employee details from API loads main page to avoid further errors
             }
         });
         RequestQueue.add(request);
-        Log.d("User ID aftrt request", ""+UserID);
-       // Log.d("New Details", Temp.getFirstname()+Temp.getLastname());
-      //  Log.d("New details", Temp.getDepartment()+" "+ Temp.getSalary());
-
+        Log.d("User ID after request", ""+UserID);
 
         HomeButton=(Button)findViewById(R.id.BackToHomeId);
         HomeButton.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +102,7 @@ public class EditDetails extends AppCompatActivity {
                 Intent intent=new Intent(EditDetails.this, MainActivity2.class);
                 intent.putExtra("UName",UName);
                 intent.putExtra("test",UserID);
-                startActivity(intent);
+                startActivity(intent); // back to home page button
             }
         });
         SaveAndViewButton=(Button)findViewById(R.id.SaveandViewButton);
@@ -130,10 +112,8 @@ public class EditDetails extends AppCompatActivity {
                 Employee Current=GetEditedDetails(Temp);
                 Log.d("New Details", Current.getFirstname()+Current.getLastname());
                 if(Current!=null){
-                    showAlertDialogueForSaveButton(Current,UName,UserID);
-                    //showAlertDialogue("Confirm changes","Save changes and view?","Save changes","Changes saved","Back to editing","Back",DetailsEditedConfirmation.class);
+                    showAlertDialogueForSaveButton(Current,UName,UserID); // get user to confirm changes
                 }
-
             }
         });
         BackToVIewButton=(Button)findViewById(R.id.backtoviewbutton);
@@ -143,8 +123,6 @@ public class EditDetails extends AppCompatActivity {
                 AlertDialog.Builder builder=new AlertDialog.Builder(EditDetails.this);
                 builder.setTitle("Discard changes?");
                 builder.setMessage("Discard changes and return to editing?");
-                //builder.setCancelable(false);
-                // above line prevents alert from closing when area outside box clicked
                 builder.setPositiveButton("Continue and discard", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -152,22 +130,20 @@ public class EditDetails extends AppCompatActivity {
                         Intent intent=new Intent(EditDetails.this,ViewDetails.class);
                         intent.putExtra("UName",UName);
                         intent.putExtra("ID",UserID);
-                        Log.d("User ID before intent in dialog", ""+UserID);
-                        startActivity(intent);
+                        startActivity(intent); // employee discards changes and returns to view details page
                     }
                 });
                 builder.setNegativeButton("Back to editing", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(EditDetails.this,"Back",Toast.LENGTH_SHORT).show();
-
+                        //employee goes back to editing and closes dialog box
                     }
                 });
                 AlertDialog alertDialog= builder.create();
-                alertDialog.show();
+                alertDialog.show(); //open dialog
             }
         });
-
     }
     private void showAlertDialogueForSaveButton(Employee Current,String UName,int UserID){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -189,11 +165,13 @@ public class EditDetails extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("Employee service", "Employee saved");
+                            //employee changes saved
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.e("Employee Error", "Error: " +error);
+                            //error in saving
                         }
                     });
                     queue.add(request);
@@ -201,7 +179,6 @@ public class EditDetails extends AppCompatActivity {
                 }catch (JSONException e){
                     Log.e("Employee Error","Invalid JSON format" + e.getMessage());
                 }
-               // EmployeeService.updateEmployee(EditDetails.this ,UserID,GetUploadableEmployee(new Employee(Current.getFirstname(),Current.getLastname(),Current.getEmail(),Current.getDepartment(),Current.getJoiningdate(),Current.getSalary()),UserID) );
                 EmployeeDBHelper db= new EmployeeDBHelper(EditDetails.this);
                 String NewUName=GetUserName(Current.getFirstname(),Current.getLastname());
                 db.ChangeUserName(UserID,NewUName);
@@ -209,24 +186,19 @@ public class EditDetails extends AppCompatActivity {
 
                 Intent intent=new Intent(EditDetails.this,DetailsEditedConfirmation.class);
 
-                //bundle.putString("NewFName","Name1");
-                //bundle.putString("NewLName","Name2");
-                //bundle.putString("NewGender","Gender");
-                //bundle.putString("NewDOB","Dob");
-                //bundle.putString("NewAddress","Affres");
                 intent.putExtra("NewFname",Current.getFirstname());
                 intent.putExtra("NewLname",Current.getLastname());
                 intent.putExtra("NewEmail",Current.getEmail());
                 intent.putExtra("UName",UName);
                 intent.putExtra("ID",UserID);
-                startActivity(intent);
+                startActivity(intent); //open edit confirmation page
             }
         });
         builder.setNegativeButton("Back to editing", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(EditDetails.this,"back",Toast.LENGTH_SHORT).show();
-
+                //employee returns to edititng
             }
         });
         AlertDialog alertDialog= builder.create();
@@ -239,8 +211,6 @@ public class EditDetails extends AppCompatActivity {
         String LastName=Lname.getText().toString();
         Email=(EditText) findViewById(R.id.EmailInput);
         String NewEmail=Email.getText().toString();
-       // String Addr=Address.getText().toString();
-       // String Gender=GenderSelection.getSelectedItem().toString();
         if(Fname.getText().toString().isEmpty()){
             Result.setText("Please enter a first name");
             return null;
@@ -252,8 +222,8 @@ public class EditDetails extends AppCompatActivity {
         if(GetIfContainsDigit(Fname.getText().toString())|| GetIfContainsDigit(Lname.getText().toString())){
             Result.setText("Name cannot contain digits");
             return null;
+            // returns null if invalid inputs
         }
-   //     TextView Role=findViewById(R.id.textViewRole);
         Log.d("Fname",FirstName);
         Log.d("Lname",LastName);
         Log.d("Email",NewEmail);
@@ -261,12 +231,12 @@ public class EditDetails extends AppCompatActivity {
         String FixedDate=GetDateInCorrectFormat(Date.getText().toString());
         String NewRole=Role.getText().toString();
 
-
-
         return new Employee(FirstName,LastName,NewEmail,NewRole,FixedDate,newSalary);
+        // employee returned with new values
     }
     public EmployeeToPut GetUploadableEmployee(Employee employee,int ID){
         return  new EmployeeToPut(ID,employee.getFirstname(),employee.getLastname(),employee.getEmail(),employee.getDepartment(),employee.getSalary(),employee.getJoiningdate(),30);
+        //convert employee to putable format
     }
     public boolean GetIfContainsDigit(String ToCheck){
         char[] StrAsCharArray=ToCheck.toCharArray();
@@ -285,6 +255,7 @@ public class EditDetails extends AppCompatActivity {
         String Year=""+Date.charAt(12)+Date.charAt(13)+Date.charAt(14)+Date.charAt(15);
 
         return Year+"/"+MonthNum+"/"+Date.charAt(5)+Date.charAt(6);
+        // function converts date to strict date outlined by api
     }
     public String GetMonth(String Month){
         switch (Month){
@@ -315,6 +286,7 @@ public class EditDetails extends AppCompatActivity {
 
         }
         return "";
+        // returns month in correct format
     }
 
     private void showAlertDialogue(String title,String message,String PositiveButtontext,String PositiveToastText,String NegativeButtonText,String NegativeToastText,Class PageToLoadOnConfirm,String UName,int UserID) {
@@ -349,6 +321,6 @@ public class EditDetails extends AppCompatActivity {
         }catch (Exception e){
             return FName+LName;
         }
-
+        // return user name formatted to match other employee user names
     }
 }

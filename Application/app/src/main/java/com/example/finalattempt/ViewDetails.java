@@ -46,6 +46,7 @@ public class ViewDetails extends AppCompatActivity {
         Log.d("ID","ID: "+ UserID);
 
         String URL="http://10.224.41.11/comp2000/employees/get/"+ UserID;
+        //url for get request
         RequestQueue RequestQueue= Volley.newRequestQueue(ViewDetails.this.getApplicationContext());
         Gson gson= new Gson();
         FName=(TextView) findViewById(R.id.FnameView);
@@ -53,8 +54,6 @@ public class ViewDetails extends AppCompatActivity {
         HDate=findViewById(R.id.HDate);
         Salary=findViewById(R.id.Salary);
         Role=findViewById(R.id.Role);
-
-
 
         JsonObjectRequest request= new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -66,21 +65,21 @@ public class ViewDetails extends AppCompatActivity {
                 Role.setText(employee.getDepartment());
                 try {
                     HDate.setText(GetDateInCorrectFormat (employee.getJoiningdate()) );
+                    // display date in correct format
                 }catch (Exception e){
                     HDate.setText(employee.getJoiningdate() );
                 }
-                Log.d("EmployeeInfo", "Firstname: " + employee.getFirstname() + ", Salary: " + employee.getSalary());
-
+                // display employee details in text views
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Employee error","Error retrieving employee");
-
+                //error getting employee
             }
         });
         RequestQueue.add(request);
-
+        // make request
 
         HomeButton=(Button)findViewById(R.id.BackToHomeId);
         HomeButton.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +90,7 @@ public class ViewDetails extends AppCompatActivity {
                 Log.d("ID before going to home" , ""+UserID);
                 intent.putExtra("test",UserID);
                 startActivity(intent);
+                // back to main employee page on button click
             }
         });
         EditMyDetails=(Button)findViewById(R.id.EditDetailsButton2);
@@ -101,10 +101,10 @@ public class ViewDetails extends AppCompatActivity {
                 intent.putExtra("UName",UName);
                 intent.putExtra("ID",UserID);
                 startActivity(intent);
+                //load edit details page on button click
             }
         });
         Employee Temp=new Employee("Name1","Name2","Name1@Company.com","Marketing","date",3456.34F);
-        //Employee Current=EmployeeService.getEmployeeById(ViewDetails.this, ID);
 
         FName=(TextView) findViewById(R.id.FnameView);
 
@@ -115,6 +115,7 @@ public class ViewDetails extends AppCompatActivity {
         String Year=""+Date.charAt(12)+Date.charAt(13)+Date.charAt(14)+Date.charAt(15);
 
         return Year+"/"+MonthNum+"/"+Date.charAt(5)+Date.charAt(6);
+        // convert date into displayable format
     }
     public String GetMonth(String Month){
         switch (Month){
@@ -142,6 +143,7 @@ public class ViewDetails extends AppCompatActivity {
                 return "11";
             case "Dec":
                 return "12";
+                // get month as code from int
 
         }
         return "";
