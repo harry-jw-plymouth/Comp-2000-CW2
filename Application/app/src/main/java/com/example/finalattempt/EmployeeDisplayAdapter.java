@@ -98,15 +98,12 @@ public class EmployeeDisplayAdapter extends RecyclerView.Adapter<EmployeeDisplay
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(mCtx,"Employee not deleted",Toast.LENGTH_SHORT).show();
-
                         }
                     });
                     AlertDialog alertDialog= builder.create();
                     alertDialog.show();
-
                 }
             });
-
         }
         public int GetIdAsInt(String id){
             id=id.replaceAll("[^\\d.]","");

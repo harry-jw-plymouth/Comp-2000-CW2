@@ -289,8 +289,6 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                 Cursor cursor;
                 boolean IDFound;
                 Log.d("Status", "Opening employees");
-
-
                 List<Person> EmployeeList = gson.fromJson(response, new TypeToken<List<Person>>() {}.getType());
                 IDFound=false;
                 cursor=db.rawQuery("SELECT * FROM "+ EMPLOYEES,null);
@@ -299,7 +297,6 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                         int id=cursor.getInt(0);
                         for(Person person: EmployeeList){
                             CurrentID= person.getId();
-                            Log.d("IDS", "DB: " + id+ " API: "+ CurrentID);
                             if (id==CurrentID){
                                 Log.d("Status","ID"+ CurrentID+ " found in both api and db");
                                 IDFound=true;
@@ -312,9 +309,7 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
 
                     }while (cursor.moveToNext());
                     cursor.close();
-
                 }
-
             }
 
         }, new Response.ErrorListener() {
