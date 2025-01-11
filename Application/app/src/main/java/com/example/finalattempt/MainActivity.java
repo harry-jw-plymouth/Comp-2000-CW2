@@ -56,26 +56,14 @@ public class MainActivity extends AppCompatActivity {
         // channel creation for notifications
 
         DBHelper DB= new DBHelper(MainActivity.this);
-        // DB.UpgradeNotificationsTable(DB.getWritableDatabase());
-        //   DB.addAdmin(new AdminAccountDataModel("Hwatton","12345"));
-       // DB.addAdmin(new AdminAccountDataModel("IAmAnAdmin","123Password"));
+       // DB.addAdmin(new AdminAccountDataModel("Hwatton","12345"));
+        // DB.addAdmin(new AdminAccountDataModel("IAmAnAdmin","123Password"));
         EmployeeDBHelper EDB= new EmployeeDBHelper(MainActivity.this);
-      //  EDB.UpgradeNotificationsTable(EDB.getWritableDatabase());
         EDB.UpdateWithNewEmployees(MainActivity.this);
         EDB= new EmployeeDBHelper(MainActivity.this);
         EDB.DeleteRemovedEmployees(MainActivity.this);
         SQLiteDatabase Temp=EDB.getWritableDatabase();
        // EDB.UpgradeRequestsTable(Temp);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("Thread","Starting thread");
-                EmployeeDBHelper EDB= new EmployeeDBHelper(MainActivity.this);
-                EDB.UpdateWithNewEmployees(MainActivity.this);
-                EDB.DeleteRemovedEmployees(MainActivity.this);
-            }
-        });//thread for updating employee db to match API
 
 
         EUName=(EditText) findViewById(R.id.EUserName);//text input for username

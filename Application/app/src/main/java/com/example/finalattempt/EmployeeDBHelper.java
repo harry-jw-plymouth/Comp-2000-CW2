@@ -298,14 +298,15 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                         for(Person person: EmployeeList){
                             CurrentID= person.getId();
                             if (id==CurrentID){
-                                Log.d("Status","ID"+ CurrentID+ " found in both api and db");
+                                Log.d("Status","ID"+ CurrentID+ " found in both api and db(deletion)");
                                 IDFound=true;
                             }
-
                         }
                         if(!IDFound){
+                            Log.d("Deleting",""+id);
                             deleteUser(id);
                         }
+                        IDFound=false;
 
                     }while (cursor.moveToNext());
                     cursor.close();
@@ -352,7 +353,7 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
                     if(cursor.moveToFirst()){
                         do{
                             int id=cursor.getInt(0);
-                            Log.d("IDS", "DB: " + id+ " API: "+ CurrentID);
+                          //  Log.d("IDS", "DB: " + id+ " API: "+ CurrentID);
                             if (id==CurrentID){
                                 Log.d("Status","ID"+ CurrentID+ " found in both api and db");
                                 IDFound=true;
@@ -362,6 +363,7 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
 
                     }
                     if(!IDFound){
+                        Log.d("Added",person.getFirstname());
                         adduser(new UserAccountDataModel(person.getId(), person.getEmail(),GetUserName(person.getFirstname(), person.getLastname()),"123Password"));
                     }
                 }

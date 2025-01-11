@@ -225,7 +225,11 @@ public class AddNewEmployeeAdmin extends AppCompatActivity {
 
         String Role = RoleSelection.getSelectedItem().toString();
         String HireDate = SelectedHDate.getText().toString();
-        String email=FirstName.charAt(0)+LastName+"@company.com";
+        String email="@company.com";
+        if(!FirstName.isEmpty()){
+            email=FirstName.charAt(0)+LastName+"@company.com";
+        }
+
         // get email,role and hire date from inputs
 
         return new Person(9999, FirstName,LastName,email, Role, HireDate,Salary);

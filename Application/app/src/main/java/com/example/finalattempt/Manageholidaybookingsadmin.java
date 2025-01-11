@@ -55,6 +55,7 @@ public class Manageholidaybookingsadmin extends AppCompatActivity {
         List<HolidayRequestDataModel> RawRequests=EDB.getAllHolidayRequests();
         // get requests from db
         adapter=new HolidayRequestAdapter(this,RawRequests);
+        recyclerView.setAdapter(adapter);
         // fill recycler view with requests
 
         Home=(Button) findViewById(R.id.AHPBacktohome);
