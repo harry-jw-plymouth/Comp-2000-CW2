@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +17,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -38,6 +49,28 @@ public class HolidayMainPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        TextView Welcome=findViewById(R.id.editdetailsbox);
+        Gson gson=new Gson();
+        RequestQueue RequestQueue= Volley.newRequestQueue(HolidayMainPage.this);
+        String URL="http://10.224.41.11/comp2000/employees/get/"+ UserId;
+        JsonObjectRequest request= new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                EmployeeWithLeaves employee = gson.fromJson(response.toString(), EmployeeWithLeaves.class);
+                Welcome.setText(employee.getLeaves());
+                Log.d("LEaves in request",employee.getLeaves()+"");
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Employee error","Error retrieving employee");
+                //error getting employee
+            }
+        });
+        RequestQueue.add(request);
+
+
         Home=(Button)findViewById(R.id.HolidayHomeButton); // back to home button
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,5 +190,30 @@ public class HolidayMainPage extends AppCompatActivity {
         });
         AlertDialog alertDialog= builder.create();
         alertDialog.show();
+    }
+    public int GetLeavesRemaining(int UserID){
+        TextView Welcome=findViewById(R.id.editdetailsbox);
+        Gson gson=new Gson();
+        RequestQueue RequestQueue= Volley.newRequestQueue(HolidayMainPage.this);
+        String URL="http://10.224.41.11/comp2000/employees/get/"+ UserID;
+        JsonObjectRequest request= new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                EmployeeWithLeaves employee = gson.fromJson(response.toString(), EmployeeWithLeaves.class);
+                Welcome.setText(employee.getLeaves());
+                Log.d("LEaves in request",employee.getLeaves()+"");
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Employee error","Error retrieving employee");
+                //error getting employee
+            }
+        });
+        RequestQueue.add(request);
+        String intasS=Welcome.getText().toString();
+        Log.d("Leaves",intasS);
+        return Integer.parseInt(intasS);
     }
 }

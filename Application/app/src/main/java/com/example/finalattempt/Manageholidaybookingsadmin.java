@@ -46,6 +46,7 @@ public class Manageholidaybookingsadmin extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         holidayRequestList=new ArrayList<>();
         recyclerView=(RecyclerView) findViewById(R.id.HolidaysrecyclerView);
         recyclerView.setHasFixedSize(false);
@@ -138,4 +139,5 @@ public class Manageholidaybookingsadmin extends AppCompatActivity {
     public void OpenDatePicker(View view){
 
     }
+
 }

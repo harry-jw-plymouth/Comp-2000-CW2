@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
        // DB.addAdmin(new AdminAccountDataModel("Hwatton","12345"));
         // DB.addAdmin(new AdminAccountDataModel("IAmAnAdmin","123Password"));
         EmployeeDBHelper EDB= new EmployeeDBHelper(MainActivity.this);
-        EDB.UpdateWithNewEmployees(MainActivity.this);
+       // EDB.UpdateWithNewEmployees(MainActivity.this);
         EDB= new EmployeeDBHelper(MainActivity.this);
         EDB.DeleteRemovedEmployees(MainActivity.this);
         SQLiteDatabase Temp=EDB.getWritableDatabase();
