@@ -331,50 +331,60 @@ public class EmployeeDBHelper extends SQLiteOpenHelper {
         RequestQueue requestQueue=Volley.newRequestQueue(context);
         SQLiteDatabase db=this.getReadableDatabase();
         //Cursor cursor=db.raw ("SELECT EXISTS( SELECT 1 FROM " + EMPLOYEES +" WHERE "+ USERID+"="+CurrentID+");");
+        try{
+            StringRequest stringRequest =new StringRequest(Request.Method.GET, Url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    String SelectQuery;
+                    int CurrentID;
+                    Cursor cursor;
+                    boolean IDFound;
+                    Log.d("Status", "Opening employees");
 
 
-        StringRequest stringRequest =new StringRequest(Request.Method.GET, Url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+                    List<Person> EmployeeList = gson.fromJson(response, new TypeToken<List<Person>>() {}.getType());
+                    for (Person person:EmployeeList){
+                        CurrentID=person.getId();
+                        Log.d("Current", ""+Integer.toString(CurrentID));
+                        IDFound=false;
+                        cursor=db.rawQuery("SELECT * FROM "+ EMPLOYEES,null);
+                        if(cursor.moveToFirst()){
+                            do{
+                                int id=cursor.getInt(0);
+                                //  Log.d("IDS", "DB: " + id+ " API: "+ CurrentID);
+                                if (id==CurrentID){
+                                    Log.d("Status","ID"+ CurrentID+ " found in both api and db");
+                                    IDFound=true;
+                                }
+                            }while (cursor.moveToNext());
+                            cursor.close();
 
-                String SelectQuery;
-                int CurrentID;
-                Cursor cursor;
-                boolean IDFound;
-                Log.d("Status", "Opening employees");
+                        }
+                        if(!IDFound){
+                            try{
+                                Log.d("Added",person.getFirstname());
+                            }catch (Exception e){
 
-
-                List<Person> EmployeeList = gson.fromJson(response, new TypeToken<List<Person>>() {}.getType());
-                for (Person person:EmployeeList){
-                    CurrentID=person.getId();
-                    Log.d("Current", Integer.toString(CurrentID));
-                    IDFound=false;
-                    cursor=db.rawQuery("SELECT * FROM "+ EMPLOYEES,null);
-                    if(cursor.moveToFirst()){
-                        do{
-                            int id=cursor.getInt(0);
-                          //  Log.d("IDS", "DB: " + id+ " API: "+ CurrentID);
-                            if (id==CurrentID){
-                                Log.d("Status","ID"+ CurrentID+ " found in both api and db");
-                                IDFound=true;
                             }
-                        }while (cursor.moveToNext());
-                        cursor.close();
 
-                    }
-                    if(!IDFound){
-                        Log.d("Added",person.getFirstname());
-                        adduser(new UserAccountDataModel(person.getId(), person.getEmail(),GetUserName(person.getFirstname(), person.getLastname()),"123Password"));
+                            adduser(new UserAccountDataModel(person.getId(), person.getEmail(),GetUserName(person.getFirstname(), person.getLastname()),"123Password"));
+                        }
                     }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Result","Error getting: "+error.toString());
-            }
-        });
-        requestQueue.add(stringRequest);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("Result","Error getting: "+error.toString());
+                }
+            });
+            requestQueue.add(stringRequest);
+        }catch (Exception e){
+            Log.e("Error",""+e.getMessage());
+        }
+
+
+
 
     }
     public void ChangePassword(int ID,String NewPass){
