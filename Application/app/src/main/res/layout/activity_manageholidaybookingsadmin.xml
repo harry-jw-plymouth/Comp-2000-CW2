@@ -83,15 +83,15 @@
         android:id="@+id/ToDateSelector"
         android:layout_width="134dp"
         android:layout_height="34dp"
-        android:layout_marginStart="24dp"
         android:background="@color/white"
-        android:text="To"
         android:gravity="left"
+        android:text="To"
         android:textAllCaps="false"
         android:textColor="@color/StandardTextColour"
         app:layout_constraintBottom_toBottomOf="@+id/textView89"
-        app:layout_constraintStart_toEndOf="@+id/textView89"
-        app:layout_constraintTop_toTopOf="@+id/textView89" />
+        app:layout_constraintEnd_toStartOf="@+id/loadnewDates"
+        app:layout_constraintStart_toEndOf="@+id/FromDateSelector"
+        app:layout_constraintTop_toTopOf="@+id/FromDateSelector" />
 
     <TextView
         android:id="@+id/textView91"
