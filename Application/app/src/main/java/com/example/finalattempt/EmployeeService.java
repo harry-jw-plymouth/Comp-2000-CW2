@@ -118,7 +118,31 @@ public class EmployeeService {
         );
         requestQueue.add(request);
     }
-    public static void updateEmployee(Context context, int id, EmployeeToPut employee) {
+    public static void updateEmployee(Context context, int id, EmployeeWithLeaves employee) {
+        initQueue(context);
+        String url = BASE_URL + "/employees/edit/" + id;
+        try {
+            JSONObject jsonRequest = new JSONObject(gson.toJson(employee));
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, jsonRequest,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //function for response
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+// error handling
+                        }
+                    }
+            );
+            requestQueue.add(request);
+        } catch (JSONException e) {
+            Log.e("EmployeeError", "Invalid JSON format: " + e.getMessage());
+        }
+    }
+    public static void updateLeaves(Context context, int id, EmployeeToPut employee,int newLeaves) {
         initQueue(context);
         String url = BASE_URL + "/employees/edit/" + id;
         try {

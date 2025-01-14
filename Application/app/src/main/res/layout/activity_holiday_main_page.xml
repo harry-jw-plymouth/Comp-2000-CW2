@@ -127,4 +127,69 @@ you currently have [] days left to book"
         app:layout_constraintStart_toStartOf="@+id/topbox"
         app:layout_constraintTop_toTopOf="@+id/topbox" />
 
+    <TextView
+        android:id="@+id/Leaves"
+        android:textColor="@color/StandardBackGround"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/PreviousHolidaybutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/FName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/StandardBackGround"
+        app:layout_constraintEnd_toStartOf="@+id/RequestButton"
+        app:layout_constraintTop_toBottomOf="@+id/RequestButton" />
+
+    <TextView
+        android:id="@+id/LName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/StandardBackGround"
+        app:layout_constraintBottom_toTopOf="@+id/RequestButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HolidayEndButton" />
+
+    <TextView
+        android:id="@+id/Sal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/StandardBackGround"
+        app:layout_constraintStart_toStartOf="@+id/RequestButton"
+        app:layout_constraintTop_toBottomOf="@+id/HolidayEndButton" />
+
+    <TextView
+        android:id="@+id/Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/StandardBackGround"
+        app:layout_constraintEnd_toEndOf="@+id/HolidayEndButton"
+        app:layout_constraintTop_toBottomOf="@+id/HolidayEndButton" />
+
+    <TextView
+        android:id="@+id/Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/StandardBackGround"
+        app:layout_constraintBottom_toBottomOf="@+id/RequestButton"
+        app:layout_constraintEnd_toEndOf="@+id/RequestButton" />
+
+    <TextView
+        android:id="@+id/RoleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/StandardBackGround"
+        app:layout_constraintStart_toEndOf="@+id/RequestButton"
+        app:layout_constraintTop_toBottomOf="@+id/RequestButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
